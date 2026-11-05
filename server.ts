@@ -2377,7 +2377,7 @@ app.post('/api/admin/poll/reset', verifyAdmin, (req, res) => {
 
 // Global Express Error Handler Middleware to catch any unexpected API error
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.warn(`[Express Error] ${req.method} ${req.path}:`, err?.message || err);
+  console.warn('[Express Error] %s %s:', req.method, req.path, err?.message || err);
   if (!res.headersSent) {
     res.status(500).json({
       success: false,
