@@ -214,7 +214,9 @@ export default function JoiningForm() {
     setIsSubmitting(true);
     setSubmitSuccessMsg(null);
 
-    const randomCode = Math.floor(1000 + Math.random() * 9000);
+    const randomArray = new Uint32Array(1);
+    window.crypto.getRandomValues(randomArray);
+    const randomCode = 1000 + (randomArray[0] % 9000);
     let membershipId = `BYCN-2026-${randomCode}`;
     let memberId = `mem-${Date.now()}`;
 
