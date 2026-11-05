@@ -1,0 +1,108 @@
+{
+  "id": "bote-heritage-priorities-2026",
+  "title": "Which Bote heritage initiative should youth prioritize next?",
+  "titleNepali": "युवाले अब कुन बोटे सांस्कृतिक तथा सामुदायिक योजनालाई प्राथमिकता दिनुपर्छ?",
+  "subtitle": "Every vote helps our Executive Committee allocate sponsorship grants and volunteer hours for Sarlahi district projects.",
+  "subtitleNepali": "प्रत्येक मतले हाम्रो कार्यसमितिलाई सर्लाही जिल्ला तथा बागमती क्षेत्रका परियोजनाहरूको लागि बजेट तथा स्वयंसेवक परिचालन गर्न मद्दत गर्दछ।",
+  "isActive": true,
+  "allowMemberSuggestions": true,
+  "options": [
+    {
+      "id": "opt-1",
+      "text": "Completing the Tarahi Bote Audio Dictionary & App",
+      "textNepali": "तराही बोटे अडियो शब्दकोश तथा मोबाइल एप निर्माण सम्पन्न गर्ने",
+      "votes": 43,
+      "addedBy": "admin",
+      "createdAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "opt-2",
+      "text": "Preserving Simal Wooden Canoe Craftsmanship & Boat Races",
+      "textNepali": "सिमलको परम्परागत काठको डुङ्गा निर्माण सीप संरक्षण र डुङ्गा दौड प्रतियोगिता",
+      "votes": 31,
+      "addedBy": "admin",
+      "createdAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "opt-3",
+      "text": "Expanding High School & University Scholarships Fund",
+      "textNepali": "माध्यमिक तथा उच्च शिक्षा अध्ययनरत बोटे विद्यार्थी छात्रवृत्ति कोष विस्तार",
+      "votes": 18,
+      "addedBy": "admin",
+      "createdAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "opt-4",
+      "text": "Establishing Bote Cultural Homestays in Karmaiya",
+      "textNepali": "कर्मैया तथा बागमती नदी किनारमा बोटे सांस्कृतिक होमस्टे स्थापना",
+      "votes": 9,
+      "addedBy": "admin",
+      "createdAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "opt-5",
+      "text": "River Ecology, Traditional Fish Net Weaving & Aquatic Wildlife Patrol",
+      "textNepali": "नदी जैविक विविधता, परम्परागत जाल बुनाई सीप तथा जलचर संरक्षण अभियान",
+      "votes": 14,
+      "addedBy": "admin",
+      "createdAt": "2026-01-20T00:00:00.000Z"
+    },
+    {
+      "id": "opt-6",
+      "text": "Bagmati Bote Youth IT, Digital Literacy & Online Job Skill Center",
+      "textNepali": "बागमती बोटे युवा आईटी, कम्प्युटर सीप तथा अनलाइन रोजगार केन्द्र",
+      "votes": 12,
+      "addedBy": "admin",
+      "createdAt": "2026-01-25T00:00:00.000Z"
+    },
+    {
+      "id": "opt-usr-1790759837616",
+      "text": "Preserving Bote Medicinal Herbs & Traditional River Healing",
+      "textNepali": "बोटे परम्परागत जडीबुटी तथा जल चिकित्सा ज्ञान संरक्षण",
+      "votes": 1,
+      "addedBy": "member",
+      "suggestedByName": "Sumit Bote (वडा 11)",
+      "createdAt": "2026-09-30T09:17:17.616Z"
+    }
+  ],
+  "voterLogs": [
+    {
+      "id": "vote-1790759837617-mzzo",
+      "optionId": "opt-usr-1790759837616",
+      "optionText": "Preserving Bote Medicinal Herbs & Traditional River Healing",
+      "voterName": "Sumit Bote (वडा 11)",
+      "votedAt": "2026-09-30T09:17:17.617Z",
+      "ipMasked": "127.0.xxx.xxx"
+    },
+    {
+      "id": "vote-1790759830056-o4dr",
+      "optionId": "opt-1",
+      "optionText": "Completing the Tarahi Bote Audio Dictionary & App",
+      "voterName": "Navaraj Bote",
+      "membershipId": "BYCN-2026-9999",
+      "votedAt": "2026-09-30T09:17:10.056Z",
+      "ipMasked": "127.0.xxx.xxx"
+    },
+    {
+      "id": "log-1",
+      "optionId": "opt-1",
+      "optionText": "Completing the Tarahi Bote Audio Dictionary & App",
+      "voterName": "Test बोटे",
+      "voterEmail": "anish.bote@gmail.com",
+      "membershipId": "BYCN-2026-6471",
+      "votedAt": "2026-09-30T01:20:00.000Z",
+      "ipMasked": "103.xxx.xxx.12"
+    },
+    {
+      "id": "log-2",
+      "optionId": "opt-2",
+      "optionText": "Preserving Simal Wooden Canoe Craftsmanship & Boat Races",
+      "voterName": "Bikram Bote",
+      "membershipId": "BYCN-2026-0001",
+      "votedAt": "2026-09-29T18:45:00.000Z",
+      "ipMasked": "103.xxx.xxx.45"
+    }
+  ],
+  "totalVotes": 128,
+  "updatedAt": "2026-09-30T09:17:17.617Z"
+}

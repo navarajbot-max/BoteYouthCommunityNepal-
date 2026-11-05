@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BoteYouthCommunityNepal</title>
+    <script>
+      // Single Page Apps for GitHub Pages
+      // Redirects 404 paths to root with query string for hash/client-side routers
+      sessionStorage.redirect = location.href;
+      var repoPath = location.pathname.split('/')[1];
+      var host = location.hostname;
+      var isGitHubPagesHost = host === 'github.io' || host.endsWith('.github.io');
+      // If deployed at username.github.io/repo/
+      if (isGitHubPagesHost && repoPath) {
+        location.replace('/' + repoPath + '/');
+      } else {
+        location.replace('/');
+      }
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Bote Youth Community Nepal...</p>
+  </body>
+</html>

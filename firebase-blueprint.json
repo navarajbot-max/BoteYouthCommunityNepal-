@@ -1,0 +1,129 @@
+{
+  "entities": {
+    "CommunityMember": {
+      "title": "CommunityMember",
+      "description": "Registered Bote Youth Community Nepal member",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the member"
+        },
+        "membershipId": {
+          "type": "string",
+          "description": "Official BYCN membership ID code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name in English"
+        },
+        "nameNepali": {
+          "type": "string",
+          "description": "Full name in Nepali Devanagari script"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Primary contact phone number"
+        },
+        "ward": {
+          "type": "string",
+          "description": "Ward address"
+        },
+        "municipality": {
+          "type": "string",
+          "description": "Municipality name"
+        },
+        "district": {
+          "type": "string",
+          "description": "District name"
+        },
+        "age": {
+          "type": "number",
+          "description": "Age of the member"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender identification"
+        },
+        "category": {
+          "type": "string",
+          "description": "Membership classification category"
+        },
+        "interest": {
+          "type": "string",
+          "description": "Primary community interest area"
+        },
+        "education": {
+          "type": "string",
+          "description": "Educational qualification level"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "Passport photo URL or base64 data"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "verified", "pending"],
+          "description": "Current membership verification status"
+        },
+        "registeredAt": {
+          "type": "string",
+          "description": "ISO timestamp of registration"
+        }
+      },
+      "required": ["name", "phone", "category"]
+    },
+    "SiteSettings": {
+      "title": "SiteSettings",
+      "description": "Official branding, header/footer logos, theme, and site identity",
+      "type": "object",
+      "properties": {
+        "headerLogo": {
+          "type": "string",
+          "description": "Official Header Logo URL or base64 data"
+        },
+        "footerLogo": {
+          "type": "string",
+          "description": "Official Footer Logo URL or base64 data"
+        },
+        "theme": {
+          "type": "string",
+          "description": "Current active website theme"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last configuration update"
+        }
+      }
+    },
+    "MasterCommunityData": {
+      "title": "MasterCommunityData",
+      "description": "Real-time synchronized community leaders, history, dress, and language content",
+      "type": "object",
+      "properties": {
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of master broadcast"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/community_members/{memberId}": {
+      "schema": "CommunityMember",
+      "description": "Collection of all registered Bote youth community members"
+    },
+    "/community_config/{configId}": {
+      "schema": "SiteSettings",
+      "description": "Global official settings, header and footer logo configurations"
+    },
+    "/community_content/{contentId}": {
+      "schema": "MasterCommunityData",
+      "description": "Real-time synchronized master cultural and leadership dataset"
+    }
+  }
+}

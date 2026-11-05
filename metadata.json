@@ -1,0 +1,6 @@
+{
+  "name": "BoteYouthCommunityNepal",
+  "description": "Official platform and website theme for Bote Youth Community Nepal. Celebrating Bote culture, history, language, traditional dress, youth empowerment, and scholarships with authentic Nepali Flag (Red, White, Blue) themes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "notif-1790759837617-pkxeh",
+    "read": false,
+    "timestamp": "2026-09-30T09:17:17.617Z",
+    "type": "notice",
+    "title": "New Initiative Proposed: Preserving Bote Medicinal Herbs & Tradit",
+    "titleNepali": "नयाँ सामुदायिक योजना प्रस्ताव: Preserving Bote Medicinal Herbs & Tradit",
+    "message": "Sumit Bote (वडा 11) proposed and voted for: \"Preserving Bote Medicinal Herbs & Traditional River Healing\".",
+    "messageNepali": "Sumit Bote (वडा 11)ले नयाँ योजना प्रस्ताव गर्नुभयो।",
+    "targetTab": "home",
+    "metadata": {
+      "name": "Sumit Bote (वडा 11)",
+      "category": "Live Voice Initiative",
+      "ward": "Community Poll"
+    }
+  },
+  {
+    "id": "notif-1790739703087-wdl8g",
+    "read": false,
+    "timestamp": "2026-09-30T03:41:43.087Z",
+    "type": "join",
+    "title": "New Member Registered: Test Bote",
+    "titleNepali": "नयाँ सदस्य दर्ता: Test Bote",
+    "message": "Test Bote (11, Bagmati Municipality) registered as Youth Member with ID BYCN-2026-6471.",
+    "messageNepali": "Test Bote ले 11, Bagmati Municipality बाट Youth Member को रूपमा सदस्यता दर्ता गर्नुभएको छ (ID: BYCN-2026-6471)।",
+    "targetTab": "members",
+    "metadata": {
+      "memberId": "mem-1790739703032-32q77",
+      "membershipId": "BYCN-2026-6471",
+      "name": "Test Bote",
+      "nameNepali": "",
+      "email": "",
+      "phone": "9800000000",
+      "ward": "11",
+      "municipality": "Bagmati Municipality",
+      "district": "Sarlahi",
+      "category": "Youth Member",
+      "status": "active"
+    }
+  },
+  {
+    "id": "notif-1789698205267-w9sz2",
+    "read": false,
+    "timestamp": "2026-09-18T02:23:25.267Z",
+    "type": "follow",
+    "title": "New Community Follower!",
+    "titleNepali": "नयाँ अनुयायी जोडिनुभयो!",
+    "message": "Anish Bote (anish.bote@gmail.com) just followed Bote Youth Community Nepal.",
+    "messageNepali": "अनिश बोटेले समुदायलाई पछ्याउनुभयो।",
+    "targetTab": "follow",
+    "metadata": {
+      "name": "Anish Bote",
+      "ward": "Ward 11, Karmaiya",
+      "phone": "+977-9840000000",
+      "status": "active"
+    }
+  },
+  {
+    "id": "notif-1789698201751-7zpag",
+    "read": false,
+    "timestamp": "2026-09-18T02:23:21.751Z",
+    "type": "join",
+    "title": "New Member Registered: Bikram Bote",
+    "titleNepali": "नयाँ सदस्य दर्ता: बिक्रम बोटे",
+    "message": "Bikram Bote (Ward 11, Karmaiya) registered as Youth Volunteer.",
+    "messageNepali": "बिक्रम बोटेले कर्मैयाबाट सदस्यता दर्ता गर्नुभयो।",
+    "targetTab": "members",
+    "metadata": {
+      "name": "Bikram Bote",
+      "category": "Youth Volunteer",
+      "ward": "Ward 11, Karmaiya",
+      "phone": "+977-9840000000",
+      "status": "active"
+    }
+  },
+  {
+    "id": "notif-seed-1",
+    "type": "join",
+    "title": "New Member Registered: Navaraj Bot (Bote)",
+    "titleNepali": "नयाँ सदस्य दर्ता: नवराज बोटे",
+    "message": "Navaraj Bot from Ward 11, Karmaiya registered as Youth Leader Chairman (ID: BYCN-2026-1001).",
+    "messageNepali": "नवराज बोटेले वडा नं ११, कर्मैयाबाट युवा नेतृत्व अध्यक्षको रूपमा सदस्यता दर्ता गर्नुभएको छ।",
+    "timestamp": "2026-09-17T21:23:19.045Z",
+    "read": false,
+    "targetTab": "members",
+    "metadata": {
+      "memberId": "mem-seed-1",
+      "membershipId": "BYCN-2026-1001",
+      "name": "Navaraj Bot (Bote)",
+      "nameNepali": "नवराज बोटे",
+      "email": "navarajbot@gmail.com",
+      "ward": "Ward 11, Karmaiya",
+      "category": "Youth Leader Chairman",
+      "status": "verified"
+    }
+  },
+  {
+    "id": "notif-seed-2",
+    "type": "follow",
+    "title": "New Community Follower!",
+    "titleNepali": "नयाँ अनुयायी जोडिनुभयो!",
+    "message": "Santosh Bote (santosh.bote@gmail.com) is now officially following Bote Youth Community Nepal.",
+    "messageNepali": "सन्तोष बोटेले समुदायलाई आधिकारिक रूपमा पछ्याउनुभयो।",
+    "timestamp": "2026-09-17T23:23:19.046Z",
+    "read": false,
+    "targetTab": "follow",
+    "metadata": {
+      "name": "Santosh Bote",
+      "email": "santosh.bote@gmail.com",
+      "followerCount": 1483
+    }
+  },
+  {
+    "id": "notif-seed-3",
+    "type": "join",
+    "title": "New Member Registered: Puja Bote",
+    "titleNepali": "नयाँ सदस्य दर्ता: पूजा बोटे",
+    "message": "Puja Bote from Ward 11, Karmaiya registered as Scholarship & Education Lead (ID: BYCN-2026-1003).",
+    "messageNepali": "पूजा बोटेले छात्रवृत्ति तथा शिक्षा नेतृत्वको रूपमा सदस्यता दर्ता गर्नुभएको छ।",
+    "timestamp": "2026-09-18T00:23:19.046Z",
+    "read": false,
+    "targetTab": "members",
+    "metadata": {
+      "memberId": "mem-seed-3",
+      "membershipId": "BYCN-2026-1003",
+      "name": "Puja Bote",
+      "nameNepali": "पूजा बोटे",
+      "email": "puja.bote@gmail.com",
+      "ward": "Ward 11, Karmaiya",
+      "category": "Scholarship & Education Lead",
+      "status": "verified"
+    }
+  },
+  {
+    "id": "notif-seed-4",
+    "type": "notice",
+    "title": "Circular: Higher Secondary & University Scholarship",
+    "titleNepali": "सूचना: उच्च माध्यमिक तथा विश्वविद्यालय छात्रवृत्ति",
+    "message": "Executive committee published the annual educational scholarship guidelines and application circular.",
+    "messageNepali": "कार्यसमितिले वार्षिक शैक्षिक छात्रवृत्ति मार्गदर्शन तथा आवेदन सूचना प्रकाशित गर्‍यो।",
+    "timestamp": "2026-09-18T01:23:19.046Z",
+    "read": false,
+    "targetTab": "scholarships"
+  }
+]
