@@ -354,6 +354,11 @@ const sanitizeCultureImage = (img?: string): string => {
 };
 
 export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const getSecureIdSuffix = (length = 4): string => {
+    const bytes = new Uint8Array(length);
+    window.crypto.getRandomValues(bytes);
+    return Array.from(bytes, (b) => (b % 36).toString(36)).join('');
+  };
   // 1. Core Data States with cache initialization
   const [leaders, setLeaders] = useState<LeaderProfile[]>(() => {
     try {
@@ -2978,7 +2983,7 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const voterLog: PollVoterLog = {
-        id: 'vlog-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6),
+        id: 'vlog-' + Date.now() + '-' + getSecureIdSuffix(4),
         optionId,
         optionText: targetOpt.text,
         voterName: voterDetails?.name || joinedMemberData?.fullName || 'Community Youth Member',
@@ -3041,7 +3046,7 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       const current = communityPoll || DEFAULT_COMMUNITY_POLL;
-      const optId = 'opt-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6);
+      const optId = 'opt-' + Date.now() + '-' + getSecureIdSuffix(4);
       const authorName = suggestedByName || joinedMemberData?.fullName || 'Community Member';
 
       const newOption: PollOption = {
@@ -3055,7 +3060,7 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
       };
 
       const voterLog: PollVoterLog = {
-        id: 'vlog-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6),
+        id: 'vlog-' + Date.now() + '-' + getSecureIdSuffix(4),
         optionId: optId,
         optionText: cleanText,
         voterName: authorName,
