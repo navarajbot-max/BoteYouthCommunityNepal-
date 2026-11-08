@@ -8,6 +8,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useCommunityData } from '../context/CommunityDataContext';
 import { MemberApplication } from '../types';
 import { resolveAssetUrl } from '../services/storagePersistence';
+import { useLanguage } from '../context/LanguageContext';
 import MembershipIdCard from './MembershipIdCard';
 import {
   UserCheck,
@@ -37,6 +38,7 @@ import {
 
 export default function JoiningForm() {
   const { colors } = useTheme();
+  const { isNepali } = useLanguage();
   const {
     submitMemberRegistration,
     hasJoinedCommunity,
@@ -290,26 +292,36 @@ export default function JoiningForm() {
           <>
             <div className="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-800 px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider">
               <CheckCircle className="w-4 h-4 text-emerald-600" />
-              <span>Verified Community Member</span>
+              <span>{isNepali ? 'प्रमाणित समुदाय सदस्य' : 'Verified Community Member'}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold font-poppins text-slate-900 leading-tight">
-              My Official Digital Membership Card
+              {isNepali ? 'मेरो आधिकारिक डिजिटल सदस्यता परिचयपत्र' : 'My Official Digital Membership Card'}
             </h2>
             <p className="text-slate-600 text-sm leading-relaxed">
-              You are officially registered in the Bote Youth Community Nepal records. Your digital ID card is active below. You can save, download, or print it anytime.
+              {isNepali
+                ? 'तपाईं नेपाल बोटे युवा समुदायको अभिलेखमा आधिकारिक रूपमा दर्ता हुनुभएको छ। तपाईंको डिजिटल परिचयपत्र तल सक्रिय छ। तपाईं यसलाई सुरक्षित गर्न, डाउनलोड गर्न वा जुनसुकै बेला प्रिन्ट गर्न सक्नुहुन्छ।'
+                : 'You are officially registered in the Bote Youth Community Nepal records. Your digital ID card is active below. You can save, download, or print it anytime.'}
             </p>
           </>
         ) : (
           <>
             <div className="inline-flex items-center space-x-2 bg-red-100 text-[#DC143C] px-4 py-1 rounded-full text-xs font-black uppercase tracking-wider">
               <UserCheck className="w-4 h-4" />
-              <span>Official Membership Registration 2026</span>
+              <span>{isNepali ? 'आधिकारिक सदस्यता दर्ता २०२६' : 'Official Membership Registration 2026'}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold font-poppins text-slate-900 leading-tight">
-              Community Joining Form &amp; Digital ID Card
+              {isNepali ? 'समुदाय सदस्यता फारम तथा डिजिटल परिचयपत्र' : 'Community Joining Form & Digital ID Card'}
             </h2>
             <p className="text-slate-600 text-sm leading-relaxed">
-              Join <strong>BoteYouthCommunityNepal</strong> to protect our indigenous heritage, participate in river ecology patrols, access scholarship funds, and receive your official digital membership identity card.
+              {isNepali ? (
+                <>
+                  हाम्रो आदिवासी सम्पदाको संरक्षण, नदी पर्यावरण गस्तीमा सहभागिता, छात्रवृत्ति कोष र आधिकारिक डिजिटल सदस्यता परिचयपत्र प्राप्त गर्न <strong>नेपाल बोटे युवा समुदाय</strong>मा आबद्ध हुनुहोस्।
+                </>
+              ) : (
+                <>
+                  Join <strong>BoteYouthCommunityNepal</strong> to protect our indigenous heritage, participate in river ecology patrols, access scholarship funds, and receive your official digital membership identity card.
+                </>
+              )}
             </p>
           </>
         )}
@@ -323,7 +335,7 @@ export default function JoiningForm() {
               className="inline-flex items-center gap-2 bg-white border-2 border-[#003893] text-[#003893] hover:bg-blue-50 px-5 py-2 rounded-2xl text-xs font-bold transition shadow-xs cursor-pointer"
             >
               <IdCard className="w-4 h-4 text-[#003893]" />
-              <span>Already Registered? Click here to view your saved ID Card</span>
+              <span>{isNepali ? 'पहिले नै दर्ता भइसक्नुभयो? आफ्नो सुरक्षित परिचयपत्र हेर्न यहाँ क्लिक गर्नुहोस्' : 'Already Registered? Click here to view your saved ID Card'}</span>
             </button>
           </div>
         )}
@@ -429,16 +441,18 @@ export default function JoiningForm() {
           <div className="space-y-4">
             <h3 className="text-sm font-black uppercase text-[#DC143C] tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-red-100 text-[#DC143C] flex items-center justify-center text-xs">1</span>
-              <span>Personal Particulars &amp; Identity</span>
+              <span>{isNepali ? 'व्यक्तिगत विवरण तथा पहिचान' : 'Personal Particulars & Identity'}</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">Full Name (English) *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'पूरा नाम (अंग्रेजीमा) *' : 'Full Name (English) *'}
+                </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Navaraj Bote"
+                  placeholder={isNepali ? 'तपाईंको पूरा नाम (English)' : 'Full Name (English)'}
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#DC143C]"
@@ -446,10 +460,12 @@ export default function JoiningForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">पूरा नाम (नेपालीमा)</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'पूरा नाम (नेपालीमा)' : 'Full Name (Nepali)'}
+                </label>
                 <input
                   type="text"
-                  placeholder="उदा. नवराज बोटे"
+                  placeholder={isNepali ? 'तपाईंको पूरा नाम (नेपालीमा)' : 'तपाईंको पूरा नाम (नेपालीमा)'}
                   value={fullNameNepali}
                   onChange={(e) => setFullNameNepali(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#DC143C]"
@@ -457,7 +473,9 @@ export default function JoiningForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">Age (Years) *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'उमेर (वर्ष) *' : 'Age (Years) *'}
+                </label>
                 <input
                   type="number"
                   required
@@ -470,29 +488,33 @@ export default function JoiningForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">Gender *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'लिङ्ग *' : 'Gender *'}
+                </label>
                 <select
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 bg-slate-50 focus:outline-none"
                 >
-                  <option value="Male">Male (पुरुष)</option>
-                  <option value="Female">Female (महिला)</option>
-                  <option value="Other">Other / Prefer not to say</option>
+                  <option value="Male">{isNepali ? 'पुरुष (Male)' : 'Male (पुरुष)'}</option>
+                  <option value="Female">{isNepali ? 'महिला (Female)' : 'Female (महिला)'}</option>
+                  <option value="Other">{isNepali ? 'अन्य / खुलाउन नचाहेको' : 'Other / Prefer not to say'}</option>
                 </select>
               </div>
 
               <div className="space-y-1.5 sm:col-span-2">
-                <label className="text-xs font-bold text-slate-700 uppercase">Membership Category *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'सदस्यता विधा *' : 'Membership Category *'}
+                </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as any)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 bg-slate-50 focus:outline-none font-semibold text-[#003893]"
                 >
-                  <option value="Youth Member">Youth Member (Age 15 - 35)</option>
-                  <option value="Student Member">Student Member / Scholarship Applicant</option>
-                  <option value="General Community">General Bote Community Resident</option>
-                  <option value="Cultural Advisor">Senior Elder / Cultural Advisor</option>
+                  <option value="Youth Member">{isNepali ? 'युवा सदस्य (उमेर १५ - ३५)' : 'Youth Member (Age 15 - 35)'}</option>
+                  <option value="Student Member">{isNepali ? 'विद्यार्थी सदस्य / छात्रवृत्ति आवेदक' : 'Student Member / Scholarship Applicant'}</option>
+                  <option value="General Community">{isNepali ? 'बोटे समुदायका आम नागरिक' : 'General Bote Community Resident'}</option>
+                  <option value="Cultural Advisor">{isNepali ? 'जेष्ठ नागरिक / सांस्कृतिक सल्लाहकार' : 'Senior Elder / Cultural Advisor'}</option>
                 </select>
               </div>
             </div>
@@ -502,53 +524,61 @@ export default function JoiningForm() {
           <div className="space-y-4">
             <h3 className="text-sm font-black uppercase text-[#003893] tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-blue-100 text-[#003893] flex items-center justify-center text-xs">2</span>
-              <span>Address &amp; Ward Coordinates</span>
+              <span>{isNepali ? 'स्थायी तथा हालको ठेगाना' : 'Address & Ward Coordinates'}</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">District *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'जिल्ला *' : 'District *'}
+                </label>
                 <select
                   value={district}
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 bg-slate-50 focus:outline-none"
                 >
-                  <option value="Sarlahi">Sarlahi (सर्लाही)</option>
-                  <option value="Chitwan">Chitwan (चितवन)</option>
-                  <option value="Nawalpur">Nawalpur / Nawalparasi</option>
-                  <option value="Tanahun">Tanahun (तनहुँ)</option>
-                  <option value="Makwanpur">Makwanpur (मकवानपुर)</option>
-                  <option value="Kathmandu">Kathmandu (काठमाडौँ)</option>
-                  <option value="Other">Other District</option>
+                  <option value="Sarlahi">{isNepali ? 'सर्लाही (Sarlahi)' : 'Sarlahi (सर्लाही)'}</option>
+                  <option value="Chitwan">{isNepali ? 'चितवन (Chitwan)' : 'Chitwan (चितवन)'}</option>
+                  <option value="Nawalpur">{isNepali ? 'नवलपुर / नवलपरासी' : 'Nawalpur / Nawalparasi'}</option>
+                  <option value="Tanahun">{isNepali ? 'तनहुँ (Tanahun)' : 'Tanahun (तनहुँ)'}</option>
+                  <option value="Makwanpur">{isNepali ? 'मकवानपुर (Makwanpur)' : 'Makwanpur (मकवानपुर)'}</option>
+                  <option value="Kathmandu">{isNepali ? 'काठमाडौँ (Kathmandu)' : 'Kathmandu (काठमाडौँ)'}</option>
+                  <option value="Other">{isNepali ? 'अन्य जिल्ला' : 'Other District'}</option>
                 </select>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">Municipality / Rural Municipality *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'नगरपालिका / गाउँपालिका *' : 'Municipality / Rural Municipality *'}
+                </label>
                 <input
                   type="text"
                   required
                   value={municipality}
                   onChange={(e) => setMunicipality(e.target.value)}
-                  placeholder="e.g. Bagmati Municipality"
+                  placeholder={isNepali ? 'उदा. बागमती नगरपालिका' : 'e.g. Bagmati Municipality'}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#003893]"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">Ward Number *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'वडा नम्बर *' : 'Ward Number *'}
+                </label>
                 <input
                   type="text"
                   required
                   value={ward}
                   onChange={(e) => setWard(e.target.value)}
-                  placeholder="e.g. 11"
+                  placeholder={isNepali ? 'उदा. ११' : 'e.g. 11'}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#003893]"
                 />
               </div>
 
               <div className="space-y-1.5 sm:col-span-2">
-                <label className="text-xs font-bold text-slate-700 uppercase">Mobile Hotline / WhatsApp *</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'मोबाइल / ह्वाट्सएप नम्बर *' : 'Mobile Hotline / WhatsApp *'}
+                </label>
                 <input
                   type="tel"
                   required
@@ -560,7 +590,9 @@ export default function JoiningForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-slate-700 uppercase">Email (Optional)</label>
+                <label className="text-xs font-bold text-slate-700 uppercase">
+                  {isNepali ? 'इमेल (ऐच्छिक)' : 'Email (Optional)'}
+                </label>
                 <input
                   type="email"
                   value={email}
@@ -576,7 +608,7 @@ export default function JoiningForm() {
           <div className="space-y-4">
             <h3 className="text-sm font-black uppercase text-amber-700 tracking-wider border-b border-slate-100 pb-2 flex items-center gap-2">
               <span className="w-6 h-6 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center text-xs">3</span>
-              <span>Member Photo for Digital ID Card</span>
+              <span>{isNepali ? 'डिजिटल परिचयपत्रका लागि फोटो' : 'Member Photo for Digital ID Card'}</span>
             </h3>
 
             <div className="flex flex-col sm:flex-row items-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -589,10 +621,12 @@ export default function JoiningForm() {
               </div>
               <div className="space-y-2 text-center sm:text-left flex-1">
                 <label className="text-xs font-bold text-slate-800 block">
-                  Upload Passport Size Photo
+                  {isNepali ? 'पासपोर्ट साइजको फोटो अपलोड गर्नुहोस्' : 'Upload Passport Size Photo'}
                 </label>
                 <p className="text-[11px] text-slate-500">
-                  This photo will be embossed directly onto your official Bote Youth Community Nepal Identity Card.
+                  {isNepali
+                    ? 'यो तस्बिर सिधै तपाईंको आधिकारिक नेपाल बोटे युवा समुदाय परिचयपत्रमा समावेश हुनेछ।'
+                    : 'This photo will be embossed directly onto your official Bote Youth Community Nepal Identity Card.'}
                 </p>
                 <input
                   type="file"
@@ -609,12 +643,12 @@ export default function JoiningForm() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2">
               <h3 className="text-sm font-black uppercase text-slate-800 tracking-wider flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs">4</span>
-                <span>Volunteer &amp; Community Interests (स्वयंसेवा तथा रुचि क्षेत्र)</span>
+                <span>{isNepali ? 'स्वयंसेवा तथा रुचि क्षेत्र' : 'Volunteer & Community Interests (स्वयंसेवा तथा रुचि क्षेत्र)'}</span>
               </h3>
 
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-bold text-[#003893] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-                  {interests.length} Selected
+                  {interests.length} {isNepali ? 'छनोट गरिएको' : 'Selected'}
                 </span>
                 {interests.length > 0 && (
                   <button
@@ -622,14 +656,16 @@ export default function JoiningForm() {
                     onClick={() => setInterests([])}
                     className="text-[11px] font-semibold text-slate-400 hover:text-red-600 transition"
                   >
-                    Clear all
+                    {isNepali ? 'सबै हटाउनुहोस्' : 'Clear all'}
                   </button>
                 )}
               </div>
             </div>
 
             <p className="text-xs text-slate-500">
-              Select one or multiple areas where you want to contribute, volunteer, or receive specialized community training.
+              {isNepali
+                ? 'तपाईंले योगदान गर्न, स्वयंसेवा गर्न वा समुदायको तालिम लिन चाहेको एक वा बढी क्षेत्र छनोट गर्नुहोस्।'
+                : 'Select one or multiple areas where you want to contribute, volunteer, or receive specialized community training.'}
             </p>
 
             {/* Category Filter Tabs & Search */}
@@ -637,6 +673,15 @@ export default function JoiningForm() {
               <div className="flex flex-wrap items-center gap-1.5">
                 {interestCategories.map((cat) => {
                   const isActive = interestCategory === cat.id;
+                  const labelMap: Record<string, string> = {
+                    all: isNepali ? 'सबै क्षेत्र' : 'All Areas',
+                    culture: isNepali ? 'संस्कृति र सम्पदा' : 'Culture & Heritage',
+                    environment: isNepali ? 'नदी तथा वातावरण' : 'River & Environment',
+                    education: isNepali ? 'शिक्षा र युवा' : 'Education & Youth',
+                    welfare: isNepali ? 'स्वास्थ्य र कल्याण' : 'Health & Welfare',
+                    digital: isNepali ? 'डिजिटल र मिडिया' : 'Digital & Media',
+                    advocacy: isNepali ? 'नेतृत्व र अधिकार' : 'Leadership & Rights'
+                  };
                   return (
                     <button
                       type="button"
@@ -648,7 +693,7 @@ export default function JoiningForm() {
                           : 'bg-white text-slate-600 hover:bg-slate-200 border border-slate-200'
                       }`}
                     >
-                      {cat.label}
+                      {labelMap[cat.id] || cat.label}
                     </button>
                   );
                 })}
@@ -661,7 +706,11 @@ export default function JoiningForm() {
                   type="text"
                   value={interestSearch}
                   onChange={(e) => setInterestSearch(e.target.value)}
-                  placeholder="Filter volunteer opportunities by keyword (e.g. boat, language, tutoring, rescue, digital)..."
+                  placeholder={
+                    isNepali
+                      ? 'स्वयंसेवा रुचि खोज्नुहोस् (उदा. डुङ्गा, भाषा, ट्युसन, उद्धार)...'
+                      : 'Filter volunteer opportunities by keyword (e.g. boat, language, tutoring, rescue, digital)...'
+                  }
                   className="w-full pl-8.5 pr-8 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#003893]"
                 />
                 {interestSearch && (
@@ -712,15 +761,15 @@ export default function JoiningForm() {
 
                       <div className="flex-1 min-w-0 space-y-0.5">
                         <span className={`text-xs block leading-snug font-bold ${checked ? 'text-[#003893]' : 'text-slate-800'}`}>
-                          {item.label}
+                          {isNepali && item.nepali ? item.nepali : item.label}
                         </span>
-                        {item.nepali && (
+                        {item.nepali && !isNepali && (
                           <span className="text-[11px] text-[#DC143C] font-medium block">
                             {item.nepali}
                           </span>
                         )}
                         <p className="text-[11px] text-slate-500 leading-tight">
-                          {item.desc}
+                          {isNepali ? (item.nepali || item.desc) : item.desc}
                         </p>
                       </div>
                     </button>
@@ -731,7 +780,7 @@ export default function JoiningForm() {
             {/* Custom Interest Input */}
             <div className="pt-2 border-t border-slate-100">
               <label className="text-xs font-bold text-slate-700 block mb-1.5">
-                Have another personal skill or community passion? Add your custom interest:
+                {isNepali ? 'अन्य कुनै सीप वा रुचि छ? आफ्नो रुचि थप्नुहोस्:' : 'Have another personal skill or community passion? Add your custom interest:'}
               </label>
               <div className="flex items-center gap-2">
                 <input
@@ -744,7 +793,11 @@ export default function JoiningForm() {
                       handleAddCustomInterest();
                     }
                   }}
-                  placeholder="e.g. Carpentry &amp; Woodwork, Guitar &amp; Music, Legal Aid, Drone Videography..."
+                  placeholder={
+                    isNepali
+                      ? 'उदा. काष्ठकला, गितार तथा सङ्गीत, कानुनी सहायता, भिडियो...'
+                      : 'e.g. Carpentry & Woodwork, Guitar & Music, Legal Aid, Drone Videography...'
+                  }
                   className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#003893] focus:bg-white"
                 />
                 <button
@@ -754,7 +807,7 @@ export default function JoiningForm() {
                   className="bg-[#003893] hover:bg-[#002b70] disabled:opacity-50 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 transition cursor-pointer shrink-0 shadow-xs"
                 >
                   <Plus className="w-3.5 h-3.5" />
-                  <span>Add Interest</span>
+                  <span>{isNepali ? 'थप्नुहोस्' : 'Add Interest'}</span>
                 </button>
               </div>
             </div>
@@ -763,7 +816,7 @@ export default function JoiningForm() {
             {interests.length > 0 && (
               <div className="pt-2 space-y-1.5">
                 <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-                  Your Selected Interests ({interests.length}):
+                  {isNepali ? `तपाईंले छनोट गरेका रुचिहरू (${interests.length}):` : `Your Selected Interests (${interests.length}):`}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {interests.map((interest) => (
@@ -776,7 +829,7 @@ export default function JoiningForm() {
                         type="button"
                         onClick={() => handleInterestToggle(interest)}
                         className="p-0.5 hover:bg-blue-200 rounded-full transition cursor-pointer"
-                        title="Remove interest"
+                        title={isNepali ? 'हटाउनुहोस्' : 'Remove interest'}
                       >
                         <X className="w-3 h-3 text-[#003893]" />
                       </button>
@@ -797,18 +850,18 @@ export default function JoiningForm() {
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-5 h-5 text-amber-300 animate-spin" />
-                  <span>Saving Details Real-Time to Website...</span>
+                  <span>{isNepali ? 'विवरण वेबसाइटमा सुरक्षित हुँदैछ...' : 'Saving Details Real-Time to Website...'}</span>
                 </>
               ) : (
                 <>
                   <UserCheck className="w-5 h-5 text-amber-300" />
-                  <span>Submit Registration &amp; Generate Digital ID Card</span>
+                  <span>{isNepali ? 'दर्ता पेश गर्नुहोस् र डिजिटल परिचयपत्र प्राप्त गर्नुहोस्' : 'Submit Registration & Generate Digital ID Card'}</span>
                 </>
               )}
             </button>
             <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500 font-medium">
               <Globe className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Real-Time Internet Sync: Details saved directly to official Bote Youth Community database.</span>
+              <span>{isNepali ? 'प्रत्यक्ष इन्टरनेट सिङ्क: विवरण सिधै आधिकारिक बोटे समुदाय डेटाबेसमा सुरक्षित हुन्छ।' : 'Real-Time Internet Sync: Details saved directly to official Bote Youth Community database.'}</span>
             </div>
           </div>
         </form>

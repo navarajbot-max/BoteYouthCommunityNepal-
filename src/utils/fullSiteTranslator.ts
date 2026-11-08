@@ -38,11 +38,52 @@ export const EN_TO_NE_DICTIONARY: [RegExp, string][] = [
   // 2. TAGLINES, VISION, HEADINGS & COMPLETE HERO PARAGRAPHS
   // -------------------------------------------------------------
   [/\bPreserving Heritage • Empowering the Future\b/gi, 'सम्पदाको संरक्षण • भविष्यको सशक्तीकरण'],
-  [/\bPreserving Our River Heritage, Empowering Bote Youth\b/gi, 'हाम्रो जल सम्पदाको संरक्षण, बोटे युवाहरूको सशक्तीकरण'],
+  [/\bPreserving Our River Heritage, Empowering Bote Youth\b/gi, 'हाम्रो नदी सम्पदाको संरक्षण, बोटे युवाहरूको सशक्तीकरण'],
+  [/\bPreserving Our River Heritage\b/gi, 'हाम्रो नदी सम्पदाको संरक्षण'],
+  [/\bEmpowering Bote Youth\b/gi, 'बोटे युवाहरूको सशक्तीकरण'],
+  [/\bPreserving Our\b/gi, 'हाम्रो संरक्षण'],
+  [/\bEmpowering\b/gi, 'सशक्तीकरण'],
   [/\bOfficial portal of the Bote Community of Karmaiya, Sarlahi District, Nepal\b/gi, 'नेपालको सर्लाही जिल्ला कर्मैयास्थित बोटे समुदायको आधिकारिक डिजिटल पोर्टल'],
   [/\bSafeguarding our ancient single-log canoe craft\b/gi, 'हाम्रो प्राचीन एक-ढुङ्गे काठको डुङ्गा निर्माण कलाको संरक्षण'],
   [/\brevitalizing the endangered Tarahi Bote language\b/gi, 'लोपोन्मुख तराही बोटे भाषाको पुनरुत्थान'],
   [/\bfunding education for the next generation\b/gi, 'आगामी पुस्ताका लागि शैक्षिक छात्रवृत्ति'],
+  [/\bBote Population\b/gi, 'बोटे कुल जनसंख्या'],
+  [/\bCensus Population\b/gi, 'जनगणना कुल जनसंख्या'],
+  [/\bCouncil Wards\b/gi, 'परिषद वडा कार्यक्षेत्र'],
+  [/\bScholarship Fund\b/gi, 'छात्रवृत्ति कोष'],
+  [/\bIndigenous Pride\b/gi, 'आदिवासी पहिचान तथा गौरव'],
+  [/\bCensus 2021\b/gi, 'जनगणना २०२१'],
+  [/\bBento Grid • Community Matrix\b/gi, 'बेन्टो ग्रिड • समुदाय संरचना'],
+  [/\bCommunity Matrix\b/gi, 'समुदाय संरचना'],
+  [/\bBote Youth Grid Overview\b/gi, 'बोटे युवा समुदाय समग्र परिचय'],
+  [/\bGrid Overview\b/gi, 'समग्र परिचय'],
+  [/\bRevitalizing Ancient Water Traditions & Youth Leadership\b/gi, 'पुर्ख्यौली जल परम्पराको संरक्षण तथा युवा नेतृत्व'],
+  [/\bJal Puja & River Rites\b/gi, 'जल पूजा तथा नदी संस्कृति'],
+  [/\bTarahi Bote Lexicon\b/gi, 'तराही बोटे शब्दकोश'],
+  [/\bHear Audio & Dictionary\b/gi, 'अडियो र शब्दकोश सुन्नुहोस्'],
+  [/\bCarved Simal Wood\b/gi, 'सिमलको काठबाट निर्मित डुङ्गा'],
+  [/\bView Gallery & Craft\b/gi, 'सम्पदा र कला हेर्नुहोस्'],
+  [/\bActive Youth Council\b/gi, 'सक्रिय युवा परिषद'],
+  [/\bActive Youth Committees\b/gi, 'सक्रिय युवा समितिहरू'],
+  [/\bGrassroots leadership in Karmaiya, Sarlahi\b/gi, 'कर्मैया, सर्लाहीको स्थानीय युवा नेतृत्व'],
+  [/\bBecome a Member\b/gi, 'सदस्य बन्नुहोस्'],
+  [/\bJoin Us & Get Digital ID\b/gi, 'सदस्य बन्नुहोस् र डिजिटल परिचयपत्र पाउनुहोस्'],
+  [/\bGet Digital ID\b/gi, 'डिजिटल परिचयपत्र पाउनुहोस्'],
+  [/\bGet Your Official Bote Youth Community Digital Identity Card\b/gi,
+   'आफ्नो आधिकारिक बोटे युवा समुदाय डिजिटल परिचयपत्र प्राप्त गर्नुहोस्'],
+  [/\bYour Digital Identity Card is Active & Verified\b/gi, 'तपाईंको डिजिटल परिचयपत्र सक्रिय तथा प्रमाणित छ'],
+  [/\bMembership Active\b/gi, 'सदस्यता सक्रिय'],
+  [/\bOfficial Member Active\b/gi, 'आधिकारिक सदस्य सक्रिय'],
+  [/\bVerified Member\b/gi, 'प्रमाणित सदस्य'],
+  [/\bView My Member ID Card\b/gi, 'मेरो डिजिटल परिचयपत्र हेर्नुहोस्'],
+  [/\bView ID Card\b/gi, 'परिचयपत्र हेर्नुहोस्'],
+  [/\bView My Official ID Card\b/gi, 'मेरो परिचयपत्र हेर्नुहोस्'],
+  [/\bFollow Community Updates\b/gi, 'समुदाय अपडेट फलो गर्नुहोस्'],
+  [/\bMeet Youth Leaders\b/gi, 'युवा नेतृत्वलाई भेट्नुहोस्'],
+  [/\bExplore History\b/gi, 'इतिहास अवलोकन गर्नुहोस्'],
+  [/\bYouth Council\b/gi, 'युवा कार्यसमिति'],
+  [/\bCore Pillars of Bote Community\b/gi, 'बोटे समुदायका मुख्य आधारस्तम्भ'],
+  [/\bHeritage Preserved, Generation Empowered\b/gi, 'सम्पदाको संरक्षण, नयाँ पुस्ताको सशक्तीकरण'],
   [/\bSingle-log dugout canoe\b/gi, 'एक-ढुङ्गे काठको डुङ्गा'],
   [/\bSingle-log canoe craft\b/gi, 'एक-ढुङ्गे काठको डुङ्गा निर्माण कला'],
   [/\bSingle-log canoe\b/gi, 'एक-ढुङ्गे डुङ्गा'],
@@ -436,8 +477,139 @@ export const EN_TO_NE_DICTIONARY: [RegExp, string][] = [
   [/\bImportant\b/g, 'महत्वपूर्ण'],
   [/\bPrimary\b/g, 'प्राथमिक'],
   [/\bSecondary\b/g, 'माध्यमिक'],
-  [/\bHigher\b/g, 'उच्च']
+  [/\bHigher\b/g, 'उच्च'],
+
+  // Joining Form, Modals & Community UI
+  [/\bCommunity Joining Form & Digital ID Card\b/gi, 'समुदाय सदस्यता फारम तथा डिजिटल परिचयपत्र'],
+  [/\bJoining Form\b/gi, 'सदस्यता फारम'],
+  [/\bJoining\b/gi, 'सदस्यता'],
+  [/\bPersonal Particulars & Identity\b/gi, 'व्यक्तिगत विवरण तथा पहिचान'],
+  [/\bPersonal Particulars\b/gi, 'व्यक्तिगत विवरण'],
+  [/\bAddress & Ward Coordinates\b/gi, 'स्थायी तथा हालको ठेगाना'],
+  [/\bWard Coordinates\b/gi, 'वडा तथा ठेगाना'],
+  [/\bCoordinates\b/gi, 'ठेगाना विवरण'],
+  [/\bMember Photo for Digital ID Card\b/gi, 'डिजिटल परिचयपत्रका लागि फोटो'],
+  [/\bUpload Passport Size Photo\b/gi, 'पासपोर्ट साइजको फोटो अपलोड गर्नुहोस्'],
+  [/\bPassport Size Photo\b/gi, 'पासपोर्ट साइजको फोटो'],
+  [/\bThis photo will be embossed directly onto your official Bote Youth Community Nepal Identity Card\.\b/gi, 'यो तस्बिर सिधै तपाईंको आधिकारिक नेपाल बोटे युवा समुदाय परिचयपत्रमा समावेश हुनेछ।'],
+  [/\bVolunteer & Community Interests \(स्वयंसेवा तथा रुचि क्षेत्र\)\b/gi, 'स्वयंसेवा तथा रुचि क्षेत्र'],
+  [/\bVolunteer & Community Interests\b/gi, 'स्वयंसेवा तथा रुचि क्षेत्र'],
+  [/\bVolunteer Opportunities\b/gi, 'स्वयंसेवा अवसरहरू'],
+  [/\bVolunteer\b/gi, 'स्वयंसेवा'],
+  [/\bSelect one or multiple areas where you want to contribute, volunteer, or receive specialized community training\.\b/gi, 'तपाईंले योगदान गर्न, स्वयंसेवा गर्न वा समुदायको तालिम लिन चाहेको एक वा बढी क्षेत्र छनोट गर्नुहोस्।'],
+  [/\bHave another personal skill or community passion\? Add your custom interest:\b/gi, 'अन्य कुनै सीप वा रुचि छ? आफ्नो रुचि थप्नुहोस्:'],
+  [/\bFilter volunteer opportunities by keyword \(e\.g\. boat, language, tutoring, rescue, digital\)\.\.\.\b/gi, 'कुञ्जी शब्दबाट स्वयंसेवा अवसरहरू खोज्नुहोस् (उदा. डुङ्गा, भाषा, ट्युसन, उद्धार)...'],
+  [/\bAll Areas\b/gi, 'सबै क्षेत्र'],
+  [/\bCulture & Heritage\b/gi, 'संस्कृति र सम्पदा'],
+  [/\bRiver & Environment\b/gi, 'नदी तथा वातावरण'],
+  [/\bEducation & Youth\b/gi, 'शिक्षा र युवा'],
+  [/\bHealth & Welfare\b/gi, 'स्वास्थ्य र कल्याण'],
+  [/\bDigital & Media\b/gi, 'डिजिटल र मिडिया'],
+  [/\bLeadership & Rights\b/gi, 'नेतृत्व र अधिकार'],
+  [/\bSelected\b/gi, 'छनोट गरिएको'],
+  [/\bClear all\b/gi, 'सबै हटाउनुहोस्'],
+  [/\bMunicipality \/ Rural Municipality\b/gi, 'नगरपालिका / गाउँपालिका'],
+  [/\bRural Municipality\b/gi, 'गाउँपालिका'],
+  [/\bMunicipality\b/gi, 'नगरपालिका'],
+  [/\bWard Number\b/gi, 'वडा नम्बर'],
+  [/\bMobile Hotline \/ WhatsApp\b/gi, 'मोबाइल / ह्वाट्सएप नम्बर'],
+  [/\bMobile Hotline\b/gi, 'मोबाइल नम्बर'],
+  [/\bEmail \(Optional\)\b/gi, 'इमेल (ऐच्छिक)'],
+  [/\bSubmit Registration & Generate Digital ID Card\b/gi, 'दर्ता पेश गर्नुहोस् र डिजिटल परिचयपत्र प्राप्त गर्नुहोस्'],
+  [/\bSubmit Registration\b/gi, 'दर्ता पेश गर्नुहोस्'],
+  [/\bGenerate Printable Member ID Card\b/gi, 'प्रिन्ट गर्न मिल्ने परिचयपत्र तयार गर्नुहोस्'],
+  [/\bAlready Registered\? Click here to view your saved ID Card\b/gi, 'पहिले नै दर्ता भइसक्नुभयो? आफ्नो सुरक्षित परिचयपत्र हेर्न यहाँ क्लिक गर्नुहोस्'],
+  [/\bOfficial Membership Registration 2026\b/gi, 'आधिकारिक सदस्यता दर्ता २०२६'],
+  [/\bNeed to register another member\? \(Admin or Family Member\)\b/gi, 'अन्य सदस्य दर्ता गर्न आवश्यक छ? (प्रशासक वा परिवारका सदस्य)'],
+
+  // Leadership Modal & Actions
+  [/\bAssigned Executive Responsibilities\b/gi, 'तोकिएको कार्यकारी जिम्मेवारीहरू'],
+  [/\bContact Youth Leader Chairman Directly\b/gi, 'युवा नेतृत्व अध्यक्षलाई सिधै सम्पर्क गर्नुहोस्'],
+  [/\bContact Community Chairman Directly\b/gi, 'समुदाय अध्यक्षलाई सिधै सम्पर्क गर्नुहोस्'],
+  [/\bWrite a message, inquiry, or suggestion directly to\b/gi, 'सिधै सन्देश, सोधपुछ वा सुझाव लेख्नुहोस्:'],
+  [/\bSend Message\b/gi, 'सन्देश पठाउनुहोस्'],
+  [/\bClose Details\b/gi, 'विवरण बन्द गर्नुहोस्'],
+  [/\bMessage dispatched to\b/gi, 'सन्देश सफलतापूर्वक पठाइयो:'],
+  [/\band logged in community records!\b/gi, 'र समुदाय अभिलेखमा दर्ता भयो!'],
+  [/\bInteractive Cards: Hover or tap any leader card to reveal direct phone, email, and portfolios\.\b/gi, 'अन्तरक्रियात्मक कार्डहरू: नेतृत्वको फोन, इमेल र जिम्मेवारी हेर्न कार्डमा थिच्नुहोस् वा छुनुहोस्।'],
+  [/\bWant to Serve in the Bote Youth Leadership Committee\?\b/gi, 'बोटे युवा नेतृत्व समितिमा सेवा गर्न चाहनुहुन्छ?'],
+  [/\bEvery registered youth member aged 15-35 can volunteer for portfolios in river cleanup, language transcription, and scholarship mentoring\.\b/gi, '१५ देखि ३५ वर्षका हरेक दर्ता भएका युवा सदस्यहरूले नदी सफाइ, भाषा संकलन, र छात्रवृत्ति परामर्शका क्षेत्रमा स्वयंसेवा गर्न सक्नुहुन्छ।'],
+  [/\bSubmit Community Joining Form\b/gi, 'समुदाय सदस्यता फारम भर्नुहोस्'],
+  [/\bRegistered Community Member\b/gi, 'दर्ता भएका समुदाय सदस्य'],
+  [/\bYour Leadership Participation is Welcomed\b/gi, 'तपाईंको नेतृत्व सहभागितालाई स्वागत छ'],
+  [/\bYour official Bote Youth Community Nepal membership is verified\. Reach out directly to committee portfolio leads or review your digital identity card\.\b/gi, 'तपाईंको आधिकारिक नेपाल बोटे युवा समुदाय सदस्यता प्रमाणित भएको छ। समिति संयोजकहरूसँग सिधै सम्पर्क गर्नुहोस् वा आफ्नो डिजिटल परिचयपत्र हेर्नुहोस्।'],
+
+  // Bento Grid & Metrics
+  [/\bExplore heritage, language, craftsmanship, council leadership, and digital identity through interconnected Bento modules\.\b/gi, 'अन्तरसम्बन्धित बेन्टो मोड्युलमार्फत सम्पदा, भाषा, डुङ्गा कला, युवा नेतृत्व र डिजिटल पहिचानको अवलोकन गर्नुहोस्।'],
+  [/\bSacred offerings to river deities ensuring safe boat passage and rich fish harvests\.\b/gi, 'नदी देवी-देवताको पूजा, सुरक्षित जलयात्रा तथा समृद्ध माछा शिकारको कामना।'],
+  [/\bPreserving an endangered oral dialect through active audio archiving and community dictionaries\.\b/gi, 'अडियो अभिलेखीकरण र सामुदायिक शब्दकोशमार्फत लोपोन्मुख मातृभाषाको संरक्षण।'],
+  [/\bThe Bote indigenous community honors ancestral river navigation, single-log dugout canoes \(Ek-Dunge Nau\), and sacred water rites while educating and uniting the next generation of Nepali leadership\.\b/gi, 'बोटे आदिवासी समुदायले पुर्ख्यौली जलयात्रा, एक-ढुङ्गे काठका डुङ्गाहरू, र पवित्र नदी पूजाको सम्मान गर्दै नयाँ पुस्ताको शिक्षा तथा युवा नेतृत्वलाई एकताबद्ध गर्दछ।'],
+  [/\bBote Population\b/gi, 'बोटे कुल जनसंख्या'],
+  [/\bPopulation\b/gi, 'जनसंख्या'],
+  [/\bCouncil Wards\b/gi, 'परिषद वडा कार्यक्षेत्र'],
+  [/\bScholarship Fund\b/gi, 'छात्रवृत्ति कोष'],
+  [/\bFund\b/gi, 'कोष'],
+  [/\bIndigenous Pride\b/gi, 'आदिवासी गौरव'],
+  [/\bPride\b/gi, 'गौरव'],
+  [/\bMatrix\b/gi, 'संरचना'],
+  [/\bGrid Overview\b/gi, 'समग्र परिचय'],
+  [/\bGrid\b/gi, 'तालिका'],
+  [/\bOverview\b/gi, 'समग्र परिचय'],
+  [/\bDialect\b/gi, 'लवज (उपभाषा)'],
+  [/\bLexicon\b/gi, 'शब्दकोश'],
+  [/\bRites\b/gi, 'संस्कार तथा विधि'],
+  [/\bGET\b/g, 'पाउनुहोस्'],
+  [/\bGet\b/g, 'पाउनुहोस्'],
+
+  // -------------------------------------------------------------
+  // 8. BOTE HISTORY, EK-DUNGE NAU ARCHITECTURE & TIMELINE
+  // -------------------------------------------------------------
+  [/\bBote History & River Navigation\b/gi, 'बोटे इतिहास तथा नदी यात्रा परम्परा'],
+  [/\bBote History\b/gi, 'बोटे इतिहास'],
+  [/\bTrace the ancient evolutionary timeline of the Bote people of Sarlahi, Nepal — from navigating rapid river rapids in handcrafted single-log dugouts to organizing modern youth leadership initiatives\.\b/gi,
+   'नेपालको सर्लाहीस्थित बोटे जातिको प्राचीन ऐतिहासिक विकासक्रम — हातले कुँदिएका एक-ढुङ्गे काठका डुङ्गामार्फत उर्लँदो नदी पार गर्नेदेखि आधुनिक युवा नेतृत्व अभियानसम्मको यात्रा।'],
+  [/\bEk-Dunge Nau: The Architecture of Bote Single-Log Canoes\b/gi, 'एक-ढुङ्गे नाउ: बोटे परम्परागत काठको डुङ्गा शिल्पकला'],
+  [/\bThe Architecture of Bote Single-Log Canoes\b/gi, 'बोटे परम्परागत काठको डुङ्गा शिल्पकला'],
+  [/\bThe Ek-Dunge Nau \(single-log canoe\) is an indigenous engineering masterpiece\. Carved out of a single massive tree trunk without nails or joints, these boats can navigate treacherous monsoon currents and carry dozens of passengers safely across the Bagmati, Narayani, and Kaligandaki rivers\.\b/gi,
+   'एक-ढुङ्गे नाउ (काठको डुङ्गा) आदिवासी इन्जिनियरिङको उत्कृष्ट नमुना हो। बिना किल्ला वा जोड, एउटै विशाल रुखको मुढाबाट कुँदिएका यी डुङ्गाहरूले वर्षायामको उर्लँदो बाढीमा पनि दर्जनौँ यात्रुहरूलाई बागमती, नारायणी र कालीगण्डकी नदी सुरक्षित रूपमा पार गराउँछन्।'],
+  [/\bTree Selection & Forest Rite\b/gi, 'रुख छनोट तथा वन पूजा संस्कार'],
+  [/\bElders select giant Simal \(silk-cotton\) or Sal trees\. Prayers are offered to forest spirits with red vermillion and rice to seek spiritual permission before felling\.\b/gi,
+   'जेष्ठ सदस्यहरूले विशाल सिमल वा सालको रुख छनोट गर्छन्। रुख ढाल्नुअघि वन देवी-देवताको आध्यात्मिक अनुमति माग्न रातो सिन्दूर र अक्षतासहित पूजा-अर्चना गरिन्छ।'],
+  [/\bAdze Core Hollowing\b/gi, 'बाँसुल (चारी) द्वारा भित्री भाग खोप्ने'],
+  [/\bArtisans use customary adzes \(\*chari\*\) to chip away the heartwood, meticulously calibrating the hull thickness to ensure uniform buoyancy and balance in white-water rapids\.\b/gi,
+   'कलाकारहरूले परम्परागत बाँसुल (चारी) प्रयोग गरी रुखको भित्री काठ खोप्छन्, र नदीको तीव्र छालमा सन्तुलन कायम राख्न डुङ्गाको बाहिरी र भित्री मोटाइ सटिक रूपमा मिलाउँछन्।'],
+  [/\bFire-Seasoning the Hull\b/gi, 'आगोको धुवाँद्वारा काठको उपचार (सिजनिङ)'],
+  [/\bControlled smoldering fires are burned inside the hollow to char the wood surface\. This indigenous heat treatment seals the pores against water beetles and rot\.\b/gi,
+   'खोपेको डुङ्गाभित्र नियन्त्रित मन्द आगो बालेर काठको सतहलाई डढाइन्छ। यो परम्परागत प्रविधिले काठका छिद्रहरू बन्द गरी पानीका कीरा र सडनबाट सुरक्षित राख्छ।'],
+  [/\bCenturies of Riparian Craft\b/gi, 'शताब्दीयौँ पुरानो जलयात्रा तथा शिल्पकला'],
+  [/\bExplore Bote Cultural Traditions & Rituals\b/gi, 'बोटे सांस्कृतिक परम्परा तथा नदी पूजाविधि अन्वेषण गर्नुहोस्'],
+  [/\bDiscover Sansari Devi River Puja, Maghe Sankranti races, and animist prayers\.\b/gi, 'संसारी देवी नदी पूजा, माघे सङ्क्रान्ति डुङ्गा दौड र प्रकृति आराधनाको अवलोकन गर्नुहोस्।'],
+  [/\bView Cultures\b/gi, 'संस्कृति अवलोकन गर्नुहोस्'],
+  [/\bBote Evolutionary Timeline\b/gi, 'बोटे जातिको ऐतिहासिक विकासक्रम'],
+  [/\bInteractive Chronological Journey\b/gi, 'अन्तरक्रियात्मक कालक्रम यात्रा'],
+  [/\bClick any era on the rail or use the player to travel through centuries of river heritage\.\b/gi, 'नदी सम्पदाको शताब्दीयौँको इतिहास अन्वेषण गर्न रेलमा कुनै पनि युग क्लिक गर्नुहोस् वा स्वतः भ्रमण सुरु गर्नुहोस्।'],
+  [/\bInteractive Spotlight\b/gi, 'अन्तरक्रियात्मक हाइलाइट'],
+  [/\bComplete Trail\b/gi, 'पूर्ण कालक्रम'],
+  [/\bChronological Trail \(All 7 Epochs\)\b/gi, 'पूर्ण ऐतिहासिक कालक्रम (सबै ७ कालखण्ड)'],
+  [/\bA continuous historical timeline from ancient river worship to modern youth empowerment\.\b/gi, 'प्राचीन नदी पूजादेखि आधुनिक युवा सशक्तीकरणसम्मको निरन्तर ऐतिहासिक यात्रा।'],
+  [/\bArchival Evidence & Artifacts:\b/gi, 'ऐतिहासिक प्रमाण तथा अवशेषहरू:'],
+  [/\bArchival Evidence & Artifacts\b/gi, 'ऐतिहासिक प्रमाण तथा अवशेषहरू'],
+  [/\bCultural Impact & Preservation Significance\b/gi, 'सांस्कृतिक प्रभाव तथा संरक्षण महत्व'],
+  [/\bPrevious Era\b/gi, 'अघिल्लो युग'],
+  [/\bNext Era\b/gi, 'अर्को युग'],
+  [/\bExplore River Rites\b/gi, 'नदी पूजा परम्परा हेर्नुहोस्'],
+  [/\bClick to Spotlight\b/gi, 'विस्तृत विवरण हेर्नुहोस्']
 ];
+
+// Pre-sorted dictionary descending by pattern length so that longer sentences
+// and multi-word phrases match FIRST before single words fragment the text.
+let sortedDictionaryCache: [RegExp, string][] | null = null;
+function getSortedDictionary(): [RegExp, string][] {
+  if (!sortedDictionaryCache) {
+    sortedDictionaryCache = [...EN_TO_NE_DICTIONARY].sort((a, b) => b[0].source.length - a[0].source.length);
+  }
+  return sortedDictionaryCache;
+}
 
 // Helper to store original English texts so we can restore English with 100% fidelity
 const originalTextMap = new WeakMap<Node, string>();
@@ -447,12 +619,13 @@ let activeObserver: MutationObserver | null = null;
 let currentLanguageTarget: 'ne' | 'en' = 'en';
 
 /**
- * Translates a single text string into Nepali using dictionary
+ * Translates a single text string into Nepali using sorted dictionary
  */
 export function translateStringToNepali(raw: string): string {
   if (!raw || typeof raw !== 'string') return raw;
   let text = raw;
-  for (const [regex, nepali] of EN_TO_NE_DICTIONARY) {
+  const dict = getSortedDictionary();
+  for (const [regex, nepali] of dict) {
     text = text.replace(regex, nepali);
   }
   return text;

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="1200" height="475" alt="Bote Youth Community Nepal" alt="Image" src="https://github.com/user-attachments/assets/15c58bd7-7cc0-4b91-afdd-0a9d5f01ca8a" />
+<img width="1200" height="475" alt="Bote Youth Community Nepal" src="https://github.com/user-attachments/assets/15c58bd7-7cc0-4b91-afdd-0a9d5f01ca8a" />
 
   <h1>🇳🇵 Bote Youth Community Nepal</h1>
   <p><strong>Official Community Web Platform, Tarahi Bote Language Lexicon &amp; Cultural Heritage Portal</strong></p>

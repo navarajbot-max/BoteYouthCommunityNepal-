@@ -11,6 +11,7 @@ import { TabType, LeaderProfile } from '../types';
 import { CULTURAL_TRADITIONS, SCHOLARSHIPS_DATA } from '../data/communityData';
 import { useCommunityData } from '../context/CommunityDataContext';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { resolveAssetUrl } from '../services/storagePersistence';
 import { motion } from 'motion/react';
 import {
@@ -51,6 +52,7 @@ interface HomeViewProps {
 
 export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader }: HomeViewProps) {
   const { colors, theme } = useTheme();
+  const { isNepali } = useLanguage();
   const {
     leaders,
     pillarsConfig,
@@ -213,14 +215,16 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
       {/* 3. Four Core Pillars: Heritage, Language, Dress & Youth Leadership */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="text-[#DC143C] text-xs font-black uppercase tracking-widest">
-            {pillarsConfig?.tag || 'Core Pillars of Bote Community'}
+          <span className="text-[#DC143C] text-xs font-black uppercase tracking-widest font-nepali">
+            {isNepali ? 'बोटे समुदायका मुख्य आधारस्तम्भ' : (pillarsConfig?.tag || 'Core Pillars of Bote Community')}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black font-poppins text-slate-900 leading-tight">
-            {pillarsConfig?.title || 'Heritage Preserved, Generation Empowered'}
+          <h2 className="text-3xl sm:text-4xl font-black font-poppins text-slate-900 leading-tight font-nepali">
+            {isNepali ? 'सम्पदाको संरक्षण, नयाँ पुस्ताको सशक्तीकरण' : (pillarsConfig?.title || 'Heritage Preserved, Generation Empowered')}
           </h2>
-          <p className="text-slate-600 text-sm leading-relaxed">
-            {pillarsConfig?.desc || 'From the banks of the Bagmati River in Karmaiya, Sarlahi to settlements across inner-Terai Nepal, our community unites to protect our indigenous identity.'}
+          <p className="text-slate-600 text-sm leading-relaxed font-nepali">
+            {isNepali
+              ? 'सर्लाहीको कर्मैयास्थित बागमती नदी किनारदेखि भित्री मधेसका नदी तटीय बस्तीसम्म, हाम्रो आदिवासी पहिचान रक्षा गर्न समुदाय एकताबद्ध छ।'
+              : (pillarsConfig?.desc || 'From the banks of the Bagmati River in Karmaiya, Sarlahi to settlements across inner-Terai Nepal, our community unites to protect our indigenous identity.')}
           </p>
         </div>
 
@@ -234,15 +238,17 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
               <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#DC143C] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Compass className="w-6 h-6" />
               </div>
-              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-[#DC143C] transition-colors">
-                {pillarsConfig?.p1Title || 'Bote History & Origins'}
+              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-[#DC143C] transition-colors font-nepali">
+                {isNepali ? 'बोटे इतिहास र उत्पत्ति' : (pillarsConfig?.p1Title || 'Bote History & Origins')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {pillarsConfig?.p1Desc || 'The legend of the tree trunk origin ("Bot"), river ferry kings (Kings of Water), and the single-log dugout canoe (Ek-Dunge Nau).'}
+              <p className="text-xs text-slate-600 leading-relaxed font-nepali">
+                {isNepali
+                  ? 'रूखको मुढा ("बोट") बाट जातिको उत्पत्ति, जलराजा (पानीका राजा) को उपाधि र परम्परागत एक-डुङ्गे काठको डुङ्गा (एक-डुङ्गे नाउ) को ऐतिहासिक गाथा।'
+                  : (pillarsConfig?.p1Desc || 'The legend of the tree trunk origin ("Bot"), river ferry kings (Kings of Water), and the single-log dugout canoe (Ek-Dunge Nau).')}
               </p>
             </div>
-            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-[#DC143C]">
-              <span>Read History</span>
+            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-[#DC143C] font-nepali">
+              <span>{isNepali ? 'इतिहास पढ्नुहोस्' : 'Read History'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -256,15 +262,17 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
               <div className="w-12 h-12 rounded-2xl bg-blue-50 text-[#003893] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Anchor className="w-6 h-6" />
               </div>
-              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-[#003893] transition-colors">
-                {pillarsConfig?.p2Title || 'Cultures & River Rituals'}
+              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-[#003893] transition-colors font-nepali">
+                {isNepali ? 'संस्कृति तथा जल पूजा परम्परा' : (pillarsConfig?.p2Title || 'Cultures & River Rituals')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {pillarsConfig?.p2Desc || 'Sacred river deities, Sansari Devi Puja, Jal Puja, Maghe Sankranti boat races, and ancient animist water worship.'}
+              <p className="text-xs text-slate-600 leading-relaxed font-nepali">
+                {isNepali
+                  ? 'पवित्र नदी देवीदेवता, संसारी देवी पूजा, जल पूजा, माघे संक्रान्ति डुङ्गा दौड र प्राचीन प्रकृतिपूजा अनुष्ठानहरू।'
+                  : (pillarsConfig?.p2Desc || 'Sacred river deities, Sansari Devi Puja, Jal Puja, Maghe Sankranti boat races, and ancient animist water worship.')}
               </p>
             </div>
-            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-[#003893]">
-              <span>Explore Rituals</span>
+            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-[#003893] font-nepali">
+              <span>{isNepali ? 'पूजाविधि अन्वेषण' : 'Explore Rituals'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -278,15 +286,17 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
               <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <BookOpen className="w-6 h-6" />
               </div>
-              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-amber-600 transition-colors">
-                {pillarsConfig?.p3Title || 'Bote Language (Tarahi)'}
+              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-amber-600 transition-colors font-nepali">
+                {isNepali ? 'तराही बोटे भाषा' : (pillarsConfig?.p3Title || 'Bote Language (Tarahi)')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {pillarsConfig?.p3Desc || 'Saving the endangered Tarahi Bote dialect. Searchable 18+ word lexicon dictionary with phonetic pronunciations.'}
+              <p className="text-xs text-slate-600 leading-relaxed font-nepali">
+                {isNepali
+                  ? 'लोपोन्मुख तराही बोटे लवजको संरक्षण। उच्चारणसहित १८+ मौलिक शब्दहरूको खोजयोग्य डिजिटल शब्दकोश।'
+                  : (pillarsConfig?.p3Desc || 'Saving the endangered Tarahi Bote dialect. Searchable 18+ word lexicon dictionary with phonetic pronunciations.')}
               </p>
             </div>
-            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-amber-600">
-              <span>Study Dialect</span>
+            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-amber-600 font-nepali">
+              <span>{isNepali ? 'भाषा सिक्नुहोस्' : 'Study Dialect'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -300,15 +310,17 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
               <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#DC143C] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Award className="w-6 h-6" />
               </div>
-              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-[#DC143C] transition-colors">
-                {pillarsConfig?.p4Title || 'Culture Dress & Jewelry'}
+              <h3 className="font-poppins font-extrabold text-lg text-slate-900 group-hover:text-[#DC143C] transition-colors font-nepali">
+                {isNepali ? 'सांस्कृतिक पोशाक र गहना' : (pillarsConfig?.p4Title || 'Culture Dress & Jewelry')}
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {pillarsConfig?.p4Desc || 'The traditional Gunya, Cholo, Dhoti, and solid silver Hansuli necklaces, Bulaki nose rings, and Kalli anklets.'}
+              <p className="text-xs text-slate-600 leading-relaxed font-nepali">
+                {isNepali
+                  ? 'परम्परागत गुन्यू, चोलो, धोती, कछाड तथा ठोस चाँदीका हाँसुली, बुलाकी, ढुङ्ग्री र कल्ली जस्ता पुर्ख्यौली गहनाहरू।'
+                  : (pillarsConfig?.p4Desc || 'The traditional Gunya, Cholo, Dhoti, and solid silver Hansuli necklaces, Bulaki nose rings, and Kalli anklets.')}
               </p>
             </div>
-            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-[#DC143C]">
-              <span>View Dress</span>
+            <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-extrabold text-[#DC143C] font-nepali">
+              <span>{isNepali ? 'पोशाक हेर्नुहोस्' : 'View Dress'}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -320,22 +332,24 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
             <div className="space-y-2">
-              <div className="inline-flex items-center space-x-1.5 text-xs font-black uppercase tracking-wider text-[#003893]">
+              <div className="inline-flex items-center space-x-1.5 text-xs font-black uppercase tracking-wider text-[#003893] font-nepali">
                 <Shield className="w-4 h-4 text-[#DC143C]" />
-                <span>Executive Leadership Roster</span>
+                <span>{isNepali ? 'कार्यकारी नेतृत्व नामावली' : 'Executive Leadership Roster'}</span>
               </div>
-              <h2 className="text-3xl font-black font-poppins text-slate-900 leading-tight">
-                Youth Leaders &amp; Community Council
+              <h2 className="text-3xl font-black font-poppins text-slate-900 leading-tight font-nepali">
+                {isNepali ? 'युवा नेतृत्व तथा समुदाय कार्यसमिति' : 'Youth Leaders & Community Council'}
               </h2>
-              <p className="text-xs text-slate-500 max-w-xl">
-                Dedicated representatives steering cultural preservation, legal recognition, and educational scholarships across Karmaiya, Sarlahi.
+              <p className="text-xs text-slate-500 max-w-xl font-nepali">
+                {isNepali
+                  ? 'सर्लाही कर्मैयाभरि सांस्कृतिक संरक्षण, कानुनी पहिचान र शैक्षिक छात्रवृत्तिको नेतृत्व गर्ने समर्पित प्रतिनिधिहरू।'
+                  : 'Dedicated representatives steering cultural preservation, legal recognition, and educational scholarships across Karmaiya, Sarlahi.'}
               </p>
             </div>
             <button
               onClick={() => setCurrentTab('leaders')}
-              className="bg-[#003893] hover:bg-[#002766] text-white text-xs font-bold px-6 py-3 rounded-full transition-all shadow-md flex items-center space-x-2 shrink-0"
+              className="bg-[#003893] hover:bg-[#002766] text-white text-xs font-bold px-6 py-3 rounded-full transition-all shadow-md flex items-center space-x-2 shrink-0 font-nepali cursor-pointer"
             >
-              <span>View All {leaders.length} Leader Profiles</span>
+              <span>{isNepali ? `सबै ${leaders.length} पदाधिकारी विवरण` : `View All ${leaders.length} Leader Profiles`}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -360,57 +374,63 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
           <div className="space-y-4 max-w-2xl text-center lg:text-left z-10">
             {!hasJoinedCommunity ? (
               <>
-                <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm inline-block">
-                  Community Membership
+                <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm inline-block font-nepali">
+                  {isNepali ? 'सामुदायिक सदस्यता' : 'Community Membership'}
                 </span>
-                <h3 className="text-3xl sm:text-4xl font-black font-poppins leading-tight uppercase tracking-tight">
-                  Get Your Official Bote Youth Community Digital Identity Card
+                <h3 className="text-3xl sm:text-4xl font-black font-poppins leading-tight uppercase tracking-tight font-nepali">
+                  {isNepali
+                    ? 'आफ्नो आधिकारिक बोटे युवा समुदाय डिजिटल परिचयपत्र प्राप्त गर्नुहोस्'
+                    : 'Get Your Official Bote Youth Community Digital Identity Card'}
                 </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  Register online in less than 2 minutes. Upload your photo to generate an instant printable member card with custom Member ID (e.g. <code>BYCN-2026-XXXX</code>) and verified council stamp.
+                <p className="text-sm text-slate-300 leading-relaxed font-nepali">
+                  {isNepali
+                    ? '२ मिनेटभन्दा कम समयमा अनलाइन दर्ता गर्नुहोस्। आफ्नो फोटो अपलोड गरी परिषद्को प्रमाणीकरण छापसहित तुरुन्त प्रिन्ट गर्न मिल्ने सदस्यता कार्ड (उदा. BYCN-2026-XXXX) बनाउनुहोस्।'
+                    : 'Register online in less than 2 minutes. Upload your photo to generate an instant printable member card with custom Member ID (e.g. BYCN-2026-XXXX) and verified council stamp.'}
                 </p>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 font-nepali">
                   <button
                     onClick={() => setCurrentTab('join')}
                     className="bg-red-600 hover:bg-red-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md transition-all text-xs uppercase tracking-wider flex items-center space-x-2 cursor-pointer"
                   >
                     <UserCheck className="w-4 h-4" />
-                    <span>Fill Joining Form</span>
+                    <span>{isNepali ? 'फाराम भर्नुहोस्' : 'Fill Joining Form'}</span>
                   </button>
                   <button
                     onClick={() => setCurrentTab('scholarships')}
-                    className="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-full border border-white/20 transition-all text-xs uppercase tracking-wider"
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3.5 rounded-full border border-white/20 transition-all text-xs uppercase tracking-wider cursor-pointer"
                   >
-                    Apply for Scholarships &rarr;
+                    <span>{isNepali ? 'छात्रवृत्ति आवेदन दिनुहोस् →' : 'Apply for Scholarships →'}</span>
                   </button>
                 </div>
               </>
             ) : (
               <>
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm inline-flex items-center gap-1.5">
+                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm inline-flex items-center gap-1.5 font-nepali">
                   <CheckCircle className="w-3.5 h-3.5" />
-                  <span>Official Member Active</span>
+                  <span>{isNepali ? 'आधिकारिक सदस्य सक्रिय' : 'Official Member Active'}</span>
                 </span>
-                <h3 className="text-3xl sm:text-4xl font-black font-poppins leading-tight uppercase tracking-tight text-emerald-300">
-                  Your Digital Identity Card is Active &amp; Verified
+                <h3 className="text-3xl sm:text-4xl font-black font-poppins leading-tight uppercase tracking-tight text-emerald-300 font-nepali">
+                  {isNepali ? 'तपाईंको डिजिटल परिचयपत्र सक्रिय तथा प्रमाणित छ' : 'Your Digital Identity Card is Active & Verified'}
                 </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  You are registered in the Bote Youth Community Nepal records. You can view, download, or print your verified Member ID card anytime, or stay updated on community activities.
+                <p className="text-sm text-slate-300 leading-relaxed font-nepali">
+                  {isNepali
+                    ? 'तपाईं नेपाल बोटे युवा समुदायको अभिलेखमा दर्ता हुनुहुन्छ। जुनसुकै बेला आफ्नो कार्ड हेर्न वा प्रिन्ट गर्न सक्नुहुन्छ।'
+                    : 'You are registered in the Bote Youth Community Nepal records. You can view, download, or print your verified Member ID card anytime, or stay updated on community activities.'}
                 </p>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 font-nepali">
                   <button
                     onClick={() => setCurrentTab('join')}
                     className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md transition-all text-xs uppercase tracking-wider flex items-center space-x-2 cursor-pointer"
                   >
                     <IdCard className="w-4 h-4" />
-                    <span>View My Official ID Card</span>
+                    <span>{isNepali ? 'मेरो परिचयपत्र हेर्नुहोस्' : 'View My Official ID Card'}</span>
                   </button>
                   <button
                     onClick={() => setCurrentTab('follow')}
                     className="bg-white/15 hover:bg-white/25 text-white font-bold px-6 py-3.5 rounded-full border border-white/30 transition-all text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
                   >
                     <Heart className="w-4 h-4 text-red-400 fill-red-400" />
-                    <span>Follow Community Updates ({followerCount})</span>
+                    <span>{isNepali ? `समुदाय अपडेट फलो गर्नुहोस् (${followerCount})` : `Follow Community Updates (${followerCount})`}</span>
                   </button>
                 </div>
               </>

@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { LeaderProfile } from '../types';
 import { resolveAssetUrl, getSynchronousCachedAsset } from '../services/storagePersistence';
+import { useLanguage } from '../context/LanguageContext';
 import {
   X,
   Shield,
@@ -27,6 +28,7 @@ interface LeadershipModalProps {
 export default function LeadershipModal({ leader, onClose }: LeadershipModalProps) {
   const [messageText, setMessageText] = useState('');
   const [sentSuccess, setSentSuccess] = useState(false);
+  const { isNepali } = useLanguage();
 
   if (!leader) return null;
 
@@ -53,18 +55,22 @@ export default function LeadershipModal({ leader, onClose }: LeadershipModalProp
           </button>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[10px] bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-              {leader.badge}
+              {isNepali ? (leader.category === 'youth' ? 'युवा नेतृत्व' : 'समुदाय नेतृत्व') : leader.badge}
             </span>
             <span className="text-xs text-white/90">
-              {leader.term}
+              {isNepali ? '२०२४ - २०२७ (३ वर्षे कार्यकाल)' : leader.term}
             </span>
           </div>
-          <h2 className="text-2xl font-black font-poppins">{leader.name}</h2>
+          <h2 className="text-2xl font-black font-poppins">
+            {isNepali && leader.nameNepali ? leader.nameNepali : leader.name}
+          </h2>
           {leader.nameNepali && (
-            <p className="text-sm font-semibold text-amber-200 mt-0.5">{leader.nameNepali}</p>
+            <p className="text-sm font-semibold text-amber-200 mt-0.5">
+              {isNepali ? leader.name : leader.nameNepali}
+            </p>
           )}
           <p className="text-xs text-white/90 font-bold uppercase tracking-wider mt-1">
-            {leader.role}
+            {isNepali ? (leader.category === 'youth' ? 'युवा नेतृत्व मण्डल' : 'समुदाय नेतृत्व मण्डल') : leader.role}
           </p>
         </div>
 
@@ -115,7 +121,7 @@ export default function LeadershipModal({ leader, onClose }: LeadershipModalProp
           <div className="space-y-3">
             <h4 className="text-xs font-black uppercase text-slate-800 tracking-wider flex items-center gap-2">
               <Shield className="w-4 h-4 text-[#DC143C]" />
-              <span>Assigned Executive Responsibilities</span>
+              <span>{isNepali ? 'तोकिएको कार्यकारी जिम्मेवारीहरू' : 'Assigned Executive Responsibilities'}</span>
             </h4>
             <div className="space-y-2">
               {leader.responsibilities.map((resp, i) => (
@@ -134,19 +140,31 @@ export default function LeadershipModal({ leader, onClose }: LeadershipModalProp
           <div className="space-y-3 pt-2">
             <h4 className="text-xs font-black uppercase text-slate-800 tracking-wider flex items-center gap-2">
               <Send className="w-4 h-4 text-[#003893]" />
-              <span>Contact {leader.role} Directly</span>
+              <span>
+                {isNepali
+                  ? `${leader.nameNepali || leader.name} लाई सिधै सम्पर्क गर्नुहोस्`
+                  : `Contact ${leader.role} Directly`}
+              </span>
             </h4>
             {sentSuccess ? (
               <div className="bg-green-50 border border-green-200 text-green-700 text-xs p-3.5 rounded-xl font-bold flex items-center gap-2 animate-in fade-in">
                 <CheckCircle className="w-4 h-4 text-green-600 shrink-0" />
-                <span>Message dispatched to {leader.name} and logged in community records!</span>
+                <span>
+                  {isNepali
+                    ? `सन्देश ${leader.nameNepali || leader.name} लाई सफलतापूर्वक पठाइयो र समुदाय अभिलेखमा दर्ता भयो!`
+                    : `Message dispatched to ${leader.name} and logged in community records!`}
+                </span>
               </div>
             ) : (
               <form onSubmit={handleSendMessage} className="space-y-2">
                 <textarea
                   rows={2}
                   required
-                  placeholder={`Write a message, inquiry, or suggestion directly to ${leader.name}...`}
+                  placeholder={
+                    isNepali
+                      ? `${leader.nameNepali || leader.name} लाई सिधै सन्देश, सोधपुछ वा सुझाव लेख्नुहोस्...`
+                      : `Write a message, inquiry, or suggestion directly to ${leader.name}...`
+                  }
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#003893] text-slate-800"
@@ -157,7 +175,7 @@ export default function LeadershipModal({ leader, onClose }: LeadershipModalProp
                     className="bg-[#003893] hover:bg-[#002766] text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1.5 transition-colors shadow-sm"
                   >
                     <Send className="w-3 h-3" />
-                    <span>Send Message</span>
+                    <span>{isNepali ? 'सन्देश पठाउनुहोस्' : 'Send Message'}</span>
                   </button>
                 </div>
               </form>
@@ -171,7 +189,7 @@ export default function LeadershipModal({ leader, onClose }: LeadershipModalProp
             onClick={onClose}
             className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-5 py-2 rounded-xl transition-all"
           >
-            Close Details
+            {isNepali ? 'विवरण बन्द गर्नुहोस्' : 'Close Details'}
           </button>
         </div>
       </div>

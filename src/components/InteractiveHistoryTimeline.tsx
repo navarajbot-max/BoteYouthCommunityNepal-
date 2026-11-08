@@ -26,6 +26,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { resolveAssetUrl } from '../services/storagePersistence';
+import { useLanguage } from '../context/LanguageContext';
 
 export interface TimelineEvent {
   id: string;
@@ -173,6 +174,7 @@ export default function InteractiveHistoryTimeline({
   setCurrentTab
 }: InteractiveHistoryTimelineProps) {
   const { timelineEvents } = useCommunityData();
+  const { isNepali } = useLanguage();
   const events = timelineEvents && timelineEvents.length > 0 ? timelineEvents : HISTORICAL_EVENTS;
   const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -212,13 +214,15 @@ export default function InteractiveHistoryTimeline({
         <div>
           <div className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-900">
             <Clock className="w-4 h-4 text-red-600" />
-            <span>Interactive Chronological Journey</span>
+            <span>{isNepali ? 'अन्तरक्रियात्मक कालक्रम यात्रा' : 'Interactive Chronological Journey'}</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight mt-1 font-poppins">
-            Bote Evolutionary Timeline
+            {isNepali ? 'बोटे जातिको ऐतिहासिक विकासक्रम' : 'Bote Evolutionary Timeline'}
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Click any era on the rail or use the player to travel through centuries of river heritage.
+            {isNepali
+              ? 'नदी सम्पदाको शताब्दीयौँको इतिहास अन्वेषण गर्न रेलमा कुनै पनि युग क्लिक गर्नुहोस् वा स्वतः भ्रमण सुरु गर्नुहोस्।'
+              : 'Click any era on the rail or use the player to travel through centuries of river heritage.'}
           </p>
         </div>
 
@@ -227,38 +231,42 @@ export default function InteractiveHistoryTimeline({
           {/* Auto Tour Play/Pause */}
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-sm ${
+            className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-sm cursor-pointer ${
               isPlaying
                 ? 'bg-red-600 text-white animate-pulse'
                 : 'bg-blue-900 text-white hover:bg-blue-950'
             }`}
-            title="Automatically tour through historical milestones"
+            title={isNepali ? 'ऐतिहासिक कोशेढुङ्गाहरूको स्वतः भ्रमण' : 'Automatically tour through historical milestones'}
           >
             {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-            <span>{isPlaying ? 'Pause Tour' : 'Auto Tour'}</span>
+            <span>
+              {isNepali
+                ? (isPlaying ? 'भ्रमण रोक्नुहोस्' : 'स्वतः भ्रमण')
+                : (isPlaying ? 'Pause Tour' : 'Auto Tour')}
+            </span>
           </button>
 
           {/* Toggle Display Mode */}
           <div className="bg-slate-100 p-1 rounded-full flex items-center text-xs font-bold">
             <button
               onClick={() => setViewMode('interactive')}
-              className={`px-3 py-1.5 rounded-full transition-all ${
+              className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${
                 viewMode === 'interactive'
                   ? 'bg-white text-blue-900 shadow-xs font-extrabold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Interactive Spotlight
+              {isNepali ? 'अन्तरक्रियात्मक हाइलाइट' : 'Interactive Spotlight'}
             </button>
             <button
               onClick={() => setViewMode('trail')}
-              className={`px-3 py-1.5 rounded-full transition-all ${
+              className={`px-3 py-1.5 rounded-full transition-all cursor-pointer ${
                 viewMode === 'trail'
                   ? 'bg-white text-red-600 shadow-xs font-extrabold'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              Complete Trail (7)
+              {isNepali ? `पूर्ण कालक्रम (${events.length})` : `Complete Trail (${events.length})`}
             </button>
           </div>
         </div>
@@ -272,20 +280,24 @@ export default function InteractiveHistoryTimeline({
             <div className="flex items-center justify-between mb-4">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                 <Compass className="w-3.5 h-3.5 text-amber-300" />
-                <span>Select Era on Rail ({activeEventIndex + 1} of {events.length})</span>
+                <span>
+                  {isNepali
+                    ? `रेलमा युग छान्नुहोस् (${activeEventIndex + 1} / ${events.length})`
+                    : `Select Era on Rail (${activeEventIndex + 1} of ${events.length})`}
+                </span>
               </span>
               <div className="flex items-center gap-1">
                 <button
                   onClick={handlePrev}
-                  className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition"
-                  title="Previous Milestone"
+                  className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition cursor-pointer"
+                  title={isNepali ? 'अघिल्लो कोशेढुङ्गा' : 'Previous Milestone'}
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition"
-                  title="Next Milestone"
+                  className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition cursor-pointer"
+                  title={isNepali ? 'अर्को कोशेढुङ्गा' : 'Next Milestone'}
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -387,7 +399,7 @@ export default function InteractiveHistoryTimeline({
                   {/* Material Artifacts */}
                   <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-2">
                     <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block">
-                      Archival Evidence &amp; Artifacts:
+                      {isNepali ? 'ऐतिहासिक प्रमाण तथा अवशेषहरू:' : 'Archival Evidence & Artifacts:'}
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {activeEvent.artifacts.map((art, i) => (
@@ -407,7 +419,9 @@ export default function InteractiveHistoryTimeline({
                   <div className="space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <span className="bg-blue-50 text-blue-900 border border-blue-200 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
-                        {activeEvent.categoryLabel} • {activeEvent.periodLabel}
+                        {isNepali
+                          ? `${activeEvent.periodLabel} • ${activeEvent.categoryLabel}`
+                          : `${activeEvent.categoryLabel} • ${activeEvent.periodLabel}`}
                       </span>
                       <span className="text-xs font-mono font-bold text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded-full">
                         {activeEvent.year}
@@ -416,11 +430,11 @@ export default function InteractiveHistoryTimeline({
 
                     <div>
                       <h3 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase font-poppins leading-tight">
-                        {activeEvent.title}
+                        {isNepali && activeEvent.titleNepali ? activeEvent.titleNepali : activeEvent.title}
                       </h3>
                       {activeEvent.titleNepali && (
                         <p className="text-base font-semibold text-slate-500 mt-1">
-                          {activeEvent.titleNepali}
+                          {isNepali ? activeEvent.title : activeEvent.titleNepali}
                         </p>
                       )}
                     </div>
@@ -433,7 +447,7 @@ export default function InteractiveHistoryTimeline({
                     <div className="bg-gradient-to-r from-red-50 to-amber-50/50 p-4 rounded-2xl border border-red-200/80 space-y-1">
                       <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-red-700">
                         <Sparkles className="w-3.5 h-3.5 text-red-600" />
-                        <span>Cultural Impact &amp; Preservation Significance</span>
+                        <span>{isNepali ? 'सांस्कृतिक प्रभाव तथा संरक्षण महत्व' : 'Cultural Impact & Preservation Significance'}</span>
                       </div>
                       <p className="text-xs text-slate-800 leading-relaxed font-medium">
                         {activeEvent.culturalImpact}
@@ -446,16 +460,16 @@ export default function InteractiveHistoryTimeline({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={handlePrev}
-                        className="px-4 py-2 rounded-full border border-slate-200 hover:bg-slate-100 text-xs font-bold text-slate-700 transition flex items-center gap-1"
+                        className="px-4 py-2 rounded-full border border-slate-200 hover:bg-slate-100 text-xs font-bold text-slate-700 transition flex items-center gap-1 cursor-pointer"
                       >
                         <ChevronLeft className="w-3.5 h-3.5" />
-                        <span>Previous Era</span>
+                        <span>{isNepali ? 'अघिल्लो युग' : 'Previous Era'}</span>
                       </button>
                       <button
                         onClick={handleNext}
-                        className="px-4 py-2 rounded-full bg-blue-900 hover:bg-blue-950 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm"
+                        className="px-4 py-2 rounded-full bg-blue-900 hover:bg-blue-950 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm cursor-pointer"
                       >
-                        <span>Next Era</span>
+                        <span>{isNepali ? 'अर्को युग' : 'Next Era'}</span>
                         <ChevronRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -463,9 +477,9 @@ export default function InteractiveHistoryTimeline({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setCurrentTab('cultures')}
-                        className="text-xs font-bold text-red-600 hover:text-red-700 hover:underline flex items-center gap-1 transition"
+                        className="text-xs font-bold text-red-600 hover:text-red-700 hover:underline flex items-center gap-1 transition cursor-pointer"
                       >
-                        <span>Explore River Rites</span>
+                        <span>{isNepali ? 'नदी पूजा परम्परा हेर्नुहोस्' : 'Explore River Rites'}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -483,14 +497,16 @@ export default function InteractiveHistoryTimeline({
           <div className="flex items-center justify-between border-b border-slate-150 pb-4">
             <div>
               <h3 className="text-xl font-black uppercase text-slate-900 font-poppins">
-                Chronological Trail (All 7 Epochs)
+                {isNepali ? 'पूर्ण ऐतिहासिक कालक्रम (सबै ७ कालखण्ड)' : 'Chronological Trail (All 7 Epochs)'}
               </h3>
               <p className="text-xs text-slate-500">
-                A continuous historical timeline from ancient river worship to modern youth empowerment.
+                {isNepali
+                  ? 'प्राचीन नदी पूजादेखि आधुनिक युवा सशक्तीकरणसम्मको निरन्तर ऐतिहासिक यात्रा।'
+                  : 'A continuous historical timeline from ancient river worship to modern youth empowerment.'}
               </p>
             </div>
             <span className="text-xs font-bold text-blue-900 bg-blue-50 px-3 py-1 rounded-full">
-              {events.length} Milestones
+              {isNepali ? `${events.length} ऐतिहासिक कोशेढुङ्गा` : `${events.length} Milestones`}
             </span>
           </div>
 
@@ -533,11 +549,11 @@ export default function InteractiveHistoryTimeline({
                     </div>
 
                     <h4 className="text-lg font-black font-poppins text-slate-900 group-hover:text-red-600 transition-colors">
-                      {event.title}
+                      {isNepali && event.titleNepali ? event.titleNepali : event.title}
                     </h4>
                     {event.titleNepali && (
                       <p className="text-xs font-semibold text-slate-500">
-                        {event.titleNepali}
+                        {isNepali ? event.title : event.titleNepali}
                       </p>
                     )}
 
@@ -551,7 +567,7 @@ export default function InteractiveHistoryTimeline({
                         <span>{event.riverLocation}</span>
                       </span>
                       <span className="text-red-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                        <span>Click to Spotlight</span>
+                        <span>{isNepali ? 'विस्तृत विवरण हेर्नुहोस्' : 'Click to Spotlight'}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </span>
                     </div>

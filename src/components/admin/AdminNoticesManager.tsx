@@ -131,7 +131,7 @@ export default function AdminNoticesManager() {
     setEventEndDate(new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0]);
     setEventVenue('Karmaiya, Sarlahi District, Madhesh Province');
     setEventRsvpLink('');
-    setEventContactPerson('Navaraj Bote (+977-9800000000)');
+    setEventContactPerson('BYCN Office (+977-9800000000)');
     setChiefGuests('Community Elders & Ward Representatives');
     setNewMembers([]);
     setIsModalOpen(true);
@@ -1220,7 +1220,7 @@ export default function AdminNoticesManager() {
                         type="text"
                         value={eventContactPerson}
                         onChange={(e) => setEventContactPerson(e.target.value)}
-                        placeholder="Navaraj Bote (+977-9800000000)"
+                        placeholder="Contact Person (+977-9800000000)"
                         className="w-full px-3 py-1.5 rounded-lg border border-purple-300 text-xs bg-white"
                       />
                     </div>

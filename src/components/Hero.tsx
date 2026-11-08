@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { useLanguage } from '../context/LanguageContext';
 import { TabType } from '../types';
 import { motion } from 'motion/react';
 import InteractiveFollowModal from './InteractiveFollowModal';
@@ -31,6 +32,7 @@ interface HeroProps {
 
 export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
   const { colors, theme } = useTheme();
+  const { isNepali } = useLanguage();
   const {
     communityMetrics,
     hasJoinedCommunity,
@@ -85,7 +87,11 @@ export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
           className="inline-flex items-center space-x-2 bg-white/15 backdrop-blur-md border border-white/30 px-4 py-1.5 rounded-full text-xs font-black tracking-wider uppercase text-amber-300 shadow-md"
         >
           <span className="text-sm">🇳🇵</span>
-          <span>BoteYouthCommunityNepal | Prime Nepali Flag Theme</span>
+          <span>
+            {isNepali
+              ? 'नेपाल बोटे युवा समुदाय | प्राइम झण्डा थिम'
+              : 'BoteYouthCommunityNepal | Prime Nepali Flag Theme'}
+          </span>
           <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin" />
         </motion.div>
 
@@ -96,10 +102,21 @@ export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-4xl sm:text-6xl lg:text-7xl font-black font-poppins tracking-tight max-w-5xl mx-auto leading-[1.12]"
         >
-          Preserving Our River Heritage,{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-red-200">
-            Empowering Bote Youth
-          </span>
+          {isNepali ? (
+            <>
+              हाम्रो नदी सम्पदाको संरक्षण,{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-red-200">
+                बोटे युवाहरूको सशक्तीकरण
+              </span>
+            </>
+          ) : (
+            <>
+              Preserving Our River Heritage,{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-red-200">
+                Empowering Bote Youth
+              </span>
+            </>
+          )}
         </motion.h1>
 
         {/* Subtitle */}
@@ -107,9 +124,11 @@ export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto font-medium leading-relaxed"
+          className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto font-medium leading-relaxed font-nepali"
         >
-          Official portal of the Bote Community of Karmaiya, Sarlahi District, Nepal. Safeguarding our ancient single-log canoe craft, revitalizing the endangered Tarahi Bote language, and funding education for the next generation.
+          {isNepali
+            ? 'नेपालको सर्लाही जिल्ला कर्मैयास्थित बोटे समुदायको आधिकारिक डिजिटल पोर्टल। हाम्रो प्राचीन एक-डुङ्गे काठको डुङ्गा (एक-डुङ्गे नाउ) निर्माण कला तथा नदी सम्पदाको संरक्षण, लोपोन्मुख तराही बोटे भाषाको पुनरुत्थान, र आगामी पुस्ताका लागि शैक्षिक छात्रवृत्तिको संवर्द्धन।'
+            : 'Official portal of the Bote Community of Karmaiya, Sarlahi District, Nepal. Safeguarding our ancient single-log canoe craft, revitalizing the endangered Tarahi Bote language, and funding education for the next generation.'}
         </motion.p>
 
         {/* Action Buttons */}
@@ -123,26 +142,26 @@ export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
           {!hideJoinOption ? (
             <button
               onClick={() => setCurrentTab('join')}
-              className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+              className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer font-nepali"
             >
               <UserCheck className="w-4 h-4 text-white" />
-              <span>Join Us &amp; Get Digital ID</span>
+              <span>{isNepali ? 'सदस्य बन्नुहोस् र डिजिटल परिचयपत्र पाउनुहोस्' : 'Join Us & Get Digital ID'}</span>
             </button>
           ) : hasJoinedCommunity ? (
             <button
               onClick={() => setCurrentTab('join')}
-              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer font-nepali"
             >
               <IdCard className="w-4 h-4 text-white" />
-              <span>View My Member ID Card</span>
+              <span>{isNepali ? 'मेरो डिजिटल परिचयपत्र हेर्नुहोस्' : 'View My Member ID Card'}</span>
             </button>
           ) : (
             <button
               onClick={() => setCurrentTab('follow')}
-              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+              className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer font-nepali"
             >
               <Shield className="w-4 h-4 text-white" />
-              <span>Verified Follower Active</span>
+              <span>{isNepali ? 'प्रमाणित अनुयायी सक्रिय' : 'Verified Follower Active'}</span>
             </button>
           )}
 
@@ -150,36 +169,36 @@ export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
           <button
             onClick={handleHeroFollow}
             disabled={isFollowingCommunity}
-            className={`w-full sm:w-auto font-bold px-7 py-3.5 rounded-full shadow-md transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 ${
+            className={`w-full sm:w-auto font-bold px-7 py-3.5 rounded-full shadow-md transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 font-nepali ${
               isFollowingCommunity
                 ? 'bg-emerald-50 text-emerald-900 border border-emerald-300 cursor-default'
                 : 'bg-white/20 hover:bg-white/30 text-white border border-white/40 cursor-pointer backdrop-blur-sm hover:scale-105 active:scale-95'
             }`}
             title={
               isFollowingCommunity
-                ? `Following active with ${followerEmail || 'verified Gmail'}`
-                : 'Click for one-time follow with Gmail'
+                ? (isNepali ? 'सक्रिय फलो गरिएको' : `Following active with ${followerEmail || 'verified Gmail'}`)
+                : (isNepali ? 'एक पटक फलो गर्नुहोस्' : 'Click for one-time follow with Gmail')
             }
           >
             {isFollowingCommunity ? (
               <>
                 <CheckCircle className="w-4 h-4 text-emerald-600" />
-                <span>Following ({followerCount})</span>
+                <span>{isNepali ? `फलो गरिएको (${followerCount})` : `Following (${followerCount})`}</span>
               </>
             ) : (
               <>
                 <Heart className="w-4 h-4 text-red-400 fill-red-400" />
-                <span>Follow Community ({followerCount})</span>
+                <span>{isNepali ? `समुदाय फलो गर्नुहोस् (${followerCount})` : `Follow Community (${followerCount})`}</span>
               </>
             )}
           </button>
 
           <button
             onClick={() => setCurrentTab('leaders')}
-            className="w-full sm:w-auto bg-white hover:bg-slate-100 text-blue-900 font-bold px-7 py-3.5 rounded-full shadow-md transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer"
+            className="w-full sm:w-auto bg-white hover:bg-slate-100 text-blue-900 font-bold px-7 py-3.5 rounded-full shadow-md transition-all text-xs uppercase tracking-wider flex items-center justify-center space-x-2 cursor-pointer font-nepali"
           >
             <Users className="w-4 h-4 text-red-600" />
-            <span>Meet Youth Leaders</span>
+            <span>{isNepali ? 'युवा नेतृत्वलाई भेट्नुहोस्' : 'Meet Youth Leaders'}</span>
           </button>
         </motion.div>
 
@@ -191,50 +210,82 @@ export default function Hero({ setCurrentTab, openCustomizer }: HeroProps) {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 max-w-4xl mx-auto border-t border-white/20 mt-12 text-center"
         >
           {communityMetrics && communityMetrics.length > 0 ? (
-            communityMetrics.slice(0, 4).map((metric) => (
-              <div
-                key={metric.id}
-                id={`hero-metric-${metric.id}`}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition group cursor-default"
-                title={`${metric.title}: ${metric.subtitle || ''}${metric.sourceCitation ? ` (${metric.sourceCitation})` : ''}`}
-              >
-                <div className={`text-3xl font-black font-poppins ${metric.highlightColor || 'text-white'} group-hover:scale-105 transition-transform duration-200`}>
-                  {metric.value}
-                </div>
-                <div className="text-xs text-white/85 font-bold uppercase tracking-wider mt-1">
-                  {metric.title}
-                </div>
-                {metric.subtitle && (
-                  <div className="text-[10px] text-white/60 font-medium truncate mt-0.5">
-                    {metric.subtitle}
+            communityMetrics.slice(0, 4).map((metric) => {
+              const id = (metric.id || '').toLowerCase();
+              const rawTitle = (metric.title || '').toLowerCase();
+              let nepTitle = metric.title;
+              let nepSub = metric.subtitle;
+              if (id === 'population' || rawTitle.includes('population')) {
+                nepTitle = 'बोटे कुल जनसंख्या';
+                nepSub = 'राष्ट्रिय जनगणना २०२१ प्रमाणित';
+              } else if (id === 'wards' || rawTitle.includes('ward')) {
+                nepTitle = 'परिषद वडा कार्यक्षेत्र';
+                nepSub = 'सर्लाही तथा नारायणी क्षेत्र';
+              } else if (id === 'scholarship' || rawTitle.includes('scholarship')) {
+                nepTitle = 'छात्रवृत्ति कोष';
+                nepSub = 'SEE तथा विश्वविद्यालय ट्रष्ट';
+              } else if (id === 'pride' || rawTitle.includes('pride')) {
+                nepTitle = 'आदिवासी पहिचान';
+                nepSub = 'जल पूजा तथा तराही लवज';
+              }
+
+              return (
+                <div
+                  key={metric.id}
+                  id={`hero-metric-${metric.id}`}
+                  className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition group cursor-default"
+                  title={`${metric.title}: ${metric.subtitle || ''}${metric.sourceCitation ? ` (${metric.sourceCitation})` : ''}`}
+                >
+                  <div className={`text-3xl font-black font-poppins ${metric.highlightColor || 'text-white'} group-hover:scale-105 transition-transform duration-200`}>
+                    {metric.value}
                   </div>
-                )}
-              </div>
-            ))
+                  <div className="text-xs text-white/85 font-bold uppercase tracking-wider mt-1 font-nepali">
+                    {isNepali ? nepTitle : metric.title}
+                  </div>
+                  {(metric.subtitle || nepSub) && (
+                    <div className="text-[10px] text-white/60 font-medium truncate mt-0.5 font-nepali">
+                      {isNepali ? nepSub : metric.subtitle}
+                    </div>
+                  )}
+                </div>
+              );
+            })
           ) : (
             <>
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition">
                 <div className="text-3xl font-black font-poppins text-white">11,258+</div>
-                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1">
-                  Bote Population
+                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1 font-nepali">
+                  {isNepali ? 'बोटे कुल जनसंख्या' : 'Bote Population'}
+                </div>
+                <div className="text-[10px] text-white/60 font-medium truncate mt-0.5 font-nepali">
+                  {isNepali ? 'राष्ट्रिय जनगणना २०२१ प्रमाणित' : 'Census 2021'}
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition">
                 <div className="text-3xl font-black font-poppins text-white">10</div>
-                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1">
-                  Council Wards
+                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1 font-nepali">
+                  {isNepali ? 'परिषद वडा कार्यक्षेत्र' : 'Council Wards'}
+                </div>
+                <div className="text-[10px] text-white/60 font-medium truncate mt-0.5 font-nepali">
+                  {isNepali ? 'सर्लाही तथा नारायणी क्षेत्र' : 'Sarlahi & Narayani Hubs'}
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition">
                 <div className="text-3xl font-black font-poppins text-white">NPR 50k</div>
-                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1">
-                  Scholarship Fund
+                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1 font-nepali">
+                  {isNepali ? 'छात्रवृत्ति कोष' : 'Scholarship Fund'}
+                </div>
+                <div className="text-[10px] text-white/60 font-medium truncate mt-0.5 font-nepali">
+                  {isNepali ? 'SEE तथा विश्वविद्यालय ट्रष्ट' : 'SEE & University Trust'}
                 </div>
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition">
                 <div className="text-3xl font-black font-poppins text-amber-300">100%</div>
-                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1">
-                  Indigenous Pride
+                <div className="text-xs text-white/80 font-bold uppercase tracking-wider mt-1 font-nepali">
+                  {isNepali ? 'आदिवासी पहिचान' : 'Indigenous Pride'}
+                </div>
+                <div className="text-[10px] text-white/60 font-medium truncate mt-0.5 font-nepali">
+                  {isNepali ? 'जल पूजा तथा तराही लवज' : 'Jal Puja & Tarahi Heritage'}
                 </div>
               </div>
             </>

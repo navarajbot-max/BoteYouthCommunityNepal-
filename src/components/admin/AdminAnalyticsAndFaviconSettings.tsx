@@ -22,7 +22,6 @@ import {
   Search,
   Copy,
   Check,
-  Layers,
   Info,
   ArrowUpRight,
   TrendingUp,
@@ -39,38 +38,6 @@ import {
 interface AdminAnalyticsAndFaviconSettingsProps {
   showNotification?: (message: string, type?: 'success' | 'info' | 'warning') => void;
 }
-
-// Cultural SVG Presets for instant Favicon Selection
-const PRESET_FAVICONS = [
-  {
-    id: 'bycn-emblem',
-    label: 'BYCN Official Crest',
-    tag: 'Official Emblem',
-    description: 'Authentic crimson red & navy blue emblem with rising sun and riverboat.',
-    url: '/favicon.svg'
-  },
-  {
-    id: 'bote-boat',
-    label: 'Sacred River Canoe',
-    tag: 'Ek-Dunge Nau',
-    description: 'Ancestral single-log dugout canoe sailing the holy Bagmati River.',
-    url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Ccircle cx="32" cy="32" r="30" fill="%23003893"/%3E%3Cpath d="M12 40 Q32 50 52 40 Q32 46 12 40 Z" fill="%23DC143C" stroke="%23FFF" stroke-width="2"/%3E%3Cpath d="M16 38 Q32 46 48 38" fill="none" stroke="%23F59E0B" stroke-width="2"/%3E%3Ccircle cx="32" cy="22" r="8" fill="%23F59E0B"/%3E%3Cpath d="M30 14 L34 14 M32 12 L32 16" stroke="%23DC143C" stroke-width="2"/%3E%3C/svg%3E'
-  },
-  {
-    id: 'river-lotus',
-    label: 'Sacred River Lotus',
-    tag: 'Jal Puja Lotus',
-    description: 'Indigenous sacred water flower honoring water deities and river protection.',
-    url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Ccircle cx="32" cy="32" r="30" fill="%23DC143C"/%3E%3Cpath d="M32 16 C38 26 44 34 32 46 C20 34 26 26 32 16 Z" fill="%23FFF"/%3E%3Cpath d="M22 28 C30 32 36 38 24 44 C16 38 18 32 22 28 Z" fill="%23F59E0B"/%3E%3Cpath d="M42 28 C34 32 28 38 40 44 C48 38 46 32 42 28 Z" fill="%23F59E0B"/%3E%3Ccircle cx="32" cy="36" r="4" fill="%23003893"/%3E%3C/svg%3E'
-  },
-  {
-    id: 'moon-sun',
-    label: 'Himalayan Moon & Sun',
-    tag: 'National Pride',
-    description: 'Celestial moon and sun of Nepal representing eternity and community courage.',
-    url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Ccircle cx="32" cy="32" r="30" fill="%231E293B"/%3E%3Ccircle cx="32" cy="32" r="28" fill="%23DC143C" stroke="%23003893" stroke-width="3"/%3E%3Cpath d="M22 26 A 12 12 0 1 0 38 18 A 10 10 0 0 1 22 26 Z" fill="%23FFF"/%3E%3Ccircle cx="34" cy="40" r="8" fill="%23FFF"/%3E%3Cpath d="M34 28 L34 52 M22 40 L46 40" stroke="%23DC143C" stroke-width="2"/%3E%3C/svg%3E'
-  }
-];
 
 export default function AdminAnalyticsAndFaviconSettings({
   showNotification
@@ -584,59 +551,6 @@ export default function AdminAnalyticsAndFaviconSettings({
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* PRESET CULTURAL FAVICONS */}
-        <div className="space-y-3 pt-2">
-          <label className="block text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5 text-blue-600" />
-            <span>Select from Authentic Cultural Favicon Presets (One-Click)</span>
-          </label>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {PRESET_FAVICONS.map((preset) => {
-              const isSelected = currentFavicon === preset.url;
-              return (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => {
-                    setCurrentFavicon(preset.url);
-                    handleSaveFavicon(preset.url);
-                  }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                    isSelected
-                      ? 'border-[#003893] bg-blue-50/70 ring-2 ring-[#003893]/30 shadow-sm'
-                      : 'border-slate-200 bg-slate-50/60 hover:bg-white hover:border-slate-300'
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 p-1 shadow-sm flex items-center justify-center shrink-0">
-                      <img
-                        src={preset.url}
-                        alt={preset.label}
-                        className="w-full h-full object-contain rounded-lg"
-                      />
-                    </div>
-                    {isSelected && (
-                      <span className="p-1 rounded-full bg-[#003893] text-white">
-                        <Check className="w-3 h-3" />
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-blue-700 bg-blue-100/70 px-2 py-0.5 rounded-full inline-block mb-1">
-                      {preset.tag}
-                    </span>
-                    <h4 className="text-xs font-bold text-slate-900">{preset.label}</h4>
-                    <p className="text-[10px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                      {preset.description}
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
           </div>
         </div>
       </div>
