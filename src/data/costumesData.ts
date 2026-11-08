@@ -16,7 +16,7 @@ export const INITIAL_COSTUMES_DATA: CostumeItem[] = [
     description: 'The ancient everyday riverine attire worn by Bote boatmen and fishermen along the Bagmati, Narayani, and Kali Gandaki rivers. The Kachhad is wrapped securely above the knees to allow unrestricted motion when navigating swift river rapids and poling dugout canoes (Ek-Dunge Nau).',
     culturalSignificance: 'Symbol of river mastery and ecological harmony. Designed specifically over centuries for aquatic livelihoods and tropical Terai climate.',
     accessories: ['Bhewa (Cotton Headwrap)', 'Simal Wood Amulet', 'Bamboo Belt Ring', 'Nylon-Cotton Net Bag'],
-    image: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     featured: true
   },
   {
@@ -29,7 +29,7 @@ export const INITIAL_COSTUMES_DATA: CostumeItem[] = [
     description: 'A deeply revered traditional Bote feminine attire featuring a wrapped Gunya ankle skirt, a form-fitted cotton Cholo blouse, and a thick Patuka waist binder that protects the lumbar back during long hours of riverbank net hauling and paddy cultivation.',
     culturalSignificance: 'Represents female resilience, matriarchal river guardianship, and the preservation of indigenous Terai textile craftsmanship.',
     accessories: ['Hansuli (Solid Silver Neck Choker)', 'Bulaki (Gold/Brass Septum Ring)', 'Kalli (Heavy Silver Ankle Cuffs)', 'Potey (Beaded Necklace)'],
-    image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     featured: true
   },
   {
@@ -42,7 +42,7 @@ export const INITIAL_COSTUMES_DATA: CostumeItem[] = [
     description: 'Vibrant festival attire donned during Maghe Sankranti and Sansari Devi Jal Puja. Participants wear sacred white and crimson waistbands adorned with brass bells that chime during rhythmic paddle strokes on the Bagmati River in Karmaiya.',
     culturalSignificance: 'Honors the sacred river spirits and ancestors who pioneered river transportation across Nepal before roads and suspension bridges existed.',
     accessories: ['Peacock Feather Headband', 'Ghunghru (Brass Ankle Bells)', 'Sacred River Clay Tilak', 'Red Ceremonial Ribbon'],
-    image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     featured: true
   },
   {
@@ -55,7 +55,7 @@ export const INITIAL_COSTUMES_DATA: CostumeItem[] = [
     description: 'A magnificent wedding attire steeped in ritual sanctity. The bride is dressed in an auspicious deep scarlet and turmeric-yellow Gunya accented by hand-hammered heirloom silver jewelry passed through three generations.',
     culturalSignificance: 'Sanctifies the union of families and invites blessings from river spirits (Jal Devata) for fertility, abundance, and safe crossings.',
     accessories: ['Chandra-Surya Silver Brooch', 'Kalli Silver Anklets', 'Heirloom Hansuli Collar', 'Red Sindoor Ribbon'],
-    image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     featured: true
   },
   {
@@ -68,7 +68,7 @@ export const INITIAL_COSTUMES_DATA: CostumeItem[] = [
     description: 'Specially constructed gear for night fishing on the Bagmati. Features quick-dry cotton shorts, a water-resistant bamboo fish basket (Khurpa/Tungari) strapped at the hip, and a shoulder-slung woven throw-net (Jal).',
     culturalSignificance: 'Exemplifies the ingenuity of indigenous fishing technology, zero-waste biodegradable gear, and deep ecological knowledge of river currents.',
     accessories: ['Woven Bamboo Tungari Basket', 'Jal (Hand-Knotted Throw Net)', 'River Night Torch', 'Hardened Fish Blade'],
-    image: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     featured: false
   },
   {
@@ -81,7 +81,7 @@ export const INITIAL_COSTUMES_DATA: CostumeItem[] = [
     description: 'Modern executive attire worn by Bote Youth Community Nepal council representatives during district administration meetings in Sarlahi, national indigenous forums in Kathmandu, and cultural symposiums.',
     culturalSignificance: 'Bridges ancestral identity with contemporary civic leadership, asserting the constitutional rights and cultural pride of Bote youth.',
     accessories: ['BYCN Official Emblem Lapel Pin', 'Handwoven Palpali Dhaka Topi', 'National Flag Khada Scarf', 'ID Card Lanyard'],
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png',
     featured: true
   }
 ];

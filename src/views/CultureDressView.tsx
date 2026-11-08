@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { TabType, TraditionalDressItem, CostumeItem } from '../types';
 import { useCommunityData } from '../context/CommunityDataContext';
 import { Award, ArrowRight, CheckCircle, Sparkles, Shirt, Gem, Tag } from 'lucide-react';
+import { resolveAssetUrl } from '../services/storagePersistence';
 
 interface CultureDressViewProps {
   setCurrentTab: (tab: TabType) => void;
@@ -113,7 +114,7 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
             >
               <div className="w-full md:w-72 h-64 rounded-2xl overflow-hidden shadow shrink-0 bg-slate-100 border border-slate-200 relative group">
                 <img
-                  src={costume.image && costume.image.trim() ? costume.image.trim() : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800'}
+                  src={resolveAssetUrl(costume.image && costume.image.trim() && !costume.image.includes('images.unsplash.com') ? costume.image.trim() : '/favicon.svg')}
                   alt={costume.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                 />
@@ -186,7 +187,7 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
             >
               <div className="w-full md:w-64 h-56 rounded-2xl overflow-hidden shadow shrink-0 bg-slate-100 border border-slate-200">
                 <img
-                  src={item.image && item.image.trim() ? item.image.trim() : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800'}
+                  src={resolveAssetUrl(item.image && item.image.trim() && !item.image.includes('images.unsplash.com') ? item.image.trim() : '/favicon.svg')}
                   alt={item.name}
                   className="w-full h-full object-cover"
                 />

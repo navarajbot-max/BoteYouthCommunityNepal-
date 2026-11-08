@@ -11,6 +11,7 @@ import { TabType, LeaderProfile } from '../types';
 import { CULTURAL_TRADITIONS, SCHOLARSHIPS_DATA } from '../data/communityData';
 import { useCommunityData } from '../context/CommunityDataContext';
 import { useTheme } from '../context/ThemeContext';
+import { resolveAssetUrl } from '../services/storagePersistence';
 import { motion } from 'motion/react';
 import {
   ArrowRight,
@@ -425,8 +426,8 @@ export default function HomeView({ setCurrentTab, openCustomizer, onSelectLeader
             <div className="flex gap-3 items-center">
               <div className="w-14 h-16 rounded-lg bg-slate-200 overflow-hidden border border-slate-300 shrink-0">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400"
-                  alt="Member"
+                  src={resolveAssetUrl('/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png')}
+                  alt="Navaraj Bote"
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -22,6 +22,7 @@ import {
   MapPin
 } from 'lucide-react';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { resolveAssetUrl } from '../services/storagePersistence';
 
 export interface MembershipCardData {
   id?: string;
@@ -61,9 +62,11 @@ export default function MembershipIdCard({
   const [currentStatus, setCurrentStatus] = useState<'active' | 'verified' | 'pending'>(member.status || 'active');
 
   const memberId = member.membershipId || member.id || `BYCN-${new Date().getFullYear()}-0000`;
-  const photo = member.photoUrl && member.photoUrl.trim()
-    ? member.photoUrl.trim()
-    : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600';
+  const photo = resolveAssetUrl(
+    member.photoUrl && member.photoUrl.trim()
+      ? member.photoUrl.trim()
+      : '/assets/leader_avatar_placeholder.svg'
+  );
 
   // Real ID Card Image Downloader & Device Saver
   const handleSaveAndDownload = async () => {

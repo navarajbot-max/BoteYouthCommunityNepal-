@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useCommunityData } from '../../context/CommunityDataContext';
 import { RegisteredMember } from '../../types';
+import { resolveAssetUrl } from '../../services/storagePersistence';
 import MembershipIdCard from '../MembershipIdCard';
 import {
   fetchMembersFromFirebase,
@@ -597,10 +598,11 @@ export default function MemberDirectoryView() {
               <tbody className="divide-y divide-slate-100">
                 {filteredMembers.map((member) => {
                   const memberIdCode = member.membershipId || member.id;
-                  const photoSrc =
-                    member.photoUrl && member.photoUrl.trim()
+                  const photoSrc = resolveAssetUrl(
+                    member.photoUrl && member.photoUrl.trim() && !member.photoUrl.includes('images.unsplash.com')
                       ? member.photoUrl.trim()
-                      : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop';
+                      : '/assets/leader_avatar_placeholder.svg'
+                  );
 
                   return (
                     <tr key={member.id} className="hover:bg-blue-50/40 transition">

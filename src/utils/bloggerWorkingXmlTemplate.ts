@@ -52,7 +52,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Youth Leader Chairman',
       term: '2024 — 2027 (3-Year Term)',
       bio: 'Elected Youth Leader Chairman leading Tarahi cultural revitalization, indigenous river conservation, and youth education.',
-      photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png'
     },
     {
       id: '2',
@@ -61,7 +61,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Vice-Chair: Santosh Bote — Vice-Chairman & River Patrol Lead',
       term: '2024 — 2027',
       bio: 'Youth Leader Vice-Chairman & River Patrol Lead coordinating Bagmati river conservation patrols, sports, and canoe racing tournaments.',
-      photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '3',
@@ -70,7 +70,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'General Sec: Puja Bote — General Secretary & Tarahi Documentation Officer',
       term: '2024 — 2027',
       bio: 'Youth General Secretary & Tarahi Documentation Officer responsible for executive records, Tarahi audio lexicon recording, and scholarship filing review.',
-      photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '4',
@@ -79,7 +79,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Treasurer: Anita Bote — Central Treasurer & Women Cooperative Liaison',
       term: '2024 — 2027',
       bio: 'Youth Leader Central Treasurer & Women Cooperative Officer managing central treasury funds, student scholarships, and women cooperative micro-enterprises.',
-      photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '5',
@@ -88,7 +88,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Youth Member & Conservation Lead',
       term: '2024 — 2027',
       bio: 'Executive Youth Member spearheading Saturday river cleanup patrols and language study circles in Karmaiya, Sarlahi.',
-      photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '6',
@@ -97,7 +97,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Community Chairman',
       term: 'Standing Term',
       bio: 'Community elder and chairman of the Central Bote Committee, custodian of customary laws, river rituals, and canoe traditions.',
-      photoUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '7',
@@ -106,7 +106,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Community Vice President',
       term: 'Standing Term',
       bio: 'Community Elder Vice President championing indigenous women rights, sacred herbal river knowledge, and folk folklore preservation.',
-      photoUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '8',
@@ -115,7 +115,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Community Secretary',
       term: 'Standing Term',
       bio: 'Senior Community Secretary coordinating liaison with Bagmati Municipality, land tenure documentation, and inter-district council sessions.',
-      photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '9',
@@ -124,7 +124,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Women Welfare Lead',
       term: 'Standing Term',
       bio: 'Director of Women Welfare and Traditional Handicrafts, leading ancestral reed weaving and cultural dress embroidery workshops.',
-      photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     },
     {
       id: '10',
@@ -133,7 +133,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
       role: 'Culture & River Rituals Custodian',
       term: 'Standing Term',
       bio: 'Master Craftsman of single-log dugout canoes (Ek-Dunge Nau) and head priest for the sacred Jal Puja river ceremonies.',
-      photoUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop'
+      photoUrl: '/assets/leader_avatar_placeholder.svg'
     }
   ];
 

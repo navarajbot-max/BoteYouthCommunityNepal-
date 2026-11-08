@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { LeaderProfile } from '../types';
+import { resolveAssetUrl, getSynchronousCachedAsset } from '../services/storagePersistence';
 import {
   X,
   Shield,
@@ -73,9 +74,18 @@ export default function LeadershipModal({ leader, onClose }: LeadershipModalProp
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 border-b border-slate-100 pb-6">
             <div className="w-28 h-28 rounded-2xl overflow-hidden border-4 border-[#DC143C] shadow-lg shrink-0 bg-slate-100">
               <img
-                src={leader.image && leader.image.trim() ? leader.image.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'}
+                src={resolveAssetUrl(leader.image) || resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                 alt={leader.name}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  const cached = getSynchronousCachedAsset(leader.image);
+                  if (cached && target.src !== cached) {
+                    target.src = cached;
+                  } else {
+                    target.src = resolveAssetUrl('/assets/leader_avatar_placeholder.svg');
+                  }
+                }}
               />
             </div>
             <div className="space-y-3 flex-1 text-center sm:text-left">

@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { TabType, LeaderProfile } from '../types';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { resolveAssetUrl, getSynchronousCachedAsset } from '../services/storagePersistence';
 import {
   Sailboat,
   Waves,
@@ -199,7 +200,7 @@ export default function BentoGridSection({
           <div className="h-36 bg-slate-100 rounded-2xl overflow-hidden relative group my-2">
             <img
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=600"
+              src={resolveAssetUrl('/uploads/header_logo_1789693983380_aok4s.png')}
               alt="Dugout Canoe"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent flex items-end p-3">
@@ -283,11 +284,20 @@ export default function BentoGridSection({
                 onClick={() => onSelectLeader(leader)}
                 className="flex flex-col items-center text-center cursor-pointer group/leader"
               >
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 group-hover/leader:border-red-600 transition-colors shadow-sm mb-1 bg-slate-100">
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 group-hover/leader:border-red-600 transition-colors shadow-sm mb-1 bg-slate-100 flex items-center justify-center">
                   <img
-                    src={leader.image && leader.image.trim() ? leader.image.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'}
+                    src={resolveAssetUrl(leader.image) || resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                     alt={leader.name}
                     className="w-full h-full object-cover group-hover/leader:scale-110 transition-transform"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      const cached = getSynchronousCachedAsset(leader.image);
+                      if (cached && target.src !== cached) {
+                        target.src = cached;
+                      } else {
+                        target.src = resolveAssetUrl('/assets/leader_avatar_placeholder.svg');
+                      }
+                    }}
                   />
                 </div>
                 <p className="text-[11px] font-bold text-slate-900 truncate max-w-full leading-tight">

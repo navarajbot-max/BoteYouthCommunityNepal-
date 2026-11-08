@@ -14,11 +14,15 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // Ensure data and uploads directory exists
 const DATA_DIR = path.join(process.cwd(), 'data');
 const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
+const PUBLIC_UPLOADS_DIR = path.join(process.cwd(), 'public', 'uploads');
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+}
+if (!fs.existsSync(PUBLIC_UPLOADS_DIR)) {
+  fs.mkdirSync(PUBLIC_UPLOADS_DIR, { recursive: true });
 }
 
 const STORE_FILE = path.join(DATA_DIR, 'community_store.json');
@@ -241,11 +245,15 @@ app.get(['/Bote-Youth-Community-Nepal-Blogger-Theme-v3.xml', '/theme-v3.xml', '/
 // Resilient uploaded image and asset serving with auto-rehydration and zero-404 fallbacks
 app.get(['/api/uploads/:filename', '/uploads/:filename'], (req, res) => {
   const filename = req.params.filename;
-  const filePath = path.join(UPLOADS_DIR, filename);
+  const publicFilePath = path.join(PUBLIC_UPLOADS_DIR, filename);
+  const dataFilePath = path.join(UPLOADS_DIR, filename);
 
-  // 1. If present on disk, send directly
-  if (fs.existsSync(filePath)) {
-    return res.sendFile(filePath);
+  // 1. If present on disk in public/uploads or data/uploads, send directly
+  if (fs.existsSync(publicFilePath)) {
+    return res.sendFile(publicFilePath);
+  }
+  if (fs.existsSync(dataFilePath)) {
+    return res.sendFile(dataFilePath);
   }
 
   // 2. Check if manifest has exact dataUrl to rehydrate on-the-fly
@@ -255,7 +263,8 @@ app.get(['/api/uploads/:filename', '/uploads/:filename'], (req, res) => {
       const match = dataUrl.match(/^data:([^;]+);base64,(.+)$/);
       if (match) {
         const buf = Buffer.from(match[2], 'base64');
-        fs.writeFileSync(filePath, buf);
+        try { fs.writeFileSync(publicFilePath, buf); } catch (e) {}
+        try { fs.writeFileSync(dataFilePath, buf); } catch (e) {}
         res.setHeader('Content-Type', mimeType || match[1]);
         return res.send(buf);
       }
@@ -295,16 +304,16 @@ app.get(['/api/uploads/:filename', '/uploads/:filename'], (req, res) => {
   // 4. Default fallbacks if no custom image was found or uploaded
   // IMPORTANT: Individual leader photos belong to specific people and MUST NEVER be cross-served to other leaders.
   if (filename.toLowerCase().includes('logo') || filename.includes('Choose___Upload')) {
-    return res.redirect('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=400&auto=format&fit=crop');
+    return res.redirect('/uploads/header_logo_1789693983380_aok4s.png');
   }
   if (filename.toLowerCase().includes('leader_navaraj') || filename.toLowerCase().includes('navaraj')) {
-    return res.redirect('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600');
+    return res.redirect('/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png');
   }
   if (filename.toLowerCase().includes('leader') || filename.toLowerCase().includes('profile')) {
-    return res.redirect('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop');
+    return res.redirect('/assets/leader_avatar_placeholder.svg');
   }
 
-  return res.redirect('https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=400&auto=format&fit=crop');
+  return res.redirect('/uploads/header_logo_1789693983380_aok4s.png');
 });
 
 // Master admin passcode
@@ -342,8 +351,10 @@ function persistBase64Image(dataUrl: string, prefix = 'img'): string {
     const safePrefix = prefix.replace(/[^a-zA-Z0-9_]/g, '_');
     const filename = `${safePrefix}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
     const filePath = path.join(UPLOADS_DIR, filename);
+    const publicFilePath = path.join(PUBLIC_UPLOADS_DIR, filename);
     const buffer = Buffer.from(match[2], 'base64');
-    fs.writeFileSync(filePath, buffer);
+    try { fs.writeFileSync(filePath, buffer); } catch (e) {}
+    try { fs.writeFileSync(publicFilePath, buffer); } catch (e) {}
 
     // Save into manifest
     uploadsManifest[filename] = {
@@ -353,7 +364,7 @@ function persistBase64Image(dataUrl: string, prefix = 'img'): string {
     };
     saveUploadsManifest();
 
-    return `/api/uploads/${filename}`;
+    return `/uploads/${filename}`;
   } catch (err) {
     console.warn('Failed to persist base64 image to disk:', err);
     return dataUrl;
@@ -389,8 +400,10 @@ function persistBase64File(dataUrl: string, originalName = 'document.pdf', prefi
     const safePrefix = prefix.replace(/[^a-zA-Z0-9_]/g, '_');
     const filename = `${safePrefix}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
     const filePath = path.join(UPLOADS_DIR, filename);
+    const publicFilePath = path.join(PUBLIC_UPLOADS_DIR, filename);
     const buffer = Buffer.from(match[2], 'base64');
-    fs.writeFileSync(filePath, buffer);
+    try { fs.writeFileSync(filePath, buffer); } catch (e) {}
+    try { fs.writeFileSync(publicFilePath, buffer); } catch (e) {}
 
     uploadsManifest[filename] = {
       dataUrl,
@@ -399,7 +412,7 @@ function persistBase64File(dataUrl: string, originalName = 'document.pdf', prefi
     };
     saveUploadsManifest();
 
-    return `/api/uploads/${filename}`;
+    return `/uploads/${filename}`;
   } catch (err) {
     console.warn('Failed to persist base64 file to disk:', err);
     return dataUrl;
@@ -512,12 +525,11 @@ function loadCommunityStore() {
   return null;
 }
 
-const DEFAULT_LOGO_FALLBACK = 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=400&auto=format&fit=crop';
+const DEFAULT_LOGO_FALLBACK = '/uploads/header_logo_1789693983380_aok4s.png';
 const DEFAULT_LEADER_FALLBACKS = [
+  'leader_avatar_placeholder',
   'photo-1534528741775-53994a69daeb',
-  'photo-1507003211169-0a1dd7228f2d',
-  'photo-1500648767791-00dcc994a43e',
-  'photo-1494790108377-be9c29b29330'
+  'photo-1507003211169-0a1dd7228f2d'
 ];
 
 function isCustomImage(url?: string): boolean {

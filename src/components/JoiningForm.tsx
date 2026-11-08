@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useCommunityData } from '../context/CommunityDataContext';
 import { MemberApplication } from '../types';
+import { resolveAssetUrl } from '../services/storagePersistence';
 import MembershipIdCard from './MembershipIdCard';
 import {
   UserCheck,
@@ -59,7 +60,7 @@ export default function JoiningForm() {
     'River Ecology Conservation',
     'Tarahi Language Documentation'
   ]);
-  const [photoUrl, setPhotoUrl] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop');
+  const [photoUrl, setPhotoUrl] = useState('');
 
   const [completedCard, setCompletedCard] = useState<MemberApplication | null>(() => {
     try {
@@ -581,7 +582,7 @@ export default function JoiningForm() {
             <div className="flex flex-col sm:flex-row items-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-200">
               <div className="w-24 h-28 rounded-2xl overflow-hidden border-2 border-[#DC143C] bg-white shadow shrink-0">
                 <img
-                  src={photoUrl && photoUrl.trim() ? photoUrl.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop'}
+                  src={resolveAssetUrl(photoUrl && photoUrl.trim() ? photoUrl.trim() : '/assets/leader_avatar_placeholder.svg')}
                   alt="Candidate Member Preview"
                   className="w-full h-full object-cover"
                 />

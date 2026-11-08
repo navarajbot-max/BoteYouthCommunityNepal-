@@ -68,7 +68,7 @@ export function generateWordPressThemeZip(options: {
   logoUrl: string;
 }): { [filename: string]: string } {
   const { siteName, primaryColor, secondaryColor, logoUrl } = options;
-  const safeLogoUrl = logoUrl && logoUrl.trim() ? logoUrl.trim() : 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=120&auto=format&fit=crop&q=80';
+  const safeLogoUrl = logoUrl && logoUrl.trim() ? logoUrl.trim() : '/uploads/header_logo_1789693983380_aok4s.png';
 
   return {
     'style.css': `/*

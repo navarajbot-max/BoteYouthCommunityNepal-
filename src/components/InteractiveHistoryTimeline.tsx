@@ -25,6 +25,7 @@ import {
   ArrowRight,
   ExternalLink
 } from 'lucide-react';
+import { resolveAssetUrl } from '../services/storagePersistence';
 
 export interface TimelineEvent {
   id: string;
@@ -57,8 +58,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Established the sacred relationship between the Bote people and Nepal’s river ecosystems, strictly forbidding the poisoning of waters.',
     riverLocation: 'Bagmati & Narayani River Basins',
     tag: 'Animist Roots',
-    image:
-      'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     artifacts: ['Clay vermillion pots', 'Choya reed cast-nets', 'Sacred water river offerings']
   },
   {
@@ -75,8 +75,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Recognized Bote boatmen as indispensable state navigators, granting them tax exemptions and autonomous ghat governance.',
     riverLocation: 'Historic River Ghats (Bagmati, Trisuli, Narayani)',
     tag: 'Royal Charters',
-    image:
-      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     artifacts: ['Copper royal seals', 'Traditional ferry oars', 'Customary ghat toll registers']
   },
   {
@@ -93,8 +92,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Created indigenous watercraft capable of safely navigating Class IV rapids carrying cargo, cattle, and dozens of passengers.',
     riverLocation: 'Karmaiya Old Ghat, Sarlahi',
     tag: 'Woodcraft Masterpiece',
-    image:
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     artifacts: ['Iron carving adze (Chari)', 'Simal heartwood', 'Controlled fire-charring tools']
   },
   {
@@ -111,8 +109,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Spurred community introspection and the first grassroots meetings to protect indigenous linguistic identity and land claims.',
     riverLocation: 'Bagmati Highway Crossing, Sarlahi',
     tag: 'Highway Era',
-    image:
-      'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     artifacts: ['Bridge displacement petitions', 'Community savings ledgers', 'Cast nets']
   },
   {
@@ -129,8 +126,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Granted formal constitutional recognition and state provisions for the safeguarding of the Bote language, customs, and educational quotas.',
     riverLocation: 'National Schedule of Nepal',
     tag: 'Constitutional Status',
-    image:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     artifacts: ['NFDIN Gazette', 'Endangered Janajati schedule', 'Tribal registration certs']
   },
   {
@@ -147,8 +143,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Began the creation of the first community-driven Tarahi Bote lexicon and oral folklore audio archives.',
     riverLocation: 'Karmaiya (Sarlahi) & Chitwan Valleys',
     tag: 'Linguistic Heritage',
-    image:
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     artifacts: ['Census records', 'Audio tape reels of elder folktales', 'Tarahi phonetic charts']
   },
   {
@@ -165,8 +160,7 @@ export const HISTORICAL_EVENTS: TimelineEvent[] = [
       'Uniting 10 executive leaders across youth and elder councils to bridge ancestral river reverence with modern professional opportunities.',
     riverLocation: 'Karmaiya, Sarlahi District, Madhesh Province',
     tag: 'Youth Movement',
-    image:
-      'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png',
     artifacts: ['Digital Member Cards', 'University Grant funds', 'River conservation badges']
   }
 ];
@@ -375,7 +369,7 @@ export default function InteractiveHistoryTimeline({
                 <div className="lg:col-span-5 space-y-4 flex flex-col justify-between">
                   <div className="relative rounded-2xl overflow-hidden h-64 sm:h-72 border border-slate-200 shadow-inner group">
                     <img
-                      src={activeEvent.image && activeEvent.image.trim() ? activeEvent.image.trim() : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000'}
+                      src={resolveAssetUrl(activeEvent.image && activeEvent.image.trim() && !activeEvent.image.includes('images.unsplash.com') ? activeEvent.image.trim() : '/favicon.svg')}
                       alt={activeEvent.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />

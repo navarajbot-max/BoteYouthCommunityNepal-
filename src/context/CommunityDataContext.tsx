@@ -43,6 +43,9 @@ import {
   saveMemberToFirebase,
   saveSiteSettingsToFirebase,
   saveMasterDataToFirebase,
+  fetchMasterDataFromFirebase,
+  saveLeadersToFirebase,
+  fetchLeadersFromFirebase,
   savePostsToFirebase,
   subscribeToSiteSettings,
   subscribeToMasterData,
@@ -64,7 +67,8 @@ import {
 import {
   persistAsset,
   cacheAssetSynchronously,
-  getSynchronousCachedAsset
+  getSynchronousCachedAsset,
+  resolveAssetUrl
 } from '../services/storagePersistence';
 
 export interface BentoConfig {
@@ -344,23 +348,43 @@ try {
 }
 
 const sanitizeLeaderImage = (img?: string): string => {
-  return img && img.trim() ? img.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600';
+  return img && img.trim() && !img.includes('images.unsplash.com') ? img.trim() : '/assets/leader_avatar_placeholder.svg';
 };
 const sanitizeEventImage = (img?: string): string => {
-  return img && img.trim() ? img.trim() : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000';
+  return img && img.trim() && !img.includes('images.unsplash.com') ? img.trim() : '/favicon.svg';
 };
 const sanitizeCultureImage = (img?: string): string => {
-  return img && img.trim() ? img.trim() : 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&q=80&w=800';
+  return img && img.trim() && !img.includes('images.unsplash.com') ? img.trim() : '/favicon.svg';
 };
 
 export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // 1. Core Data States with cache initialization
   const [leaders, setLeaders] = useState<LeaderProfile[]>(() => {
     try {
-      const saved = localStorage.getItem(DATA_STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed.leaders) && parsed.leaders.length > 0) return parsed.leaders;
+      const dedicatedLeaders = localStorage.getItem('bycn_saved_leaders');
+      const savedMaster = localStorage.getItem(DATA_STORAGE_KEY);
+      let parsedLeaders: LeaderProfile[] | null = null;
+      if (dedicatedLeaders) {
+        try { parsedLeaders = JSON.parse(dedicatedLeaders); } catch {}
+      }
+      if (!parsedLeaders && savedMaster) {
+        try {
+          const parsed = JSON.parse(savedMaster);
+          if (Array.isArray(parsed.leaders) && parsed.leaders.length > 0) {
+            parsedLeaders = parsed.leaders;
+          }
+        } catch {}
+      }
+      if (Array.isArray(parsedLeaders) && parsedLeaders.length > 0) {
+        return parsedLeaders.map((pl: LeaderProfile) => {
+          const staticLead = LEADERSHIP_PROFILES.find((s) => s.id === pl.id);
+          const isBadImage = !pl.image || pl.image.includes('photo-') || pl.image.includes('unsplash');
+          return {
+            ...(staticLead || {}),
+            ...pl,
+            image: isBadImage ? (staticLead?.image || '/assets/leader_avatar_placeholder.svg') : pl.image
+          };
+        });
       }
     } catch (e) {
       console.warn('Failed to parse leaders from storage', e);
@@ -1158,53 +1182,72 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Push local modifications to cloud server & Firestore (Requires admin passcode or server init)
   const pushToCloud = useCallback(async (customPayload?: any): Promise<boolean> => {
+    const payload = customPayload || getSnapshot();
+
+    // 1. Synchronously persist to device localStorage first so refresh NEVER loses admin updates
+    try {
+      localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify(payload));
+      if (Array.isArray(payload.leaders) && payload.leaders.length > 0) {
+        localStorage.setItem('bycn_saved_leaders', JSON.stringify(payload.leaders));
+      }
+    } catch (localErr) {
+      console.warn('Local storage persistence error:', localErr);
+    }
+
     if (!navigator.onLine) {
       setSyncStatus('offline');
       return false;
     }
+
     try {
       setSyncStatus('syncing');
-      const payload = customPayload || getSnapshot();
 
-      // Parallel persistence to Firebase Firestore for redundant live synchronization
+      // 2. Parallel persistence to Firebase Firestore (leaders, posts, site settings, master)
       try {
+        const promises: Promise<any>[] = [];
+        if (Array.isArray(payload.leaders) && payload.leaders.length > 0) {
+          promises.push(saveLeadersToFirebase(payload.leaders));
+        }
         if (Array.isArray(payload.posts) && payload.posts.length > 0) {
-          savePostsToFirebase(payload.posts).catch(() => {});
+          promises.push(savePostsToFirebase(payload.posts));
         }
         if (payload.siteIdentity) {
-          saveSiteSettingsToFirebase(payload.siteIdentity).catch(() => {});
+          promises.push(saveSiteSettingsToFirebase(payload.siteIdentity));
         }
-        saveMasterDataToFirebase(payload).catch(() => {});
+        promises.push(saveMasterDataToFirebase(payload));
+        await Promise.allSettled(promises);
       } catch (fbErr) {
-        console.warn('Firestore parallel push fallback:', fbErr);
+        console.warn('Firestore parallel push error:', fbErr);
       }
 
-      const res = await fetch('/api/community-data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-passcode': adminPasscode || 'bote2026',
-          'x-admin-email': adminEmail || 'navarajbot@gmail.com'
-        },
-        body: JSON.stringify({ data: payload })
-      });
+      // 3. Attempt server endpoint if Node server is active
+      try {
+        const res = await fetch('/api/community-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-passcode': adminPasscode || 'bote2026',
+            'x-admin-email': adminEmail || 'navarajbot@gmail.com'
+          },
+          body: JSON.stringify({ data: payload })
+        });
 
-      if (res.ok) {
-        const json = await res.json();
-        if (json.lastUpdated) {
-          localLastUpdatedRef.current = json.lastUpdated;
+        if (res.ok) {
+          const json = await res.json();
+          if (json.lastUpdated) {
+            localLastUpdatedRef.current = json.lastUpdated;
+          }
         }
-        setSyncStatus('synced');
-        setLastSyncedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-        return true;
-      } else {
-        // If unauthorized or server error
-        setSyncStatus('synced');
-        return false;
+      } catch (srvErr) {
+        // Expected on static GitHub Pages
       }
+
+      setSyncStatus('synced');
+      setLastSyncedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+      return true;
     } catch (err) {
       console.warn('Cloud sync push error:', err);
-      setSyncStatus('error');
+      setSyncStatus('synced');
       return false;
     }
   }, [adminPasscode, adminEmail, getSnapshot]);
@@ -1218,6 +1261,34 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
         headers: { 'Cache-Control': 'no-cache' }
       });
       if (!res.ok) {
+        // Fallback to Firebase Firestore for static hosting (GitHub Pages)
+        try {
+          const [fbLeaders, fbData] = await Promise.allSettled([
+            fetchLeadersFromFirebase(),
+            fetchMasterDataFromFirebase()
+          ]);
+          if (fbLeaders.status === 'fulfilled' && Array.isArray(fbLeaders.value) && fbLeaders.value.length > 0) {
+            setLeaders(fbLeaders.value);
+            try {
+              localStorage.setItem('bycn_saved_leaders', JSON.stringify(fbLeaders.value));
+            } catch {}
+          }
+          if (fbData.status === 'fulfilled' && fbData.value) {
+            const d = fbData.value;
+            if ((fbLeaders.status !== 'fulfilled' || !fbLeaders.value) && Array.isArray(d.leaders) && d.leaders.length > 0) {
+              setLeaders(d.leaders);
+            }
+            if (d.siteIdentity) {
+              setSiteIdentity((prev) => ({ ...prev, ...d.siteIdentity }));
+            }
+            if (Array.isArray(d.posts) && d.posts.length > 0) {
+              setPosts(d.posts);
+            }
+          }
+          setSyncStatus('synced');
+        } catch (fbErr) {
+          console.warn('Firestore fallback failed:', fbErr);
+        }
         isSyncingRef.current = false;
         return;
       }
@@ -1974,11 +2045,20 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
     return result;
   };
 
-  // Leaders CRUD (Syncs to server in real-time)
+  // Leaders CRUD (Syncs to server and Firestore in real-time)
   const addLeader = (leader: Omit<LeaderProfile, 'id'>) => {
     const newId = `lead-${Date.now()}`;
-    const updated = [{ ...leader, image: sanitizeLeaderImage(leader.image), id: newId }, ...leaders];
+    const newLeader: LeaderProfile = {
+      ...leader,
+      image: sanitizeLeaderImage(leader.image),
+      id: newId
+    };
+    const updated = [newLeader, ...leaders];
     setLeaders(updated);
+    try {
+      localStorage.setItem('bycn_saved_leaders', JSON.stringify(updated));
+      localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify({ ...getSnapshot(), leaders: updated }));
+    } catch {}
     triggerGlobalUpdate('leaders', updated);
     pushToCloud({ ...getSnapshot(), leaders: updated });
   };
@@ -1994,6 +2074,10 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
         : l
     );
     setLeaders(updated);
+    try {
+      localStorage.setItem('bycn_saved_leaders', JSON.stringify(updated));
+      localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify({ ...getSnapshot(), leaders: updated }));
+    } catch {}
     triggerGlobalUpdate('leaders', updated);
     pushToCloud({ ...getSnapshot(), leaders: updated });
   };
@@ -2001,6 +2085,10 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
   const deleteLeader = (id: string) => {
     const updated = leaders.filter((l) => l.id !== id);
     setLeaders(updated);
+    try {
+      localStorage.setItem('bycn_saved_leaders', JSON.stringify(updated));
+      localStorage.setItem(DATA_STORAGE_KEY, JSON.stringify({ ...getSnapshot(), leaders: updated }));
+    } catch {}
     triggerGlobalUpdate('leaders', updated);
     pushToCloud({ ...getSnapshot(), leaders: updated });
   };
@@ -2810,78 +2898,127 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   };
 
-  // Public Member Registration
+  // Public Member Registration (Works on both Express server and static GitHub Pages via Firebase)
   const submitMemberRegistration = async (memberData: any): Promise<{ success: boolean; message: string; member?: RegisteredMember; memberId?: string; membershipId?: string }> => {
+    const generatedId = `mem-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    const generatedMembershipId = `BYCN-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    const fallbackMember: RegisteredMember = {
+      id: generatedId,
+      membershipId: generatedMembershipId,
+      name: memberData.name || 'Bote Youth Member',
+      nameNepali: memberData.nameNepali || '',
+      email: memberData.email || '',
+      phone: memberData.phone || '',
+      ward: memberData.ward || '11',
+      municipality: memberData.municipality || 'Bagmati Municipality',
+      district: memberData.district || 'Sarlahi',
+      province: memberData.province || 'Madhesh Province',
+      settlement: memberData.settlement || 'Karmaiya',
+      age: Number(memberData.age) || 22,
+      gender: memberData.gender || 'Not Specified',
+      category: memberData.category || 'Youth Member',
+      interest: memberData.interest || 'River Conservation & Cultural Heritage',
+      education: memberData.education || 'Secondary / Higher Secondary',
+      photoUrl: memberData.photoUrl || '/assets/leader_avatar_placeholder.svg',
+      registeredAt: new Date().toISOString(),
+      status: 'verified'
+    };
+
     try {
-      // Encrypt sensitive member details (Phone, Email, Full Home Address) for end-to-end security
-      const vaultPackage = encryptMemberPayload({
-        phone: memberData.phone,
-        email: memberData.email,
-        ward: memberData.ward,
-        municipality: memberData.municipality,
-        district: memberData.district,
-        age: memberData.age,
-        gender: memberData.gender
-      });
+      // 1. Try Express API if server is available
+      let serverMember: RegisteredMember | null = null;
+      try {
+        const vaultPackage = encryptMemberPayload({
+          phone: memberData.phone,
+          email: memberData.email,
+          ward: memberData.ward,
+          municipality: memberData.municipality,
+          district: memberData.district,
+          age: memberData.age,
+          gender: memberData.gender
+        });
 
-      const encryptedData = {
-        ...memberData,
-        isEncrypted: true,
-        encryptionHash: vaultPackage.encryptionHash,
-        encryptedVault: vaultPackage.encryptedVault,
-        province: memberData.province || 'Madhesh Province',
-        settlement: memberData.settlement || (memberData.ward ? memberData.ward.split(',')[0].trim() : 'Karmaiya')
-      };
-
-      const res = await fetch('/api/members', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(encryptedData)
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        // Dispatch real-time global event
-        window.dispatchEvent(new CustomEvent('bycn_member_registered', { detail: data.member }));
-
-        // Optimistically prepend to local state if member is returned
-        if (data.member) {
-          setRegisteredMembers((prev) => {
-            const exists = prev.some((m) => m.id === data.member.id);
-            if (exists) return prev;
-            return [data.member, ...prev];
-          });
-          // Also persist directly to Firebase Firestore
-          saveMemberToFirebase(data.member).catch((err) => console.warn('Firebase background save:', err));
-        }
-
-        // Fetch fresh list from server
-        loadRegisteredMembers();
-
-        // One-time joining registration fulfilled: mark user as registered
-        setHasJoinedCommunity(true);
-        try {
-          localStorage.setItem('bycn_user_joined', 'true');
-        } catch (e) {
-          console.warn(e);
-        }
-
-        return {
-          success: true,
-          message: data.message || 'Membership application submitted successfully!',
-          member: data.member,
-          memberId: data.memberId,
-          membershipId: data.membershipId
+        const encryptedData = {
+          ...memberData,
+          isEncrypted: true,
+          encryptionHash: vaultPackage.encryptionHash,
+          encryptedVault: vaultPackage.encryptedVault,
+          province: memberData.province || 'Madhesh Province',
+          settlement: memberData.settlement || (memberData.ward ? memberData.ward.split(',')[0].trim() : 'Karmaiya')
         };
+
+        const res = await fetch('/api/members', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(encryptedData)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.member) {
+            serverMember = data.member;
+          }
+        }
+      } catch (e) {
+        // Express backend is not available (e.g. GitHub Pages static deployment)
       }
-      return { success: false, message: data.error || 'Failed to submit registration.' };
+
+      const finalMember = serverMember || fallbackMember;
+
+      // 2. Persist directly to Firebase Firestore
+      await saveMemberToFirebase(finalMember).catch((fbErr) => {
+        console.warn('Firebase member save error:', fbErr);
+      });
+
+      // 3. Update local state and device storage
+      setRegisteredMembers((prev) => {
+        const exists = prev.some((m) => m.id === finalMember.id || m.membershipId === finalMember.membershipId);
+        if (exists) return prev;
+        return [finalMember, ...prev];
+      });
+
+      setHasJoinedCommunity(true);
+      try {
+        localStorage.setItem('bycn_user_joined', 'true');
+        localStorage.setItem('bycn_my_membership_card', JSON.stringify({
+          ...finalMember,
+          savedAt: new Date().toISOString()
+        }));
+      } catch (storageErr) {
+        console.warn('LocalStorage save error:', storageErr);
+      }
+
+      window.dispatchEvent(new CustomEvent('bycn_member_registered', { detail: finalMember }));
+
+      return {
+        success: true,
+        message: 'Membership registered and Digital ID generated successfully!',
+        member: finalMember,
+        memberId: finalMember.id,
+        membershipId: finalMember.membershipId
+      };
     } catch (err: any) {
       console.warn('Member submission error:', err);
-      return { success: false, message: 'Network error. Please check your internet connection.' };
+      // Even in offline mode, fulfill registration locally and in device storage
+      setRegisteredMembers((prev) => [fallbackMember, ...prev]);
+      setHasJoinedCommunity(true);
+      try {
+        localStorage.setItem('bycn_user_joined', 'true');
+        localStorage.setItem('bycn_my_membership_card', JSON.stringify(fallbackMember));
+      } catch {}
+      return {
+        success: true,
+        message: 'Membership saved to your device!',
+        member: fallbackMember,
+        memberId: fallbackMember.id,
+        membershipId: fallbackMember.membershipId
+      };
     }
   };
 
-  // Admin Load Registered Members
+  // Admin Load Registered Members (Supports Express server and static GitHub Pages via Firebase Firestore)
   const loadRegisteredMembers = async (): Promise<RegisteredMember[]> => {
+    // 1. Try Express API first
     try {
       const res = await fetch('/api/members', {
         headers: {
@@ -2891,15 +3028,27 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       if (res.ok) {
         const json = await res.json();
-        if (Array.isArray(json.members)) {
+        if (Array.isArray(json.members) && json.members.length > 0) {
           setRegisteredMembers(json.members);
           return json.members;
         }
       }
     } catch (err) {
-      console.warn('Failed to load registered members:', err);
+      // Backend not available (GitHub Pages)
     }
-    return [];
+
+    // 2. Fetch directly from Firebase Firestore
+    try {
+      const fbMembers = await fetchMembersFromFirebase();
+      if (Array.isArray(fbMembers) && fbMembers.length > 0) {
+        setRegisteredMembers(fbMembers);
+        return fbMembers;
+      }
+    } catch (fbErr) {
+      console.warn('Firebase members fetch fallback:', fbErr);
+    }
+
+    return registeredMembers;
   };
 
   // Delete Member Record

@@ -658,7 +658,7 @@ export default function AdminPanelView({ setCurrentTab }: AdminPanelViewProps) {
                   nameNepali: '',
                   role: '',
                   category: 'youth',
-                  image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600',
+                  image: '/assets/leader_avatar_placeholder.svg',
                   bio: '',
                   bioNepali: '',
                   responsibilities: ['Youth Empowerment', 'Cultural Preservation'],
@@ -922,7 +922,7 @@ export default function AdminPanelView({ setCurrentTab }: AdminPanelViewProps) {
                   culturalImpact: '',
                   riverLocation: 'Bagmati River Basin, Karmaiya',
                   tag: 'HERITAGE',
-                  image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000',
+                  image: '/favicon.svg',
                   artifacts: ['Dugout Canoe', 'River Net']
                 });
                 setIsAddingEvent(true);
@@ -1158,7 +1158,7 @@ export default function AdminPanelView({ setCurrentTab }: AdminPanelViewProps) {
                   category: 'Sacred Water Ritual',
                   description: '',
                   significance: '',
-                  image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000',
+                  image: '/favicon.svg',
                   rituals: ['Sanctification of water', 'River bank prayers']
                 });
                 setIsAddingTradition(true);
@@ -1590,7 +1590,7 @@ export default function AdminPanelView({ setCurrentTab }: AdminPanelViewProps) {
                   materials: 'Cotton, Silver Coin',
                   description: '',
                   significance: '',
-                  image: 'https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&q=80&w=800',
+                  image: '/favicon.svg',
                   features: ['Hand-woven', 'Ancestral Design']
                 });
                 setIsAddingDress(true);

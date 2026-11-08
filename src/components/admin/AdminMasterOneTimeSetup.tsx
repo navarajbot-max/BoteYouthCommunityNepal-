@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { useCommunityData } from '../../context/CommunityDataContext';
 import { useTheme } from '../../context/ThemeContext';
+import { resolveAssetUrl, getSynchronousCachedAsset } from '../../services/storagePersistence';
 import { DEFAULT_LOGO_URL } from '../../data/communityData';
 import { LeaderProfile, TimelineEvent, TraditionalDressItem, CostumeItem, DictionaryWord, CommunityMetric } from '../../types';
 
@@ -114,12 +115,12 @@ export default function AdminMasterOneTimeSetup({ onNavigateToPublic }: AdminMas
     },
     {
       name: 'Bagmati River & Canoe Crest',
-      url: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=250',
+      url: '/uploads/header_logo_1789693983380_aok4s.png',
       badge: 'River Heritage'
     },
     {
       name: 'Indigenous Terai Youth Shield',
-      url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
+      url: '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png',
       badge: 'Youth Shield'
     }
   ];
@@ -727,11 +728,17 @@ export default function AdminMasterOneTimeSetup({ onNavigateToPublic }: AdminMas
                     {/* Leader Photo with Live Upload */}
                     <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-200 border border-slate-300 group">
                       <img
-                        src={leader.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'}
+                        src={resolveAssetUrl(leader.image) || resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                         alt={leader.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600';
+                          const target = e.target as HTMLImageElement;
+                          const cached = getSynchronousCachedAsset(leader.image);
+                          if (cached && target.src !== cached) {
+                            target.src = cached;
+                          } else {
+                            target.src = resolveAssetUrl('/assets/leader_avatar_placeholder.svg');
+                          }
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-end p-3 text-white">
@@ -848,11 +855,11 @@ export default function AdminMasterOneTimeSetup({ onNavigateToPublic }: AdminMas
                 >
                   <div className="w-full md:w-44 h-32 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-300 relative group">
                     <img
-                      src={evt.image || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000'}
+                      src={resolveAssetUrl(evt.image) || resolveAssetUrl('/favicon.svg')}
                       alt={evt.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=1000';
+                        (e.target as HTMLImageElement).src = resolveAssetUrl('/favicon.svg');
                       }}
                     />
                     <label className="absolute bottom-1 right-1 cursor-pointer p-1.5 rounded-lg bg-black/70 hover:bg-black text-white text-[9px] font-bold transition flex items-center gap-1">
@@ -961,11 +968,11 @@ export default function AdminMasterOneTimeSetup({ onNavigateToPublic }: AdminMas
                   <div className="space-y-3">
                     <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-200 border border-slate-300 group">
                       <img
-                        src={dress.image || 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&q=80&w=800'}
+                        src={resolveAssetUrl(dress.image) || resolveAssetUrl('/favicon.svg')}
                         alt={dress.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&q=80&w=800';
+                          (e.target as HTMLImageElement).src = resolveAssetUrl('/favicon.svg');
                         }}
                       />
                       <label className="absolute top-2 right-2 cursor-pointer p-1.5 rounded-xl bg-white/90 hover:bg-white text-slate-800 shadow-md transition flex items-center gap-1 text-[10px] font-bold">

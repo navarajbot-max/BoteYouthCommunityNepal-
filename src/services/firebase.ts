@@ -17,7 +17,7 @@ import {
   Firestore,
   Unsubscribe
 } from 'firebase/firestore';
-import { RegisteredMember, KarmaiyaCentralOfficeDetails, CommunityPost, CommunityNotification, CommunityPollConfig } from '../types';
+import { RegisteredMember, KarmaiyaCentralOfficeDetails, CommunityPost, CommunityNotification, CommunityPollConfig, LeaderProfile } from '../types';
 
 export const firebaseConfig = {
   projectId: "intrepid-container-dghtt",
@@ -376,6 +376,47 @@ export function subscribeToMasterData(
   } catch (err) {
     console.warn('Failed to subscribe to master content in Firestore:', err);
     return () => {};
+  }
+}
+
+export const LEADERS_DOC_ID = 'leaders_data';
+
+/**
+ * Save Leaders list directly to Firestore (community_content/leaders_data)
+ */
+export async function saveLeadersToFirebase(leaders: LeaderProfile[]): Promise<boolean> {
+  try {
+    const firestore = getFirestoreDb();
+    const docRef = doc(firestore, CONTENT_COLLECTION, LEADERS_DOC_ID);
+    await setDoc(docRef, {
+      leaders,
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
+    return true;
+  } catch (err) {
+    console.warn('Error saving leaders to Firebase Firestore:', err);
+    return false;
+  }
+}
+
+/**
+ * Fetch Leaders list directly from Firestore
+ */
+export async function fetchLeadersFromFirebase(): Promise<LeaderProfile[] | null> {
+  try {
+    const firestore = getFirestoreDb();
+    const docRef = doc(firestore, CONTENT_COLLECTION, LEADERS_DOC_ID);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      if (Array.isArray(data?.leaders) && data.leaders.length > 0) {
+        return data.leaders as LeaderProfile[];
+      }
+    }
+    return null;
+  } catch (err) {
+    console.warn('Error fetching leaders from Firebase Firestore:', err);
+    return null;
   }
 }
 

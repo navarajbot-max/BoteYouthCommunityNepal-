@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCommunityData } from '../../context/CommunityDataContext';
 import { RegisteredMember } from '../../types';
+import { resolveAssetUrl } from '../../services/storagePersistence';
 import MembershipIdCard from '../MembershipIdCard';
 import {
   Users,
@@ -477,7 +478,7 @@ export default function AdminMembersManager() {
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
                               <img
-                                src={member.photoUrl && member.photoUrl.trim() ? member.photoUrl.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop'}
+                                src={member.photoUrl && member.photoUrl.trim() && !member.photoUrl.includes('images.unsplash.com') ? resolveAssetUrl(member.photoUrl.trim()) : resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                                 alt={member.name}
                                 className="w-full h-full object-cover"
                               />
@@ -663,7 +664,7 @@ export default function AdminMembersManager() {
                     <div className="flex items-start gap-3">
                       <div className="w-12 h-14 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
                         <img
-                          src={member.photoUrl && member.photoUrl.trim() ? member.photoUrl.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'}
+                          src={member.photoUrl && member.photoUrl.trim() && !member.photoUrl.includes('images.unsplash.com') ? resolveAssetUrl(member.photoUrl.trim()) : resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                           alt={member.name}
                           className="w-full h-full object-cover"
                         />
@@ -845,7 +846,7 @@ export default function AdminMembersManager() {
               <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-200">
                 <div className="w-14 h-14 rounded-xl overflow-hidden bg-white border border-slate-200 shrink-0">
                   <img
-                    src={inspectVaultMember.photoUrl && inspectVaultMember.photoUrl.trim() ? inspectVaultMember.photoUrl.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop'}
+                    src={inspectVaultMember.photoUrl && inspectVaultMember.photoUrl.trim() && !inspectVaultMember.photoUrl.includes('images.unsplash.com') ? resolveAssetUrl(inspectVaultMember.photoUrl.trim()) : resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                     alt={inspectVaultMember.name}
                     className="w-full h-full object-cover"
                   />

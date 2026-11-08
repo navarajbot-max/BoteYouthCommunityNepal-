@@ -199,3 +199,83 @@ export function getSynchronousCachedAsset(key: string): string | null {
     return null;
   }
 }
+
+/**
+ * Detect runtime base prefix for subfolder deployments (e.g. GitHub Pages https://user.github.io/repo-name/)
+ */
+export function getAppBasePrefix(): string {
+  if (typeof window === 'undefined') return '';
+  const pathname = window.location.pathname;
+  if (window.location.hostname.endsWith('github.io')) {
+    const parts = pathname.split('/').filter(Boolean);
+    if (parts.length > 0) {
+      const repo = parts[0].replace(/\/$/, '');
+      if (repo && !repo.includes('.')) {
+        return `/${repo}`;
+      }
+    }
+  }
+  const rawBase = (typeof import.meta !== 'undefined' && (import.meta as any).env?.BASE_URL) || '';
+  if (rawBase && rawBase !== './' && rawBase !== '.' && rawBase !== '/') {
+    return rawBase.replace(/\/$/, '');
+  }
+  return '';
+}
+
+/**
+ * Resolves an asset URL (whether from local uploads, full remote URL, or base64)
+ * to a browser-compatible path that works seamlessly on BOTH:
+ * 1. Dev / fullstack server (localhost:3000)
+ * 2. Static GitHub Pages (https://<username>.github.io/<repo>/)
+ */
+export function resolveAssetUrl(url?: string | null): string {
+  if (!url || typeof url !== 'string') return '';
+  const trimmed = url.trim();
+  if (!trimmed) return '';
+
+  // Data URLs, blobs, or external HTTPS URLs
+  if (
+    trimmed.startsWith('data:') ||
+    trimmed.startsWith('blob:') ||
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://')
+  ) {
+    return trimmed;
+  }
+
+  // Check synchronous cache first
+  const cached = getSynchronousCachedAsset(trimmed);
+  if (cached) return cached;
+
+  const prefix = getAppBasePrefix();
+
+  // If already prefixed with GitHub repo path, return as is
+  if (prefix && trimmed.startsWith(prefix)) {
+    return trimmed;
+  }
+
+  // Handle uploaded images from server or public folder
+  if (
+    trimmed.startsWith('/api/uploads/') ||
+    trimmed.startsWith('/uploads/') ||
+    trimmed.startsWith('api/uploads/') ||
+    trimmed.startsWith('uploads/')
+  ) {
+    const filename = trimmed.replace(/^\/?(api\/)?uploads\//, '');
+    const filenameCached = getSynchronousCachedAsset(filename);
+    if (filenameCached) return filenameCached;
+
+    if (prefix) {
+      return `${prefix}/uploads/${filename}`;
+    }
+    return `/uploads/${filename}`;
+  }
+
+  // Handle static assets in public/assets or public/favicon.svg
+  const cleanPath = trimmed.replace(/^\/+/, '');
+  if (prefix) {
+    return `${prefix}/${cleanPath}`;
+  }
+
+  return `/${cleanPath}`;
+}

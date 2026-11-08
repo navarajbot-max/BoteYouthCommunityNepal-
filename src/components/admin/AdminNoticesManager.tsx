@@ -126,7 +126,7 @@ export default function AdminNoticesManager() {
     setMeetingMinutes('');
     setFiles([]);
     setPhotos([]);
-    setEventBanner('https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&auto=format&fit=crop&q=80');
+    setEventBanner('/uploads/header_logo_1789693983380_aok4s.png');
     setEventStartDate(new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0]);
     setEventEndDate(new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0]);
     setEventVenue('Karmaiya, Sarlahi District, Madhesh Province');
@@ -1191,7 +1191,7 @@ export default function AdminNoticesManager() {
                         type="url"
                         value={eventBanner}
                         onChange={(e) => setEventBanner(e.target.value)}
-                        placeholder="https://images.unsplash.com/..."
+                        placeholder="/uploads/banner.jpg or https://..."
                         className="w-full px-3 py-1.5 rounded-lg border border-purple-300 text-xs bg-white"
                       />
                     </div>

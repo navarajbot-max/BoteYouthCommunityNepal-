@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { TabType } from '../types';
 import { useCommunityData } from '../context/CommunityDataContext';
 import { Anchor, Sparkles, Music, Volume2, VolumeX, ArrowRight } from 'lucide-react';
+import { resolveAssetUrl } from '../services/storagePersistence';
 
 interface CulturesViewProps {
   setCurrentTab: (tab: TabType) => void;
@@ -89,7 +90,7 @@ export default function CulturesView({ setCurrentTab }: CulturesViewProps) {
           >
             <div className="w-full md:w-56 h-48 rounded-2xl overflow-hidden shadow shrink-0 bg-slate-100 border border-slate-200">
               <img
-                src={trad.image && trad.image.trim() ? trad.image.trim() : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800'}
+                src={resolveAssetUrl(trad.image && trad.image.trim() && !trad.image.includes('images.unsplash.com') ? trad.image.trim() : '/favicon.svg')}
                 alt={trad.title}
                 className="w-full h-full object-cover"
               />

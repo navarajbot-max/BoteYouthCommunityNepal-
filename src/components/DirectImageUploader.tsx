@@ -5,7 +5,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { UploadCloud, Image as ImageIcon, Trash2, RefreshCw, CheckCircle2 } from 'lucide-react';
-import { persistAsset, cacheAssetSynchronously, getSynchronousCachedAsset } from '../services/storagePersistence';
+import { persistAsset, cacheAssetSynchronously, getSynchronousCachedAsset, resolveAssetUrl } from '../services/storagePersistence';
 import { DEFAULT_LOGO_URL } from '../data/communityData';
 
 interface DirectImageUploaderProps {
@@ -223,7 +223,7 @@ export default function DirectImageUploader({
         <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 p-3 flex flex-col sm:flex-row items-center gap-4">
           <div className={`${aspectClass} overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm shrink-0 flex items-center justify-center`}>
             <img
-              src={safeValue}
+              src={resolveAssetUrl(safeValue)}
               alt={label}
               className="w-full h-full object-cover"
               onError={(e) => {

@@ -47,7 +47,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Youth Leader Chairman',
     term: '2024 — 2027 (3-Year Term)',
     bio: 'Elected Youth Leader Chairman leading Tarahi cultural revitalization, indigenous river conservation, and youth education.',
-    photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png',
     colorRibbon: '#DC143C'
   },
   {
@@ -57,7 +57,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Vice-Chair: Santosh Bote — Vice-Chairman & River Patrol Lead',
     term: '2024 — 2027',
     bio: 'Youth Leader Vice-Chairman & River Patrol Lead coordinating Bagmati river conservation patrols, sports, and canoe racing tournaments.',
-    photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#DC143C'
   },
   {
@@ -67,7 +67,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'General Sec: Puja Bote — General Secretary & Tarahi Documentation Officer',
     term: '2024 — 2027',
     bio: 'Youth General Secretary & Tarahi Documentation Officer responsible for executive records, Tarahi audio lexicon recording, and scholarship filing review.',
-    photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#003893'
   },
   {
@@ -77,7 +77,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Treasurer: Anita Bote — Central Treasurer & Women Cooperative Liaison',
     term: '2024 — 2027',
     bio: 'Youth Leader Central Treasurer & Women Cooperative Officer managing central treasury funds, student scholarships, and women cooperative micro-enterprises.',
-    photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#F59E0B'
   },
   {
@@ -87,7 +87,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Youth Member & Conservation Lead',
     term: '2024 — 2027',
     bio: 'Executive Youth Member spearheading Saturday river cleanup patrols and language study circles in Karmaiya, Sarlahi.',
-    photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#003893'
   },
   {
@@ -97,7 +97,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Community Chairman',
     term: 'Standing Term',
     bio: 'Community elder and chairman of the Central Bote Committee, custodian of customary laws and canoe traditions.',
-    photoUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#F59E0B'
   },
   {
@@ -107,7 +107,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Community Vice President',
     term: 'Standing Term',
     bio: 'Community Elder Vice President championing indigenous women rights, sacred herbal river knowledge, and folk folklore preservation.',
-    photoUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#DC143C'
   },
   {
@@ -117,7 +117,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Community Secretary',
     term: 'Standing Term',
     bio: 'Senior Community Secretary coordinating liaison with Bagmati Municipality, land tenure documentation, and inter-district council sessions.',
-    photoUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#003893'
   },
   {
@@ -127,7 +127,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Women Welfare Lead',
     term: 'Standing Term',
     bio: 'Director of Women Welfare and Traditional Handicrafts, leading ancestral reed weaving and cultural dress embroidery workshops.',
-    photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#DC143C'
   },
   {
@@ -137,7 +137,7 @@ const INITIAL_LEADERS: LeaderItem[] = [
     role: 'Culture & River Rituals Custodian',
     term: 'Standing Term',
     bio: 'Master Craftsman of single-log dugout canoes (Ek-Dunge Nau) and head priest for the sacred Jal Puja river ceremonies.',
-    photoUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&auto=format&fit=crop&q=80',
+    photoUrl: '/assets/leader_avatar_placeholder.svg',
     colorRibbon: '#003893'
   }
 ];
@@ -194,7 +194,7 @@ export default function BloggerAdminPanelManager() {
       role: 'Executive Member',
       term: '2024 — 2027',
       bio: 'Edit this profile in Blogger Layout table to update role, term, bio, and photo.',
-      photoUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=300&auto=format&fit=crop&q=80',
+      photoUrl: '/assets/leader_avatar_placeholder.svg',
       colorRibbon: '#DC143C'
     };
     setLeaders([...leaders, newLeader]);
@@ -804,7 +804,7 @@ ${leaders
                     <td className="p-3">
                       <label className="cursor-pointer group relative block w-10 h-10 rounded-xl overflow-hidden border border-slate-300 shadow-sm" title="Click to upload leader photo from device">
                         <img
-                          src={leader.photoUrl && leader.photoUrl.trim() ? leader.photoUrl.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80'}
+                          src={leader.photoUrl && leader.photoUrl.trim() && !leader.photoUrl.includes('images.unsplash.com') ? leader.photoUrl.trim() : '/assets/leader_avatar_placeholder.svg'}
                           alt={leader.name}
                           className="w-full h-full object-cover group-hover:opacity-70 transition-opacity"
                         />

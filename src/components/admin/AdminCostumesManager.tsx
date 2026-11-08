@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useCommunityData } from '../../context/CommunityDataContext';
 import { CostumeItem } from '../../types';
 import DirectImageUploader from '../DirectImageUploader';
+import { resolveAssetUrl } from '../../services/storagePersistence';
 import { Plus, Edit3, Trash2, Shirt, Tag, Check, Sparkles, Search, CheckCircle } from 'lucide-react';
 
 export default function AdminCostumesManager() {
@@ -36,7 +37,7 @@ export default function AdminCostumesManager() {
     fabric: 'Hand-woven Indigenous Cotton',
     description: '',
     culturalSignificance: '',
-    image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800',
+    image: '/favicon.svg',
     accessories: []
   };
 
@@ -175,7 +176,7 @@ export default function AdminCostumesManager() {
             <div className="space-y-3">
               <div className="h-48 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 relative">
                 <img
-                  src={c.image && c.image.trim() ? c.image.trim() : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800'}
+                  src={resolveAssetUrl(c.image && c.image.trim() && !c.image.includes('images.unsplash.com') ? c.image.trim() : '/favicon.svg')}
                   alt={c.name}
                   className="w-full h-full object-cover"
                 />

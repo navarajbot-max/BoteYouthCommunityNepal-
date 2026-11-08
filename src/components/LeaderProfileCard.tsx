@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { LeaderProfile } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLanguage } from '../context/LanguageContext';
+import { resolveAssetUrl, getSynchronousCachedAsset } from '../services/storagePersistence';
 import {
   Phone,
   Mail,
@@ -73,9 +74,18 @@ export default function LeaderProfileCard({
               }`}
             >
               <img
-                src={leader.image && leader.image.trim() ? leader.image.trim() : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600'}
+                src={resolveAssetUrl(leader.image) || resolveAssetUrl('/assets/leader_avatar_placeholder.svg')}
                 alt={leader.name}
                 className="w-full h-full object-cover rounded-xl"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  const cached = getSynchronousCachedAsset(leader.image);
+                  if (cached && target.src !== cached) {
+                    target.src = cached;
+                  } else {
+                    target.src = resolveAssetUrl('/assets/leader_avatar_placeholder.svg');
+                  }
+                }}
               />
             </div>
             {/* Verified Category Dot / Icon */}

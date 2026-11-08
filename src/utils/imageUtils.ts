@@ -3,11 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export const DEFAULT_CULTURE_PLACEHOLDER =
-  'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=800';
-
-export const DEFAULT_AVATAR_PLACEHOLDER =
-  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600';
+export const DEFAULT_CULTURE_PLACEHOLDER = '/favicon.svg';
+export const DEFAULT_AVATAR_PLACEHOLDER = '/assets/leader_avatar_placeholder.svg';
 
 /**
  * Returns a valid, non-empty image source string or null/fallback.

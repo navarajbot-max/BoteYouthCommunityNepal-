@@ -15,7 +15,7 @@ import {
   CommunityPollConfig
 } from '../types';
 
-export const DEFAULT_LOGO_URL = 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=400&auto=format&fit=crop';
+export const DEFAULT_LOGO_URL = '/uploads/header_logo_1789693983380_aok4s.png';
 
 // 10 Detailed Leadership Profiles as explicitly requested by user
 export const LEADERSHIP_PROFILES: LeaderProfile[] = [
@@ -26,7 +26,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'नवराज बोटे',
     role: 'Youth Leader Chairman',
     category: 'youth',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop',
+    image: '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png',
     bio: 'Elected Youth Leader Chairman of Bote Youth Community Nepal. Leading the Tarahi Bote cultural revitalization, indigenous river conservation campaigns along the Bagmati River, and digital archiving for high school students in Karmaiya, Sarlahi.',
     bioNepali: 'बोटे युवा समुदाय नेपालका अध्यक्ष। सर्लाहीको कर्मैयामा भाषा संरक्षण र नदी अधिकार अभियानको नेतृत्व।',
     responsibilities: [
@@ -35,8 +35,8 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
       'Liaison with District Administration Office Sarlahi and Madhesh Province Government',
       'Overseeing Bagmati River Ecology Patrols and Youth Volunteer Drives'
     ],
-    phone: '+977-9806389212',
-    email: 'navaraj.bote@boteyouthcommunity.org.np',
+    phone: '+977-9800000001',
+    email: 'boteyouthcommunitynepal@gmail.com',
     ward: 'Ward No. 11, Karmaiya, Bagmati Municipality, Sarlahi',
     term: '2024 - 2027 (3-Year Term)',
     badge: 'Youth Leadership'
@@ -44,13 +44,13 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
   // 2. Youth Leader Vice-Chair
   {
     id: 'lead-2',
-    name: 'Santosh Bote',
-    nameNepali: 'सन्तोष बोटे',
-    role: 'Vice-Chair: Santosh Bote — Vice-Chairman & River Patrol Lead',
+    name: 'Dhan Bahadur Bote',
+    nameNepali: 'धन बहादुर बोट',
+    role: 'Youth Vice President',
     category: 'youth',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop',
-    bio: 'Youth Leader Vice-Chairman & River Patrol Lead coordinating Bagmati river conservation patrols, sports, and canoe racing tournaments during Maghe Sankranti. Passionate about empowering rural Bote youths into vocational careers and digital media storytelling.',
-    bioNepali: 'उपाध्यक्ष: सन्तोष बोटे — उपाध्यक्ष तथा नदी गस्ती प्रमुख। बागमती नदी संरक्षण, परम्परागत डुङ्गा दौड प्रतियोगिता तथा युवा क्षमता विकास संयोजन।',
+    image: '/assets/leader_avatar_placeholder.svg',
+    bio: 'Youth Vice President coordinating field expeditions, sports, and canoe racing tournaments during Maghe Sankranti. Passionate about empowering rural Bote youths into vocational careers and digital media storytelling.',
+    bioNepali: 'उपाध्यक्ष: धन बहादुर बोट — युवा उपाध्यक्ष तथा नदी गस्ती प्रमुख। बागमती नदी संरक्षण, परम्परागत डुङ्गा दौड प्रतियोगिता तथा युवा क्षमता विकास संयोजन।',
     responsibilities: [
       'Leading Bagmati River ecological surveillance and youth patrol squads',
       'Supervising inter-village youth sports and canoe racing programs',
@@ -58,7 +58,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
       'Coordinating youth member mobilization across Sarlahi and Chitwan settlements'
     ],
     phone: '+977-9844019876',
-    email: 'santosh.vp@boteyouthcommunity.org.np',
+    email: 'nishanbot23@gmail.com',
     ward: 'Ward No. 11, Karmaiya, Sarlahi',
     term: '2024 - 2027',
     badge: 'Vice-Chairman'
@@ -70,7 +70,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'पूजा बोटे',
     role: 'General Sec: Puja Bote — General Secretary & Tarahi Documentation Officer',
     category: 'youth',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Youth General Secretary & Tarahi Documentation Officer responsible for official executive documentation, Tarahi Bote audio lexicon recording, scholarship filing review, and community membership records.',
     bioNepali: 'महासचिव: पूजा बोटे — महासचिव तथा तराही भाषा अभिलेखीकरण अधिकृत। संस्थागत अभिलेख, तराही भाषा संरक्षण र छात्रवृत्ति आवेदन व्यवस्थापन।',
     responsibilities: [
@@ -92,7 +92,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'अनिता बोटे',
     role: 'Treasurer: Anita Bote — Central Treasurer & Women Cooperative Liaison',
     category: 'youth',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Youth Leader Central Treasurer & Women Cooperative Officer managing the Central Treasury, student scholarship disbursements, and indigenous Bote women cooperative micro-enterprise initiatives.',
     bioNepali: 'कोषाध्यक्ष: अनिता बोटे — केन्द्रीय कोषाध्यक्ष तथा महिला सहकारी संयोजक। केन्द्रीय कोष व्यवस्थापन, महिला बचत परिचालन, छात्रवृत्ति वितरण तथा सहकारी समन्वय।',
     responsibilities: [
@@ -114,7 +114,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'विकास बोटे',
     role: 'Youth Member & Conservation Lead',
     category: 'youth',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Executive Youth Member spearheading Saturday river cleanup patrols and language study circles in Karmaiya. Aspiring environmental scientist dedicated to aquatic wildlife monitoring.',
     bioNepali: 'युवा सदस्य। शनिवार सरसफाई तथा बागमती नदी जैविक अनुगमन प्रमुख।',
     responsibilities: [
@@ -135,7 +135,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'लाल बहादुर बोटे (अध्यक्ष)',
     role: 'Community Chairman',
     category: 'community',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Respected Community Elder and Community Chairman of the Central Bote Committee. Custodian of oral customary laws, traditional single-log canoe carving techniques, and river worship prayers in Karmaiya.',
     bioNepali: 'समुदाय अध्यक्ष। परम्परागत प्रथागत कानुन, एक-ढुङ्गे डुङ्गा निर्माण शिल्पी एवं संस्कार संरक्षक।',
     responsibilities: [
@@ -157,7 +157,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'सीता बोटे (उपाध्यक्ष)',
     role: 'Community Vice President',
     category: 'community',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Community Vice President and President of the Karmaiya Bote Women’s Savings Cooperative. Champion for female economic independence, elephant-grass weaving handicrafts, and adult literacy.',
     bioNepali: 'समुदाय उपाध्यक्ष। महिला सशक्तिकरण, चोया हस्तकला तथा महिला बचत समूहको नेतृत्व।',
     responsibilities: [
@@ -178,7 +178,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'धनिराम बोटे (सचिव)',
     role: 'Community Secretary',
     category: 'community',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Community Secretary managing official government land entitlement petitions, village demography registers, and coordination with national Janajati federations.',
     bioNepali: 'समुदाय सचिव। भूमिसम्बन्धी अधिकार, सरकारी पत्राचार तथा प्रशासनिक समन्वय।',
     responsibilities: [
@@ -199,7 +199,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'माया देवी बोटे (सह-सचिव)',
     role: 'Community Undersecretary',
     category: 'community',
-    image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Community Undersecretary coordinating healthcare access, maternal wellness drives, and primary school attendance checks in eastern Madhesh Bote settlements.',
     bioNepali: 'समुदाय सह-सचिव। स्वास्थ्य, बालविकास तथा विद्यालय भर्ना अभियान सहजीकरण।',
     responsibilities: [
@@ -220,7 +220,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'मनिष बोटे (कोषाध्यक्ष)',
     role: 'Community Treasurer',
     category: 'community',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Community Treasurer maintaining transparent financial ledgers for all cooperative emergency relief funds, educational donations, and festival expense audits.',
     bioNepali: 'समुदाय कोषाध्यक्ष। आर्थिक पारदर्शिता, छात्रवृत्ति कोष तथा लेखा व्यवस्थापन।',
     responsibilities: [
@@ -241,7 +241,7 @@ export const LEADERSHIP_PROFILES: LeaderProfile[] = [
     nameNepali: 'सोम बहादुर बोटे (सदस्य)',
     role: 'Community Member',
     category: 'community',
-    image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=600&auto=format&fit=crop',
+    image: '/assets/leader_avatar_placeholder.svg',
     bio: 'Senior Community Member and master fisherman with 40 years of river navigation experience. Leads traditional net-weaving classes and river water safety for young boaters.',
     bioNepali: 'समुदाय सदस्य। वरिष्ठ माझी एवं परम्परागत जाल बुनाई तथा जल सुरक्षा प्रशिक्षक।',
     responsibilities: [
@@ -267,7 +267,7 @@ export const CULTURAL_TRADITIONS: CultureTradition[] = [
     category: 'Sacred River Ritual',
     description: 'The supreme spiritual assembly of the Bote community. Families gather on the banks of the Bagmati and Narayani rivers to worship Sansari Devi (Goddess of the Universe) and aquatic spirits. Elders offer red vermillion, flowers, and milk into the currents to ensure tranquil waters, safe boating lanes, and protection from monsoon floods.',
     significance: 'Protects boat operators and fishers from whirlpools and natural disasters while reinforcing clan solidarity.',
-    image: 'https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=1000&auto=format&fit=crop',
+    image: '/favicon.svg',
     rituals: [
       'Elder chants invoking river deities before dawn',
       'Sanctification of traditional dugout wooden boats with vermillion and ceremonial flags',
@@ -283,7 +283,7 @@ export const CULTURAL_TRADITIONS: CultureTradition[] = [
     category: 'Indigenous Engineering',
     description: 'The Bote canoe is an architectural marvel of indigenous woodworking. Carved from a single massive trunk of Simal (silk-cotton) or Sal timber, artisans use adzes (chari) to hollow out the hull uniformly so the boat remains buoyant and balanced through turbulent Himalayan river rapids.',
     significance: 'Demonstrates deep traditional ecological knowledge and woodworking heritage dating back centuries.',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     rituals: [
       'Prayer to the forest spirits before tree harvesting',
       'Precision adze carving and uniform thickness balance testing',
@@ -298,7 +298,7 @@ export const CULTURAL_TRADITIONS: CultureTradition[] = [
     category: 'Ancestral Rites',
     description: 'On Maghe Sankranti, Bote community members wake before sunrise to take ritual baths in the sacred rivers. They offer prayers to ancestors, consume forest sweet potatoes (Tarul), sesame sweets, and organize riverbank archery and dugout rowing demonstrations.',
     significance: 'Celebrates the transition of the sun, family reunions, and homage to river ancestral souls.',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop',
+    image: '/favicon.svg',
     rituals: [
       'Holy river dip at Bagmati Ghat at sunrise',
       'Offering of sesame and wild river herbs to departed elders',
@@ -313,7 +313,7 @@ export const CULTURAL_TRADITIONS: CultureTradition[] = [
     category: 'Handicraft Heritage',
     description: 'Harvesting wild elephant grass (choya and khar) along the river floodplains, Bote artisans weave specialized conical fish traps (Khungri) and storage baskets (Dhoko, Dala). These traps allow river water to flow freely while capturing specific adult fish without harming juveniles.',
     significance: 'Eco-friendly, biodegradable fishing gear exemplifying sustainable indigenous aquatic harvesting.',
-    image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=1000&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     rituals: [
       'Seasonal harvesting of mature river reeds',
       'Soaking and splitting bamboo fibers into pliable strands',
@@ -332,7 +332,7 @@ export const TRADITIONAL_DRESS_ITEMS: TraditionalDressItem[] = [
     materials: 'Handwoven coarse cotton, dyed in deep red, indigo blue, or dark black borders.',
     description: 'The Gunya is a traditional cotton wrap skirt draped gracefully slightly above the ankles, allowing women to wade into river waters while fishing or washing without soaking the hem. It is paired with a snug, contrasting red or blue cotton blouse (Cholo) and tied at the waist with a Patuka sash.',
     significance: 'Provides thermal ease in humid inner-Terai river valleys while upholding distinct indigenous modesty.',
-    image: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     features: [
       'Raised hemline for riparian wading',
       'Wide waist-sash (Patuka) providing back support during heavy basket carrying',
@@ -347,7 +347,7 @@ export const TRADITIONAL_DRESS_ITEMS: TraditionalDressItem[] = [
     materials: 'Lightweight handloom khadi cotton and wool-blend waistcoat.',
     description: 'Bote men wear a short cotton loincloth or dhoti tied securely above the knees for unrestricted rowing and net casting. Over the torso, they wear a breathable bhoto (undershirt) and an open waistcoat with inner utility pockets for holding fishing hooks and tobacco.',
     significance: 'Optimized for agility in rapid river currents and single-log boat navigation.',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop',
+    image: '/favicon.svg',
     features: [
       'Short knee-length wrap allowing athletic rowing balance',
       'Utility waistcoat designed for carrying river tools',
@@ -362,7 +362,7 @@ export const TRADITIONAL_DRESS_ITEMS: TraditionalDressItem[] = [
     materials: 'Pure silver, brass, and sacred glass bead strands (Pote).',
     description: 'During Sansari Puja, weddings, and communal assemblies, Bote women adorn themselves with heavy silver ornaments. The Hansuli is a solid, torc-like silver neckband sitting high on the collarbone, complemented by ornate nose rings (Bulaki) and carved silver anklets (Kalli).',
     significance: 'Symbols of marital grace, generational inheritance, and spiritual protection from water spirits.',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop',
+    image: '/uploads/header_logo_1789693983380_aok4s.png',
     features: [
       'Hansuli: Solid hand-forged silver neck collar',
       'Bulaki: Filigree brass/gold septal ornament',
@@ -701,7 +701,7 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
       {
         id: 'file-notice-ga-2026',
         name: 'General_Assembly_Circular_Notice_2026.pdf',
-        url: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop',
+        url: '/uploads/header_logo_1789693983380_aok4s.png',
         size: '1.2 MB',
         type: 'pdf'
       }
@@ -749,21 +749,21 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
       {
         id: 'file-doc-bylaws-81',
         name: 'BYCN_Constitution_and_ByLaws_2081_Official.pdf',
-        url: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop',
+        url: '/uploads/header_logo_1789693983380_aok4s.png',
         size: '2.8 MB',
         type: 'pdf'
       },
       {
         id: 'file-doc-scholarship-guide',
         name: 'Student_Scholarship_Application_Guidelines_2026.docx',
-        url: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop',
+        url: '/uploads/header_logo_1789693983380_aok4s.png',
         size: '520 KB',
         type: 'document'
       },
       {
         id: 'file-doc-audit-report',
         name: 'Audited_Annual_Financial_Report_FY81_82.pdf',
-        url: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop',
+        url: '/uploads/header_logo_1789693983380_aok4s.png',
         size: '1.9 MB',
         type: 'pdf'
       }
@@ -783,10 +783,9 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
     isPublished: true,
     pinned: false,
     photos: [
-      'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop'
+      '/uploads/header_logo_1789693983380_aok4s.png',
+      '/uploads/Leader_Profile_Photo_1789693773254_i4fzp.png',
+      '/favicon.svg'
     ],
     createdAt: '2026-03-08T14:20:00.000Z'
   },
@@ -802,7 +801,7 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
     eventTime: '08:00 AM onwards (Daily)',
     eventVenue: 'Bagmati Riverbank Confluence, Karmaiya, Ward No. 11, Sarlahi',
     eventOrganizer: 'Bote Youth Community Nepal in coordination with Bagmati Municipality',
-    eventBanner: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
+    eventBanner: '/uploads/header_logo_1789693983380_aok4s.png',
     registrationUrl: 'https://boteyouthcommunity.org.np',
     priority: 'high',
     author: 'Festival Organizing Committee',
@@ -830,7 +829,7 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
         roleOrCategory: 'Student Member',
         district: 'Sarlahi',
         ward: 'Bagmati Ward 11',
-        photoUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=400&auto=format&fit=crop',
+        photoUrl: '/assets/leader_avatar_placeholder.svg',
         message: 'Excited to volunteer in the Tarahi Bote audio dictionary recording project!',
         joinedAt: 'March 10, 2026'
       },
@@ -841,7 +840,7 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
         roleOrCategory: 'Youth Member',
         district: 'Nawalpur',
         ward: 'Devchuli Ward 2',
-        photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop',
+        photoUrl: '/assets/leader_avatar_placeholder.svg',
         message: 'Working to promote indigenous Bote handicrafts, fish nets, and traditional attire.',
         joinedAt: 'March 09, 2026'
       },
@@ -852,7 +851,7 @@ export const INITIAL_COMMUNITY_POSTS: CommunityPost[] = [
         roleOrCategory: 'General Community Member',
         district: 'Chitwan',
         ward: 'Madi Ward 3',
-        photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
+        photoUrl: '/assets/leader_avatar_placeholder.svg',
         message: 'Committed to safeguarding our traditional river fishing rights and boat culture.',
         joinedAt: 'March 07, 2026'
       }
