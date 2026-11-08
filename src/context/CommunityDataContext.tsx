@@ -20,7 +20,8 @@ import {
   CommunityNotification,
   CommunityPollConfig,
   PollOption,
-  PollVoterLog
+  PollVoterLog,
+  ThemeType
 } from '../types';
 import {
   LEADERSHIP_PROFILES,
@@ -1328,6 +1329,10 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
           if (s.bentoConfig) setBentoConfig(s.bentoConfig);
           if (s.pillarsConfig) setPillarsConfig(s.pillarsConfig);
           if (s.siteIdentity) {
+            let nextHeader: string | undefined;
+            let nextFooter: string | undefined;
+            let nextTheme: ThemeType | undefined;
+
             setSiteIdentity((prev) => {
               const currentHeader = localStorage.getItem('bycn_header_logo') || prev.headerLogo;
               const currentFooter = localStorage.getItem('bycn_footer_logo') || prev.footerLogo;
@@ -1346,23 +1351,9 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
                 ? currentFooter
                 : (s.siteIdentity.footerLogo || currentFooter || DEFAULT_LOGO_URL);
 
-              if (finalHeader && finalHeader !== DEFAULT_LOGO_URL) {
-                localStorage.setItem('bycn_header_logo', finalHeader);
-              }
-              if (finalFooter && finalFooter !== DEFAULT_LOGO_URL) {
-                localStorage.setItem('bycn_footer_logo', finalFooter);
-              }
-              if (s.siteIdentity.theme) {
-                localStorage.setItem('bycn_theme', s.siteIdentity.theme);
-              }
-
-              window.dispatchEvent(new CustomEvent('bycn_theme_updated', {
-                detail: {
-                  headerLogo: finalHeader,
-                  footerLogo: finalFooter,
-                  theme: s.siteIdentity.theme || prev.theme
-                }
-              }));
+              nextHeader = finalHeader;
+              nextFooter = finalFooter;
+              nextTheme = (s.siteIdentity.theme || prev.theme) as ThemeType;
 
               return {
                 ...prev,
@@ -1370,6 +1361,33 @@ export const CommunityDataProvider: React.FC<{ children: React.ReactNode }> = ({
                 headerLogo: finalHeader,
                 footerLogo: finalFooter
               };
+            });
+
+            // Perform storage write and dispatch asynchronously outside the React render/update phase
+            queueMicrotask(() => {
+              try {
+                if (nextHeader && nextHeader !== DEFAULT_LOGO_URL) {
+                  localStorage.setItem('bycn_header_logo', nextHeader);
+                }
+                if (nextFooter && nextFooter !== DEFAULT_LOGO_URL) {
+                  localStorage.setItem('bycn_footer_logo', nextFooter);
+                }
+                if (nextTheme) {
+                  localStorage.setItem('bycn_theme', nextTheme);
+                }
+
+                window.dispatchEvent(
+                  new CustomEvent('bycn_theme_updated', {
+                    detail: {
+                      headerLogo: nextHeader,
+                      footerLogo: nextFooter,
+                      theme: nextTheme
+                    }
+                  })
+                );
+              } catch (e) {
+                console.warn('Deferred theme sync error:', e);
+              }
             });
           }
           if (s.customDomains) setCustomDomains(s.customDomains);

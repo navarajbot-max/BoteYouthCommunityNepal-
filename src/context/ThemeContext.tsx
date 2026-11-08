@@ -119,37 +119,42 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       .catch((err) => console.warn('Failed to fetch server identity in ThemeContext:', err));
 
     const handleStorage = (e: StorageEvent) => {
-      if (e.key === 'bycn_theme' && e.newValue) {
-        setThemeState(e.newValue as ThemeType);
-      }
-      if (e.key === 'bycn_header_logo' && e.newValue) {
-        setHeaderLogoState(e.newValue);
-      }
-      if (e.key === 'bycn_footer_logo' && e.newValue) {
-        setFooterLogoState(e.newValue);
-      }
+      queueMicrotask(() => {
+        if (e.key === 'bycn_theme' && e.newValue) {
+          setThemeState((prev) => (prev === e.newValue ? prev : (e.newValue as ThemeType)));
+        }
+        if (e.key === 'bycn_header_logo' && e.newValue) {
+          setHeaderLogoState((prev) => (prev === e.newValue ? prev : e.newValue!));
+        }
+        if (e.key === 'bycn_footer_logo' && e.newValue) {
+          setFooterLogoState((prev) => (prev === e.newValue ? prev : e.newValue!));
+        }
+      });
     };
 
     const handleCustomUpdate = (e: Event) => {
       const customEvent = e as CustomEvent;
-      if (customEvent.detail) {
-        if (customEvent.detail.headerLogo) {
-          setHeaderLogoState(customEvent.detail.headerLogo);
+      const detail = customEvent.detail;
+      queueMicrotask(() => {
+        if (detail) {
+          if (detail.headerLogo) {
+            setHeaderLogoState((prev) => (prev === detail.headerLogo ? prev : detail.headerLogo));
+          }
+          if (detail.footerLogo) {
+            setFooterLogoState((prev) => (prev === detail.footerLogo ? prev : detail.footerLogo));
+          }
+          if (detail.theme) {
+            setThemeState((prev) => (prev === detail.theme ? prev : (detail.theme as ThemeType)));
+          }
+        } else {
+          const hl = localStorage.getItem('bycn_header_logo');
+          const fl = localStorage.getItem('bycn_footer_logo');
+          const th = localStorage.getItem('bycn_theme');
+          if (hl) setHeaderLogoState((prev) => (prev === hl ? prev : hl));
+          if (fl) setFooterLogoState((prev) => (prev === fl ? prev : fl));
+          if (th) setThemeState((prev) => (prev === th ? prev : (th as ThemeType)));
         }
-        if (customEvent.detail.footerLogo) {
-          setFooterLogoState(customEvent.detail.footerLogo);
-        }
-        if (customEvent.detail.theme) {
-          setThemeState(customEvent.detail.theme);
-        }
-      } else {
-        const hl = localStorage.getItem('bycn_header_logo');
-        const fl = localStorage.getItem('bycn_footer_logo');
-        const th = localStorage.getItem('bycn_theme');
-        if (hl) setHeaderLogoState(hl);
-        if (fl) setFooterLogoState(fl);
-        if (th) setThemeState(th as ThemeType);
-      }
+      });
     };
 
     window.addEventListener('storage', handleStorage);
