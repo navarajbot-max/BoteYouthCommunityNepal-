@@ -245,8 +245,19 @@ app.get(['/Bote-Youth-Community-Nepal-Blogger-Theme-v3.xml', '/theme-v3.xml', '/
 // Resilient uploaded image and asset serving with auto-rehydration and zero-404 fallbacks
 app.get(['/api/uploads/:filename', '/uploads/:filename'], (req, res) => {
   const filename = req.params.filename;
-  const publicFilePath = path.join(PUBLIC_UPLOADS_DIR, filename);
-  const dataFilePath = path.join(UPLOADS_DIR, filename);
+  const safeFilenamePattern = /^[A-Za-z0-9._-]+$/;
+  if (!safeFilenamePattern.test(filename)) {
+    return res.status(400).send('Invalid filename.');
+  }
+
+  const publicRoot = path.resolve(PUBLIC_UPLOADS_DIR);
+  const dataRoot = path.resolve(UPLOADS_DIR);
+  const publicFilePath = path.resolve(publicRoot, filename);
+  const dataFilePath = path.resolve(dataRoot, filename);
+
+  if (!publicFilePath.startsWith(publicRoot + path.sep) || !dataFilePath.startsWith(dataRoot + path.sep)) {
+    return res.status(400).send('Invalid filename.');
+  }
 
   // 1. If present on disk in public/uploads or data/uploads, send directly
   if (fs.existsSync(publicFilePath)) {
