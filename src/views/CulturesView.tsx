@@ -15,6 +15,15 @@ interface CulturesViewProps {
 
 export default function CulturesView({ setCurrentTab }: CulturesViewProps) {
   const { culturalTraditions } = useCommunityData();
+
+  const isBlockedImageHost = (imageUrl: string): boolean => {
+    try {
+      const hostname = new URL(imageUrl).hostname.toLowerCase();
+      return hostname === 'images.unsplash.com';
+    } catch {
+      return false;
+    }
+  };
   const [playingChant, setPlayingChant] = useState(false);
 
   const toggleChant = () => {
@@ -90,7 +99,7 @@ export default function CulturesView({ setCurrentTab }: CulturesViewProps) {
           >
             <div className="w-full md:w-56 h-48 rounded-2xl overflow-hidden shadow shrink-0 bg-slate-100 border border-slate-200">
               <img
-                src={resolveAssetUrl(trad.image && trad.image.trim() && !trad.image.includes('images.unsplash.com') ? trad.image.trim() : '/favicon.svg')}
+                src={resolveAssetUrl(trad.image && trad.image.trim() && !isBlockedImageHost(trad.image.trim()) ? trad.image.trim() : '/favicon.svg')}
                 alt={trad.title}
                 className="w-full h-full object-cover"
               />
