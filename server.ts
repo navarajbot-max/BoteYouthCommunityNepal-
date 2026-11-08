@@ -397,7 +397,9 @@ function persistBase64File(dataUrl: string, originalName = 'document.pdf', prefi
         if (lastPart) ext = lastPart.toLowerCase().replace(/[^a-z0-9]/g, '');
       }
     }
-    const safePrefix = prefix.replace(/[^a-zA-Z0-9_]/g, '_');
+    const normalizedPrefix = typeof prefix === 'string' ? prefix.toLowerCase() : 'doc';
+    const allowedPrefixes = new Set(['doc', 'image', 'pdf', 'sheet', 'text', 'archive']);
+    const safePrefix = allowedPrefixes.has(normalizedPrefix) ? normalizedPrefix : 'doc';
     const filename = `${safePrefix}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
     const filePath = path.join(UPLOADS_DIR, filename);
     const publicFilePath = path.join(PUBLIC_UPLOADS_DIR, filename);
