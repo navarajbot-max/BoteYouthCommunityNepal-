@@ -119,6 +119,30 @@ app.get(['/favicon.ico', '/favicon.png', '/favicon.svg'], (req, res) => {
   res.status(204).end();
 });
 
+// Dedicated OpenGraph and Social Share Card endpoints for Facebook, WhatsApp, Twitter, Telegram, etc.
+app.get(['/og-image.png', '/og-image-square.png', '/bycn-logo.png', '/logo.png'], (req, res) => {
+  const reqName = req.path.replace(/^\//, '');
+  const publicPath = path.join(process.cwd(), 'public', reqName);
+  const distPath = path.join(process.cwd(), 'dist', reqName);
+
+  if (fs.existsSync(publicPath)) {
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    return res.sendFile(publicPath);
+  }
+  if (fs.existsSync(distPath)) {
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    return res.sendFile(distPath);
+  }
+  const headerLogoPath = path.join(PUBLIC_UPLOADS_DIR, 'header_logo_1789693984575_mmutt.png');
+  if (fs.existsSync(headerLogoPath)) {
+    res.setHeader('Content-Type', 'image/png');
+    return res.sendFile(headerLogoPath);
+  }
+  res.status(404).send('Social image not found');
+});
+
 // Google Search Console dynamic verification HTML file (only active if configured by admin or physical file exists)
 app.get('/google:code([a-zA-Z0-9_-]+).html', (req, res) => {
   const reqCode = req.params.code;

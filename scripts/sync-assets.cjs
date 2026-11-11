@@ -48,4 +48,16 @@ if (fs.existsSync(path.join(rootDir, 'dist'))) {
       console.warn('[sync-assets] Error syncing to dist/uploads:', err);
     }
   }
+
+  // Also sync root social share assets to dist
+  const rootAssets = ['og-image.png', 'og-image-square.png', 'logo.png', 'bycn-logo.png', 'favicon.png', 'favicon.ico', 'favicon.svg'];
+  for (const asset of rootAssets) {
+    const src = path.join(rootDir, 'public', asset);
+    const dest = path.join(rootDir, 'dist', asset);
+    if (fs.existsSync(src)) {
+      try {
+        fs.copyFileSync(src, dest);
+      } catch (e) {}
+    }
+  }
 }

@@ -15,7 +15,6 @@ if (!fs.existsSync(logoPath)) {
 fs.copyFileSync(logoPath, path.join(publicDir, 'logo.png'));
 fs.copyFileSync(logoPath, path.join(publicDir, 'bycn-logo.png'));
 fs.copyFileSync(logoPath, path.join(publicDir, 'favicon.png'));
-console.log('Copied official emblem to public/logo.png, public/bycn-logo.png, and public/favicon.png');
 
 // Font paths
 const fontDevBold = '/usr/share/fonts/truetype/noto/NotoSansDevanagari-Bold.ttf';
@@ -27,7 +26,8 @@ const tmpDir = path.join(rootDir, '.tmp_og');
 if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
 
 const bgPath = path.join(tmpDir, 'bg.png');
-const emblemScaled = path.join(tmpDir, 'emblem_400.png');
+const emblemScaled = path.join(tmpDir, 'emblem_380.png');
+const emblemCircular = path.join(tmpDir, 'emblem_circle.png');
 const circlePlate = path.join(tmpDir, 'circle_plate.png');
 const outBannerPath = path.join(publicDir, 'og-image.png');
 const outSquarePath = path.join(publicDir, 'og-image-square.png');
@@ -40,23 +40,30 @@ try {
      "${bgPath}"`
   );
 
-  // Resize logo smoothly to 380x380
+  // Resize logo to 380x380
   execSync(`convert "${logoPath}" -resize 380x380 -background none "${emblemScaled}"`);
 
-  // Create crisp white circular backdrop (420x420) with border for the emblem
+  // Mask logo to clean circle (removes square white background corners)
   execSync(
-    `convert -size 420x420 xc:none \\
-     -fill '#FFFFFF' -stroke '#F59E0B' -strokewidth 5 \\
-     -draw "circle 210,210 210,5" "${circlePlate}"`
+    `convert "${emblemScaled}" \\
+     \\( -size 380x380 xc:none -fill white -draw "circle 190,190 190,0" \\) \\
+     -alpha set -compose DstIn -composite "${emblemCircular}"`
   );
 
-  // Composite emblem onto circle plate
-  const circleWithEmblem = path.join(tmpDir, 'plate_with_emblem.png');
-  execSync(`convert "${circlePlate}" "${emblemScaled}" -gravity center -composite "${circleWithEmblem}"`);
+  // Create crisp white circular plate with gold rim
+  execSync(
+    `convert -size 410x410 xc:none \\
+     -fill '#FFFFFF' -stroke '#F59E0B' -strokewidth 6 \\
+     -draw "circle 205,205 205,6" "${circlePlate}"`
+  );
 
-  // Composite plate onto background at x=75, y=105
+  // Composite circular emblem onto plate
+  const plateWithEmblem = path.join(tmpDir, 'plate_with_emblem.png');
+  execSync(`convert "${circlePlate}" "${emblemCircular}" -gravity center -composite "${plateWithEmblem}"`);
+
+  // Composite plate onto background at x=75, y=110
   const compositeWithLogo = path.join(tmpDir, 'step1.png');
-  execSync(`convert "${bgPath}" "${circleWithEmblem}" -geometry +70+105 -composite "${compositeWithLogo}"`);
+  execSync(`convert "${bgPath}" "${plateWithEmblem}" -geometry +75+110 -composite "${compositeWithLogo}"`);
 
   // Add text layers with exact font paths
   execSync(
@@ -74,21 +81,32 @@ try {
 
   console.log('Successfully generated 1200x630 banner at', outBannerPath);
 
-  // Also create a 600x600 square card (ideal for WhatsApp small previews and profile shares)
+  // Square Card (600x600)
   execSync(
     `convert -size 600x600 gradient:'#001844'-'#7B0017' \\
      -stroke '#F59E0B' -strokewidth 4 -fill none -draw "roundrectangle 12,12 588,588 20,20" \\
      "${tmpDir}/sq_bg.png"`
   );
 
-  execSync(`convert "${logoPath}" -resize 360x360 -background none "${tmpDir}/sq_logo.png"`);
+  const sqEmblemScaled = path.join(tmpDir, 'sq_emblem_360.png');
+  const sqEmblemCircular = path.join(tmpDir, 'sq_emblem_circle.png');
+  const sqPlate = path.join(tmpDir, 'sq_plate.png');
+
+  execSync(`convert "${logoPath}" -resize 360x360 -background none "${sqEmblemScaled}"`);
   execSync(
-    `convert -size 390x390 xc:none \\
-     -fill '#FFFFFF' -stroke '#F59E0B' -strokewidth 4 \\
-     -draw "circle 195,195 195,5" "${tmpDir}/sq_circle.png"`
+    `convert "${sqEmblemScaled}" \\
+     \\( -size 360x360 xc:none -fill white -draw "circle 180,180 180,0" \\) \\
+     -alpha set -compose DstIn -composite "${sqEmblemCircular}"`
   );
-  execSync(`convert "${tmpDir}/sq_circle.png" "${tmpDir}/sq_logo.png" -gravity center -composite "${tmpDir}/sq_emblem.png"`);
-  execSync(`convert "${tmpDir}/sq_bg.png" "${tmpDir}/sq_emblem.png" -gravity north -geometry +0+40 -composite "${tmpDir}/sq_step1.png"`);
+
+  execSync(
+    `convert -size 386x386 xc:none \\
+     -fill '#FFFFFF' -stroke '#F59E0B' -strokewidth 5 \\
+     -draw "circle 193,193 193,5" "${sqPlate}"`
+  );
+
+  execSync(`convert "${sqPlate}" "${sqEmblemCircular}" -gravity center -composite "${tmpDir}/sq_combo.png"`);
+  execSync(`convert "${tmpDir}/sq_bg.png" "${tmpDir}/sq_combo.png" -gravity north -geometry +0+35 -composite "${tmpDir}/sq_step1.png"`);
 
   execSync(
     `convert "${tmpDir}/sq_step1.png" \\
@@ -100,7 +118,7 @@ try {
 
   console.log('Successfully generated 600x600 square card at', outSquarePath);
 
-  // Also copy to dist if dist exists
+  // Sync to dist if dist exists
   const distDir = path.join(rootDir, 'dist');
   if (fs.existsSync(distDir)) {
     fs.copyFileSync(outBannerPath, path.join(distDir, 'og-image.png'));
@@ -108,10 +126,8 @@ try {
     fs.copyFileSync(path.join(publicDir, 'logo.png'), path.join(distDir, 'logo.png'));
     fs.copyFileSync(path.join(publicDir, 'bycn-logo.png'), path.join(distDir, 'bycn-logo.png'));
     fs.copyFileSync(path.join(publicDir, 'favicon.png'), path.join(distDir, 'favicon.png'));
-    console.log('Mirrored social cards to dist/');
   }
 
-  // Clean up temporary files
   fs.rmSync(tmpDir, { recursive: true, force: true });
 } catch (e) {
   console.error('Failed generating banner via ImageMagick:', e);
