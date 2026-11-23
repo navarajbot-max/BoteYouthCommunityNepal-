@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { useLanguage } from '../context/LanguageContext';
 import { TabType, CommunityPost, PostType } from '../types';
 import {
   Megaphone,
@@ -40,6 +41,7 @@ interface NoticesViewProps {
 
 export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
   const { posts, isAdminAuthenticated, centralOffice } = useCommunityData();
+  const { isNepali } = useLanguage();
   const [filterType, setFilterType] = useState<PostType | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPost, setSelectedPost] = useState<CommunityPost | null>(null);
@@ -84,17 +86,47 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
   const getPostTypeBadge = (type: PostType) => {
     switch (type) {
       case 'notice':
-        return <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300"><Megaphone className="w-3 h-3 text-amber-700" /> Notice</span>;
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+            <Megaphone className="w-3 h-3 text-amber-700" />
+            <span>{isNepali ? 'सूचना' : 'Notice'}</span>
+          </span>
+        );
       case 'meeting':
-        return <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-900 border border-blue-300"><Calendar className="w-3 h-3 text-blue-700" /> Meeting</span>;
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-900 border border-blue-300">
+            <Calendar className="w-3 h-3 text-blue-700" />
+            <span>{isNepali ? 'बैठक' : 'Meeting'}</span>
+          </span>
+        );
       case 'document':
-        return <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-900 border border-rose-300"><FileText className="w-3 h-3 text-rose-700" /> Documents / PDF</span>;
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-900 border border-rose-300">
+            <FileText className="w-3 h-3 text-rose-700" />
+            <span>{isNepali ? 'कागजात / पीडीएफ' : 'Documents / PDF'}</span>
+          </span>
+        );
       case 'photo':
-        return <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300"><ImageIcon className="w-3 h-3 text-emerald-700" /> Photos</span>;
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+            <ImageIcon className="w-3 h-3 text-emerald-700" />
+            <span>{isNepali ? 'तस्बिरहरू' : 'Photos'}</span>
+          </span>
+        );
       case 'event':
-        return <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 border border-purple-300"><Sparkles className="w-3 h-3 text-purple-700" /> Event</span>;
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-900 border border-purple-300">
+            <Sparkles className="w-3 h-3 text-purple-700" />
+            <span>{isNepali ? 'कार्यक्रम' : 'Event'}</span>
+          </span>
+        );
       case 'new_members':
-        return <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-900 border border-teal-300"><Users className="w-3 h-3 text-teal-700" /> New Members</span>;
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-900 border border-teal-300">
+            <Users className="w-3 h-3 text-teal-700" />
+            <span>{isNepali ? 'नयाँ सदस्यहरू' : 'New Members'}</span>
+          </span>
+        );
       default:
         return null;
     }
@@ -109,19 +141,21 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
           <div className="relative z-10 max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 bg-red-600/90 text-white text-xs font-black uppercase px-3 py-1 rounded-full shadow-xs">
               <Megaphone className="w-3.5 h-3.5" />
-              <span>Official Community Desk</span>
+              <span>{isNepali ? 'आधिकारिक सामुदायिक सूचना डेस्क' : 'Official Community Desk'}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-black font-poppins tracking-tight">
-              Notices, Meetings, Files &amp; Community Updates
+              {isNepali ? 'सूचना, बैठक, कागजात तथा सामुदायिक अद्यावधिक' : 'Notices, Meetings, Files & Community Updates'}
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Stay informed with verified announcements, upcoming council meetings, downloadable official documents and PDFs, photo galleries, event schedules, and newly welcomed members of Bote Youth Community Nepal.
+              {isNepali
+                ? 'नेपाल बोटे युवा समुदायका प्रमाणित सूचनाहरू, कार्यसमिति बैठकका निर्णयहरू, डाउनलोड गर्न मिल्ने आधिकारिक कागजात तथा पीडीएफ, फोटो ग्यालरी, कार्यक्रम तालिकाहरू र नयाँ सदस्य विवरण।'
+                : 'Stay informed with verified announcements, upcoming council meetings, downloadable official documents and PDFs, photo galleries, event schedules, and newly welcomed members of Bote Youth Community Nepal.'}
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <div className="flex items-center gap-1.5 text-xs text-amber-300 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-xs font-semibold">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Verified Direct from Central Committee</span>
+                <span>{isNepali ? 'केन्द्रीय समितिबाट सिधै प्रमाणित' : 'Verified Direct from Central Committee'}</span>
               </div>
               {isAdminAuthenticated && (
                 <button
@@ -129,7 +163,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                   className="text-xs bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1 cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Admin Post Controls</span>
+                  <span>{isNepali ? 'प्रशासक पोस्ट नियन्त्रण' : 'Admin Post Controls'}</span>
                 </button>
               )}
             </div>
@@ -140,11 +174,11 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
         {copiedNotification && (
           <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 text-xs font-bold flex items-center gap-2 animate-in fade-in slide-in-from-bottom-4">
             <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>Link copied to clipboard!</span>
+            <span>{isNepali ? 'लिङ्क क्लिपबोर्डमा प्रतिलिपि गरियो!' : 'Link copied to clipboard!'}</span>
           </div>
         )}
 
-        {/* 6. Central कार्यालय Public सूचना Board सूचना Banner (नेपाली Announcement) */}
+        {/* Central Office Public Notice Board Banner */}
         {centralOffice?.publicNoticeBoardNotice && centralOffice?.publicNoticeIsPublished !== false && (
           <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-1 shadow-md">
             <div className="bg-white rounded-[22px] p-5 sm:p-6 space-y-3">
@@ -157,11 +191,11 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-[10px] font-black uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full flex items-center gap-1">
                         <Radio className="w-2.5 h-2.5 text-amber-600 animate-ping" />
-                        <span>Central कार्यालय Public सूचना Board</span>
+                        <span>{isNepali ? 'केन्द्रीय कार्यालय सार्वजनिक सूचना पाटी' : 'Central Office Public Notice Board'}</span>
                       </span>
                       <span className="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                        <span>प्रकाशित गरिएको छ। धन्यवाद</span>
+                        <span>{isNepali ? 'प्रकाशित गरिएको छ' : 'Verified Notice'}</span>
                       </span>
                       <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
                         centralOffice?.publicNoticePriority === 'urgent'
@@ -171,14 +205,14 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                           : 'bg-blue-100 text-blue-900 border border-blue-300'
                       }`}>
                         {centralOffice?.publicNoticePriority === 'urgent'
-                          ? '🔴 अत्यन्त जरूरी'
+                          ? (isNepali ? '🔴 अत्यन्त जरूरी' : '🔴 Urgent Notice')
                           : centralOffice?.publicNoticePriority === 'high'
-                          ? '🟡 महत्वपूर्ण सूचना'
-                          : '🔵 सामान्य सूचना'}
+                          ? (isNepali ? '🟡 महत्वपूर्ण सूचना' : '🟡 High Priority')
+                          : (isNepali ? '🔵 सामान्य सूचना' : '🔵 Standard Notice')}
                       </span>
                     </div>
                     <h3 className="font-poppins font-black text-sm sm:text-base text-slate-900 mt-1">
-                      {centralOffice?.publicNoticeTitle || 'केन्द्रीय कार्यालय सार्वजनिक सूचना (Official Notice)'}
+                      {centralOffice?.publicNoticeTitle || (isNepali ? 'केन्द्रीय कार्यालय सार्वजनिक सूचना' : 'Central Office Public Notice')}
                     </h3>
                   </div>
                 </div>
@@ -189,7 +223,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                     onClick={() => setCurrentTab('follow')}
                     className="px-3 py-1.5 rounded-xl border border-amber-300 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 transition flex items-center gap-1 cursor-pointer"
                   >
-                    <span>कार्यालय सम्पर्क कार्ड</span>
+                    <span>{isNepali ? 'कार्यालय सम्पर्क' : 'Office Contact'}</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                   <button
@@ -206,7 +240,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                     className="px-3 py-1.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-bold transition flex items-center gap-1 cursor-pointer"
                   >
                     <Share2 className="w-3.5 h-3.5 text-amber-600" />
-                    <span>सेयर</span>
+                    <span>{isNepali ? 'सेयर' : 'Share'}</span>
                   </button>
                 </div>
               </div>
@@ -217,10 +251,10 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                 </p>
                 <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-amber-200/60 text-[10.5px] text-slate-600">
                   <span>
-                    जारी गर्ने: <strong>{centralOffice.chiefExecutiveInCharge || 'केन्द्रीय कार्यालय, कर्मैया, सर्लाही'}</strong>
+                    {isNepali ? 'जारी गर्ने:' : 'Issued by:'} <strong>{centralOffice.chiefExecutiveInCharge || (isNepali ? 'केन्द्रीय कार्यालय, कर्मैया, सर्लाही' : 'Central Office, Karmaiya, Sarlahi')}</strong>
                   </span>
                   <span className="font-mono">
-                    हटलाइन: <strong>{centralOffice.hotline || centralOffice.primaryPhone || '+977-9806389212'}</strong>
+                    {isNepali ? 'हटलाइन:' : 'Hotline:'} <strong>{centralOffice.hotline || centralOffice.primaryPhone || '+977-9806389212'}</strong>
                   </span>
                 </div>
               </div>
@@ -233,79 +267,79 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
           <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1">
             <button
               onClick={() => setFilterType('all')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
                 filterType === 'all'
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
-              All Updates ({visiblePosts.length})
+              {isNepali ? `सबै सूचनाहरू (${visiblePosts.length})` : `All Updates (${visiblePosts.length})`}
             </button>
             <button
               onClick={() => setFilterType('notice')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 filterType === 'notice'
                   ? 'bg-amber-600 text-white shadow-sm'
                   : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
               }`}
             >
               <Megaphone className="w-3.5 h-3.5" />
-              <span>Notices</span>
+              <span>{isNepali ? 'सूचना' : 'Notices'}</span>
             </button>
             <button
               onClick={() => setFilterType('meeting')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 filterType === 'meeting'
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-blue-50 text-blue-800 hover:bg-blue-100 border border-blue-200'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />
-              <span>Meetings</span>
+              <span>{isNepali ? 'बैठक' : 'Meetings'}</span>
             </button>
             <button
               onClick={() => setFilterType('document')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 filterType === 'document'
                   ? 'bg-rose-600 text-white shadow-sm'
                   : 'bg-rose-50 text-rose-800 hover:bg-rose-100 border border-rose-200'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Files &amp; PDF</span>
+              <span>{isNepali ? 'कागजात तथा पीडीएफ' : 'Files & PDF'}</span>
             </button>
             <button
               onClick={() => setFilterType('photo')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 filterType === 'photo'
                   ? 'bg-emerald-600 text-white shadow-sm'
                   : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200'
               }`}
             >
               <ImageIcon className="w-3.5 h-3.5" />
-              <span>Photos</span>
+              <span>{isNepali ? 'तस्बिरहरू' : 'Photos'}</span>
             </button>
             <button
               onClick={() => setFilterType('event')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 filterType === 'event'
                   ? 'bg-purple-600 text-white shadow-sm'
                   : 'bg-purple-50 text-purple-800 hover:bg-purple-100 border border-purple-200'
               }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Events</span>
+              <span>{isNepali ? 'कार्यक्रमहरू' : 'Events'}</span>
             </button>
             <button
               onClick={() => setFilterType('new_members')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 filterType === 'new_members'
                   ? 'bg-teal-600 text-white shadow-sm'
                   : 'bg-teal-50 text-teal-800 hover:bg-teal-100 border border-teal-200'
               }`}
             >
               <Users className="w-3.5 h-3.5" />
-              <span>New Members</span>
+              <span>{isNepali ? 'नयाँ सदस्यहरू' : 'New Members'}</span>
             </button>
           </div>
 
@@ -315,7 +349,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search notices, agendas, files..."
+              placeholder={isNepali ? 'सूचना, बैठक, कागजात खोज्नुहोस्...' : 'Search notices, agendas, files...'}
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#003893] bg-slate-50"
             />
           </div>
@@ -327,7 +361,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
             <div className="flex items-center gap-2">
               <Pin className="w-4 h-4 text-amber-600 fill-amber-500" />
               <h2 className="text-sm font-black uppercase tracking-wider text-slate-800">
-                Featured &amp; Pinned Communications
+                {isNepali ? 'विशेष तथा मुख्य सूचनाहरू' : 'Featured & Pinned Communications'}
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -342,14 +376,15 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                       <div className="flex items-center gap-2">
                         {getPostTypeBadge(post.type)}
                         <span className="text-[10.5px] font-black uppercase bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-md flex items-center gap-1">
-                          <Pin className="w-3 h-3 fill-amber-700" /> Pinned
+                          <Pin className="w-3 h-3 fill-amber-700" />
+                          <span>{isNepali ? 'पिन गरिएको' : 'Pinned'}</span>
                         </span>
                       </div>
                       {post.priority && post.priority !== 'normal' && (
                         <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md ${
                           post.priority === 'urgent' ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'
                         }`}>
-                          {post.priority}
+                          {post.priority === 'urgent' ? (isNepali ? 'अत्यन्त जरुरी' : 'Urgent') : (isNepali ? 'महत्वपूर्ण' : 'Important')}
                         </span>
                       )}
                     </div>
@@ -369,7 +404,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                       <div className="p-3 bg-white rounded-2xl border border-blue-200 text-xs text-blue-900 space-y-1">
                         <div className="flex items-center gap-2 font-bold">
                           <Calendar className="w-4 h-4 text-blue-600 shrink-0" />
-                          <span>{post.meetingDate} {post.meetingTime ? `at ${post.meetingTime}` : ''}</span>
+                          <span>{post.meetingDate} {post.meetingTime ? `(${post.meetingTime})` : ''}</span>
                         </div>
                         {post.meetingVenue && (
                           <div className="flex items-center gap-2 text-slate-600">
@@ -384,19 +419,23 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                       <div className="p-3 bg-white rounded-2xl border border-rose-200 text-xs text-rose-900 flex items-center justify-between">
                         <div className="flex items-center gap-2 truncate">
                           <FileText className="w-4 h-4 text-rose-600 shrink-0" />
-                          <span className="font-bold truncate">{post.files.length} Downloadable File(s) Attached</span>
+                          <span className="font-bold truncate">
+                            {post.files.length} {isNepali ? 'कागजात फाइलहरू संलग्न' : 'Downloadable File(s) Attached'}
+                          </span>
                         </div>
                         <span className="text-xs font-bold text-blue-600 flex items-center gap-1 shrink-0">
-                          <Download className="w-3 h-3" /> Download
+                          <Download className="w-3 h-3" /> {isNepali ? 'डाउनलोड' : 'Download'}
                         </span>
                       </div>
                     )}
                   </div>
 
                   <div className="pt-3 border-t border-amber-200/60 flex items-center justify-between text-xs text-slate-500">
-                    <span className="font-semibold text-slate-700">{post.authorName || 'BYCN Central Committee'}</span>
+                    <span className="font-semibold text-slate-700">
+                      {post.authorName || (isNepali ? 'केन्द्रीय कार्यसमिति' : 'BYCN Central Committee')}
+                    </span>
                     <span className="flex items-center gap-1 font-bold text-[#003893] group-hover:translate-x-1 transition-transform">
-                      <span>View Full Details</span>
+                      <span>{isNepali ? 'पूर्ण विवरण हेर्नुहोस्' : 'View Full Details'}</span>
                       <ChevronRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -409,7 +448,9 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
         {/* Regular Posts Grid */}
         <div className="space-y-4">
           <h2 className="text-sm font-black uppercase tracking-wider text-slate-800">
-            {filterType === 'all' ? 'All Community Communications' : `${filterType.toUpperCase()} Updates`}
+            {filterType === 'all'
+              ? (isNepali ? 'सम्पूर्ण सामुदायिक सूचना तथा गतिविधि' : 'All Community Communications')
+              : (isNepali ? `${filterType} अद्यावधिकहरू` : `${filterType.toUpperCase()} Updates`)}
           </h2>
 
           {filteredPosts.length === 0 ? (
@@ -417,9 +458,13 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
               <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
                 <FileText className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-bold text-slate-800">No posts in this category</h3>
+              <h3 className="text-base font-bold text-slate-800">
+                {isNepali ? 'यस विधामा कुनै सूचना फेला परेन' : 'No posts in this category'}
+              </h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                No communications match your current filter. Please select &quot;All Updates&quot; or check back later.
+                {isNepali
+                  ? 'तपाईंले छनोट गर्नुभएको विधामा हाल कुनै सामग्री छैन। कृपया "सबै सूचनाहरू" छान्नुहोस्।'
+                  : 'No communications match your current filter. Please select "All Updates" or check back later.'}
               </p>
             </div>
           ) : (
@@ -453,7 +498,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-xs">
-                          +{post.photos.length} Photos
+                          +{post.photos.length} {isNepali ? 'तस्बिरहरू' : 'Photos'}
                         </div>
                         <div className="absolute top-3 right-3">
                           {getPostTypeBadge(post.type)}
@@ -467,7 +512,8 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                           {getPostTypeBadge(post.type)}
                           {post.pinned && (
                             <span className="text-[10.5px] font-black uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md flex items-center gap-1 border border-amber-200">
-                              <Pin className="w-3 h-3 fill-amber-600" /> Pinned
+                              <Pin className="w-3 h-3 fill-amber-600" />
+                              <span>{isNepali ? 'पिन गरिएको' : 'Pinned'}</span>
                             </span>
                           )}
                         </div>
@@ -505,7 +551,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                           <div className="flex items-center justify-between">
                             <span className="font-bold flex items-center gap-1.5 text-rose-800">
                               <FileText className="w-3.5 h-3.5" />
-                              <span>{post.files.length} File(s) Attached</span>
+                              <span>{post.files.length} {isNepali ? 'कागजात संलग्न' : 'File(s) Attached'}</span>
                             </span>
                             <span className="text-[10px] font-black uppercase text-rose-600">PDF / Doc</span>
                           </div>
@@ -516,41 +562,21 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                       {post.type === 'new_members' && post.newMembers && post.newMembers.length > 0 && (
                         <div className="p-3 bg-teal-50/80 rounded-2xl border border-teal-100 text-xs text-teal-950 space-y-1">
                           <span className="font-bold text-[11px] block text-teal-800">
-                            Welcome {post.newMembers.length} New Member(s):
+                            {isNepali ? `स्वागत छ ${post.newMembers.length} नयाँ सदस्यहरूलाई:` : `Welcome ${post.newMembers.length} New Member(s):`}
                           </span>
-                          <div className="flex flex-wrap gap-1">
-                            {post.newMembers.slice(0, 3).map((m, mIdx) => (
-                              <span key={m.id || `${post.id}-m-${mIdx}-${m.name}`} className="text-[10.5px] bg-white px-2 py-0.5 rounded-md border border-teal-200 font-semibold text-slate-800">
-                                {m.name}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Event specific chip */}
-                      {post.type === 'event' && (
-                        <div className="p-3 bg-purple-50/80 rounded-2xl border border-purple-100 text-xs text-purple-950 space-y-1">
-                          <div className="flex items-center gap-2 font-bold">
-                            <Clock className="w-3.5 h-3.5 text-purple-600 shrink-0" />
-                            <span>{post.eventStartDate || 'Upcoming'}</span>
-                          </div>
-                          {post.eventVenue && (
-                            <div className="flex items-center gap-2 text-slate-600 truncate text-[11px]">
-                              <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                              <span>{post.eventVenue}</span>
-                            </div>
-                          )}
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <div className="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-                    <span className="text-[11px] truncate">{post.authorName || 'BYCN'}</span>
-                    <span className="font-bold text-[#003893] group-hover:translate-x-1 transition-transform flex items-center gap-1 shrink-0">
-                      <span>Read More</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
+                  <div className="px-6 py-4 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between text-xs text-slate-500">
+                    <span className="flex items-center gap-1 text-[11px]">
+                      <Clock className="w-3 h-3 text-slate-400" />
+                      <span>{post.publishedDate}</span>
+                    </span>
+                    <span className="text-blue-700 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      <span>{isNepali ? 'विस्तृत' : 'Details'}</span>
+                      <ChevronRight className="w-3 h-3" />
                     </span>
                   </div>
                 </div>
@@ -560,90 +586,55 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
         </div>
       </div>
 
-      {/* FULL POST DETAIL MODAL */}
+      {/* DETAIL MODAL FOR SELECTED POST */}
       {selectedPost && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl w-full max-w-3xl border border-slate-200 shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="bg-gradient-to-r from-slate-900 to-[#003893] text-white p-6 flex items-start justify-between gap-4">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
+            <div className="p-6 border-b border-slate-100 flex items-start justify-between gap-4 sticky top-0 bg-white/95 backdrop-blur-xs z-10">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
                   {getPostTypeBadge(selectedPost.type)}
-                  {selectedPost.pinned && (
-                    <span className="text-[10px] font-black uppercase bg-amber-400 text-slate-950 px-2 py-0.5 rounded-md flex items-center gap-1">
-                      <Pin className="w-3 h-3 fill-slate-950" /> Pinned
-                    </span>
-                  )}
-                  {selectedPost.dispatchNumber && (
-                    <span className="text-[11px] bg-white/15 px-2.5 py-0.5 rounded-full font-mono">
-                      No. {selectedPost.dispatchNumber}
-                    </span>
-                  )}
+                  <span className="text-xs text-slate-400 flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{selectedPost.publishedDate}</span>
+                  </span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black">{selectedPost.title}</h2>
-                <div className="text-xs text-slate-300 flex flex-wrap items-center gap-3">
-                  <span>Published: {selectedPost.createdAt ? new Date(selectedPost.createdAt).toLocaleDateString() : 'Recent'}</span>
-                  <span>•</span>
-                  <span>By: {selectedPost.authorName || 'BYCN Central Committee'}</span>
-                </div>
+                <h3 className="text-xl sm:text-2xl font-black font-poppins text-slate-900 leading-tight">
+                  {selectedPost.title}
+                </h3>
               </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  onClick={() => handleShare(selectedPost)}
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer"
-                  title="Share post"
-                >
-                  <Share2 className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setSelectedPost(null)}
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition cursor-pointer"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+              <button
+                onClick={() => setSelectedPost(null)}
+                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition shrink-0 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
-              {/* Event Banner */}
-              {selectedPost.eventBanner && (
-                <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200 max-h-72 w-full">
-                  <img
-                    src={selectedPost.eventBanner}
-                    alt={selectedPost.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              {/* Summary */}
-              {selectedPost.summary && (
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-slate-700 text-sm italic font-medium leading-relaxed">
-                  &ldquo;{selectedPost.summary}&rdquo;
-                </div>
-              )}
-
-              {/* Meeting Details Box */}
+            <div className="p-6 space-y-6">
+              {/* Meeting Section */}
               {selectedPost.type === 'meeting' && (
-                <div className="p-5 bg-blue-50 rounded-2xl border border-blue-200 space-y-4">
+                <div className="p-5 bg-blue-50 rounded-2xl border border-blue-200 space-y-3">
                   <div className="flex items-center gap-2 text-blue-900 font-bold text-sm">
                     <Calendar className="w-5 h-5 text-blue-600" />
-                    <span>Meeting Schedule &amp; Logistical Details</span>
+                    <span>{isNepali ? 'बैठक तथा कार्यक्रम विवरण' : 'Meeting Details & Agenda'}</span>
                   </div>
-
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                     <div className="bg-white p-3 rounded-xl border border-blue-100">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase block">Date &amp; Time</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase block">
+                        {isNepali ? 'मिति र समय' : 'Date & Time'}
+                      </span>
                       <span className="font-bold text-slate-900 text-sm">
-                        {selectedPost.meetingDate} {selectedPost.meetingTime ? `at ${selectedPost.meetingTime}` : ''}
+                        {selectedPost.meetingDate} {selectedPost.meetingTime ? `(${selectedPost.meetingTime})` : ''}
                       </span>
                     </div>
                     <div className="bg-white p-3 rounded-xl border border-blue-100">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase block">Physical Venue</span>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase block">
+                        {isNepali ? 'बैठक स्थान' : 'Physical Venue'}
+                      </span>
                       <span className="font-bold text-slate-900 text-sm">
-                        {selectedPost.meetingVenue || 'Community Assembly Hall'}
+                        {selectedPost.meetingVenue || (isNepali ? 'सामुदायिक सभा भवन' : 'Community Assembly Hall')}
                       </span>
                     </div>
                   </div>
@@ -657,7 +648,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                         className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow-xs"
                       >
                         <Video className="w-4 h-4" />
-                        <span>Join Online Meeting via Google Meet / Zoom</span>
+                        <span>{isNepali ? 'अनलाइन बैठकमा जोडिनुहोस् (Meet / Zoom)' : 'Join Online Meeting via Google Meet / Zoom'}</span>
                         <ExternalLink className="w-3.5 h-3.5 ml-1" />
                       </a>
                     </div>
@@ -665,7 +656,9 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
 
                   {selectedPost.meetingAgenda && selectedPost.meetingAgenda.length > 0 && (
                     <div className="space-y-2 pt-2">
-                      <span className="text-xs font-bold text-blue-900 uppercase block">Official Agendas (कार्यसूची):</span>
+                      <span className="text-xs font-bold text-blue-900 uppercase block">
+                        {isNepali ? 'आधिकारिक कार्यसूची:' : 'Official Agendas (कार्यसूची):'}
+                      </span>
                       <ol className="list-decimal list-inside space-y-1 text-xs text-slate-800 bg-white p-4 rounded-xl border border-blue-100 font-medium">
                         {selectedPost.meetingAgenda.map((item, idx) => (
                           <li key={idx}>{item}</li>
@@ -682,10 +675,10 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-rose-900 font-bold text-sm">
                       <FileText className="w-5 h-5 text-rose-600" />
-                      <span>Official Documents &amp; Downloadable Files</span>
+                      <span>{isNepali ? 'आधिकारिक कागजात तथा डाउनलोड योग्य फाइलहरू' : 'Official Documents & Downloadable Files'}</span>
                     </div>
                     <span className="text-xs text-rose-700 font-bold">
-                      {selectedPost.files.length} File(s)
+                      {selectedPost.files.length} {isNepali ? 'फाइलहरू' : 'File(s)'}
                     </span>
                   </div>
 
@@ -713,7 +706,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                           className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-bold flex items-center gap-1.5 transition shadow-xs shrink-0 cursor-pointer"
                         >
                           <Download className="w-3.5 h-3.5" />
-                          <span>Download PDF</span>
+                          <span>{isNepali ? 'डाउनलोड' : 'Download PDF'}</span>
                         </a>
                       </div>
                     ))}
@@ -726,7 +719,7 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm">
                     <ImageIcon className="w-5 h-5 text-emerald-600" />
-                    <span>Photo Album ({selectedPost.photos.length} Images)</span>
+                    <span>{isNepali ? `फोटो ग्यालरी (${selectedPost.photos.length} तस्बिरहरू)` : `Photo Album (${selectedPost.photos.length} Images)`}</span>
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {selectedPost.photos.map((photo, pIdx) => (
@@ -742,54 +735,10 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
                 </div>
               )}
 
-              {/* New Members Presentation */}
-              {selectedPost.newMembers && selectedPost.newMembers.length > 0 && (
-                <div className="p-5 bg-teal-50 rounded-2xl border border-teal-200 space-y-4">
-                  <div className="flex items-center gap-2 text-teal-900 font-bold text-sm">
-                    <Users className="w-5 h-5 text-teal-600" />
-                    <span>Newly Welcomed Members ({selectedPost.newMembers.length})</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {selectedPost.newMembers.map((member, mIdx) => (
-                      <div
-                        key={member.id || `${selectedPost.id}-mem-${mIdx}-${member.name}`}
-                        className="bg-white rounded-2xl p-4 border border-teal-100 shadow-xs flex items-start gap-3.5"
-                      >
-                        {member.photoUrl ? (
-                          <img
-                            src={member.photoUrl}
-                            alt={member.name}
-                            className="w-14 h-14 rounded-2xl object-cover border border-teal-200 shrink-0"
-                          />
-                        ) : (
-                          <div className="w-14 h-14 rounded-2xl bg-teal-100 text-teal-800 font-bold text-lg flex items-center justify-center shrink-0">
-                            {member.name.charAt(0)}
-                          </div>
-                        )}
-                        <div className="space-y-1">
-                          <h4 className="font-bold text-slate-900 text-sm">{member.name}</h4>
-                          <p className="text-[11px] font-semibold text-teal-700">{member.role}</p>
-                          <p className="text-[10.5px] text-slate-500 flex items-center gap-1">
-                            <MapPin className="w-3 h-3 text-slate-400" />
-                            <span>{member.ward}</span>
-                          </p>
-                          {member.bio && (
-                            <p className="text-xs text-slate-600 italic pt-1 leading-relaxed">
-                              &ldquo;{member.bio}&rdquo;
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Full Content Body */}
               <div className="space-y-3 pt-2">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-400">
-                  Full Announcement &amp; Information:
+                  {isNepali ? 'पूर्ण सूचना तथा विवरण:' : 'Full Announcement & Information:'}
                 </h4>
                 <div className="prose prose-sm max-w-none text-slate-800 leading-relaxed whitespace-pre-line bg-slate-50 p-6 rounded-2xl border border-slate-200">
                   {selectedPost.content}
@@ -813,17 +762,17 @@ export default function NoticesView({ setCurrentTab }: NoticesViewProps) {
             <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
               <button
                 onClick={() => handleShare(selectedPost)}
-                className="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 transition flex items-center gap-1.5"
+                className="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl text-xs font-bold text-slate-700 transition flex items-center gap-1.5 cursor-pointer"
               >
                 <Share2 className="w-3.5 h-3.5" />
-                <span>Share Communication</span>
+                <span>{isNepali ? 'सूचना सेयर गर्नुहोस्' : 'Share Communication'}</span>
               </button>
 
               <button
                 onClick={() => setSelectedPost(null)}
-                className="px-5 py-2 bg-[#003893] hover:bg-blue-900 text-white rounded-xl text-xs font-bold transition shadow-xs"
+                className="px-5 py-2 bg-[#003893] hover:bg-blue-900 text-white rounded-xl text-xs font-bold transition shadow-xs cursor-pointer"
               >
-                Close
+                {isNepali ? 'बन्द गर्नुहोस्' : 'Close'}
               </button>
             </div>
           </div>

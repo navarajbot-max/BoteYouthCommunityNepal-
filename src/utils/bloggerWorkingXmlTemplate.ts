@@ -152,7 +152,7 @@ export function buildBloggerWorkingXml(options: BloggerThemeCustomization = {}):
     };
 
     const titleAttr = escXml(`Leader ${num} — ${leader.role || 'Edit Profile'}`);
-    const encodedContent = `&lt;div class='leader'&gt;&lt;div class='leader-in'&gt;&lt;img class='avatar' src='${escXml(leader.photoUrl || 'https://via.placeholder.com/160x160.png?text=Photo')}' alt='${escXml(leader.name)} photo'/&gt;&lt;div&gt;&lt;h3&gt;${escXml(leader.name)}&lt;/h3&gt;&lt;div class='np'&gt;${escXml(leader.nepaliName || '')}&lt;/div&gt;&lt;span class='role'&gt;● ${escXml(leader.role)}&lt;/span&gt;&lt;p&gt;${escXml(leader.bio)}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='leader-foot'&gt;&lt;span&gt;${escXml(leader.term)}&lt;/span&gt;&lt;a href='#leaders'&gt;Full Dossier →&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;`;
+    const encodedContent = `&lt;div class='leader'&gt;&lt;div class='leader-in'&gt;&lt;img class='avatar' src='${escXml(leader.photoUrl || 'https://via.placeholder.com/160x160.png?text=Photo')}' alt='${escXml(leader.name)} photo'/&gt;&lt;div&gt;&lt;h3&gt;${escXml(leader.name)}&lt;/h3&gt;&lt;div class='np'&gt;${escXml(leader.nepaliName || '')}&lt;/div&gt;&lt;span class='role'&gt;● ${escXml(leader.role)}&lt;/span&gt;&lt;p&gt;${escXml(leader.bio)}&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class='leader-foot'&gt;&lt;span&gt;${escXml(leader.term)}&lt;/span&gt;&lt;a href='#leaders'&gt;Full Details →&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;`;
 
     return `<b:widget id="${id}" type="HTML" title="${titleAttr}" locked="no" version="2"><b:widget-settings><b:widget-setting name="content">${encodedContent}</b:widget-setting></b:widget-settings><b:includable id="main"><data:content/></b:includable></b:widget>`;
   }

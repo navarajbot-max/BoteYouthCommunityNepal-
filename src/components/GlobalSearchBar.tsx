@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { useLanguage } from '../context/LanguageContext';
 import { TabType, LeaderProfile, CultureTradition, DictionaryWord, TraditionalDressItem, CommunityPost } from '../types';
 import { SCHOLARSHIPS_DATA } from '../data/communityData';
 import {
@@ -66,6 +67,7 @@ export default function GlobalSearchBar({
     costumes,
     posts
   } = useCommunityData();
+  const { isNepali } = useLanguage();
 
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -359,7 +361,7 @@ export default function GlobalSearchBar({
           >
             <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-red-600 transition-colors shrink-0" />
             <span className="truncate text-slate-500 group-hover:text-slate-700 text-left flex-1">
-              Search topics, leaders, notices...
+              {isNepali ? 'खोज्नुहोस्: सम्पदा, नेतृत्व, सूचना...' : 'Search topics, leaders, notices...'}
             </span>
             <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-bold bg-white text-slate-500 rounded border border-slate-300 shadow-xs shrink-0">
               <Command className="w-2.5 h-2.5" />K
@@ -374,7 +376,7 @@ export default function GlobalSearchBar({
           type="button"
           onClick={() => setIsOpen(true)}
           className="p-2 text-slate-700 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors cursor-pointer"
-          title="Search website content (⌘K)"
+          title={isNepali ? 'वेबसाइट सामग्री खोज्नुहोस् (⌘K)' : 'Search website content (⌘K)'}
           aria-label="Search"
         >
           <Search className="w-5 h-5" />
@@ -387,11 +389,11 @@ export default function GlobalSearchBar({
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 text-xs font-medium shadow-xs"
+            className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 text-xs font-medium shadow-xs cursor-pointer"
           >
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4 text-red-600" />
-              <span>Search topics, leaders, notices...</span>
+              <span>{isNepali ? 'खोज्नुहोस्: सम्पदा, नेतृत्व, सूचना...' : 'Search topics, leaders, notices...'}</span>
             </div>
             <span className="text-[10px] font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 font-bold text-slate-500">
               ⌘K
@@ -423,7 +425,7 @@ export default function GlobalSearchBar({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search cultural rituals, youth leaders, notices, words, files..."
+                placeholder={isNepali ? 'संस्कृति, युवा नेतृत्व, सूचना, शब्द, फाइल खोज्नुहोस्...' : 'Search cultural rituals, youth leaders, notices, words, files...'}
                 className="w-full text-sm sm:text-base font-medium text-slate-900 placeholder:text-slate-400 bg-transparent focus:outline-none"
               />
               {query && (

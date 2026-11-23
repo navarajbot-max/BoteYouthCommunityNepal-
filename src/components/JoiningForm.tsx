@@ -117,42 +117,42 @@ export default function JoiningForm() {
     { id: 'advocacy', label: 'Leadership & Rights' }
   ];
 
-  const availableInterests: { label: string; category: string; desc: string; nepali?: string }[] = [
+  const availableInterests: { label: string; category: string; desc: string; nepali?: string; descNepali?: string }[] = [
     // Culture & Heritage
-    { label: 'Tarahi & Bote Indigenous Language Documentation', category: 'culture', nepali: 'मातृभाषा संरक्षण तथा अभिलेखीकरण', desc: 'Audio recordings, linguistic dictionary work & oral stories' },
-    { label: 'Traditional Wooden Boat (Dunga/Canoe) Crafting & River Navigation', category: 'culture', nepali: 'काठको डुङ्गा निर्माण तथा जलयात्रा', desc: 'Preserving canoe carving and Bagmati River navigation mastery' },
-    { label: 'Cultural Gholeni Dance, Madal & Festive Music Performance', category: 'culture', nepali: 'घोलेनी नृत्य तथा मौलिक लोकगीत', desc: 'Festive performances, cultural troupe and traditional folk music' },
-    { label: 'Traditional Net Weaving (Jal) & Indigenous Fishing Arts', category: 'culture', nepali: 'परम्परागत माछा मार्ने कला तथा जाल बुनाई', desc: 'Handcrafted cotton/nylon nets & ancestral fishing techniques' },
-    { label: 'Indigenous Costumes, Loom Weaving & Cultural Jewelry', category: 'culture', nepali: 'मौलिक भेषभूषा तथा परम्परागत गरगहना', desc: 'Preserving handloom weaving, traditional fabrics and cultural attire' },
-    { label: 'Oral History, Elder Storytelling & Folklore Archive', category: 'culture', nepali: 'मौखिक इतिहास तथा पुर्ख्यौली कथा संग्रह', desc: 'Documenting elder folklore, origin legends and genealogical archives' },
-    { label: 'Traditional Bote Cuisine & River Culinary Heritage', category: 'culture', nepali: 'मौलिक खानपान तथा नदी परिकार संरक्षण', desc: 'Indigenous river fish recipes, local delicacies and food festivals' },
+    { label: 'Tarahi & Bote Indigenous Language Documentation', category: 'culture', nepali: 'मातृभाषा संरक्षण तथा अभिलेखीकरण', desc: 'Audio recordings, linguistic dictionary work & oral stories', descNepali: 'अडियो रेकर्डिङ, भाषा शब्दकोश निर्माण र पुर्ख्यौली कथा संकलन' },
+    { label: 'Traditional Wooden Boat (Dunga/Canoe) Crafting & River Navigation', category: 'culture', nepali: 'काठको डुङ्गा निर्माण तथा जलयात्रा', desc: 'Preserving canoe carving and Bagmati River navigation mastery', descNepali: 'एक-ढुङ्गे काठको डुङ्गा निर्माण कला र बागमती नदी जलयात्रा सीप संरक्षण' },
+    { label: 'Cultural Gholeni Dance, Madal & Festive Music Performance', category: 'culture', nepali: 'घोलेनी नृत्य तथा मौलिक लोकगीत', desc: 'Festive performances, cultural troupe and traditional folk music', descNepali: 'चाडपर्वमा घोलेनी नृत्य, मादल तथा मौलिक सांस्कृतिक लोकगीत प्रस्तुति' },
+    { label: 'Traditional Net Weaving (Jal) & Indigenous Fishing Arts', category: 'culture', nepali: 'परम्परागत माछा मार्ने कला तथा जाल बुनाई', desc: 'Handcrafted cotton/nylon nets & ancestral fishing techniques', descNepali: 'हातले जाल बुन्ने कला र पुर्ख्यौली माछा मार्ने परम्परागत सीप' },
+    { label: 'Indigenous Costumes, Loom Weaving & Cultural Jewelry', category: 'culture', nepali: 'मौलिक भेषभूषा तथा परम्परागत गरगहना', desc: 'Preserving handloom weaving, traditional fabrics and cultural attire', descNepali: 'हँसुली, कछाड, भाङ्ग्रा, ढुङ्ग्री तथा परम्परागत पहिरन संरक्षण' },
+    { label: 'Oral History, Elder Storytelling & Folklore Archive', category: 'culture', nepali: 'मौखिक इतिहास तथा पुर्ख्यौली कथा संग्रह', desc: 'Documenting elder folklore, origin legends and genealogical archives', descNepali: 'जेष्ठ नागरिकहरूका अनुभव, पुर्खाका कथा र वंशावली अभिलेखीकरण' },
+    { label: 'Traditional Bote Cuisine & River Culinary Heritage', category: 'culture', nepali: 'मौलिक खानपान तथा नदी परिकार संरक्षण', desc: 'Indigenous river fish recipes, local delicacies and food festivals', descNepali: 'नदीका माछाका परिकार, मौलिक खानपान र सांस्कृतिक खाद्य महोत्सव' },
 
     // River & Environment
-    { label: 'River Ecology & Bagmati River Cleanup Patrols', category: 'environment', nepali: 'नदी सफाइ तथा वातावरण संरक्षण', desc: 'Weekly river patrols, zero-plastic initiatives along Bagmati River' },
-    { label: 'Water Safety, Life Guarding & Flood Rescue Support', category: 'environment', nepali: 'बाढी उद्धार तथा जल सुरक्षा स्वयंसेवक', desc: 'Emergency swift-water rescue, boat drills and monsoon flood alert' },
-    { label: 'Wetland Flora, Riverine Birds & Wildlife Conservation', category: 'environment', nepali: 'सिमसार तथा जैविक विविधता संरक्षण', desc: 'Protecting aquatic species, migratory birds and river ecology' },
-    { label: 'Riverbank Tree Plantation & Soil Erosion Control', category: 'environment', nepali: 'तटबन्ध वृक्षारोपण तथा भू-संरक्षण', desc: 'Bamboo and native tree planting along riverbanks to prevent erosion' },
+    { label: 'River Ecology & Bagmati River Cleanup Patrols', category: 'environment', nepali: 'नदी सफाइ तथा वातावरण संरक्षण', desc: 'Weekly river patrols, zero-plastic initiatives along Bagmati River', descNepali: 'साप्ताहिक नदी गस्ती, प्लास्टिक मुक्त अभियान र बागमती संरक्षण' },
+    { label: 'Water Safety, Life Guarding & Flood Rescue Support', category: 'environment', nepali: 'बाढी उद्धार तथा जल सुरक्षा स्वयंसेवक', desc: 'Emergency swift-water rescue, boat drills and monsoon flood alert', descNepali: 'बाढीका बेला आपतकालीन उद्धार, डुङ्गा सञ्चालन र जल सुरक्षा' },
+    { label: 'Wetland Flora, Riverine Birds & Wildlife Conservation', category: 'environment', nepali: 'सिमसार तथा जैविक विविधता संरक्षण', desc: 'Protecting aquatic species, migratory birds and river ecology', descNepali: 'नदीय जलचर, चराचुरुङ्गी र सिमसार वनस्पतिहरूको संरक्षण' },
+    { label: 'Riverbank Tree Plantation & Soil Erosion Control', category: 'environment', nepali: 'तटबन्ध वृक्षारोपण तथा भू-संरक्षण', desc: 'Bamboo and native tree planting along riverbanks to prevent erosion', descNepali: 'नदी कटान रोक्न बाँस र स्थानीय प्रजातिका रुखहरू रोप्ने अभियान' },
 
     // Education & Youth
-    { label: 'Youth Mentorship & School Homework Tutoring', category: 'education', nepali: 'युवा परामर्श तथा विद्यार्थी ट्युसन', desc: 'Mentoring Bote schoolchildren in Karmaiya and local ward schools' },
-    { label: 'Scholarship Drives & Educational Stationery Support', category: 'education', nepali: 'छात्रवृत्ति तथा शैक्षिक सामग्री सहयोग', desc: 'Organizing school supplies, textbook exchanges and book drives' },
-    { label: 'Career Counseling & Vocational Skill Workshops', category: 'education', nepali: 'करियर काउन्सिलिङ तथा प्राविधिक सीप', desc: 'Guidance on trade skills, technical diplomas and civil service' },
-    { label: 'Sports Tournaments (Football, Volleyball & Traditional Games)', category: 'education', nepali: 'खेलकुद प्रतियोगिता तथा युवा फिटनेस', desc: 'Inter-ward tournaments, athletics and traditional community games' },
+    { label: 'Youth Mentorship & School Homework Tutoring', category: 'education', nepali: 'युवा परामर्श तथा विद्यार्थी ट्युसन', desc: 'Mentoring Bote schoolchildren in Karmaiya and local ward schools', descNepali: 'कर्मैयाका विद्यालयमा अध्ययनरत बोटे बालबालिकालाई अतिरिक्त ट्युसन' },
+    { label: 'Scholarship Drives & Educational Stationery Support', category: 'education', nepali: 'छात्रवृत्ति तथा शैक्षिक सामग्री सहयोग', desc: 'Organizing school supplies, textbook exchanges and book drives', descNepali: 'कापी-कलम, पाठ्यपुस्तक संकलन र छात्रवृत्ति समन्वय' },
+    { label: 'Career Counseling & Vocational Skill Workshops', category: 'education', nepali: 'करियर काउन्सिलिङ तथा प्राविधिक सीप', desc: 'Guidance on trade skills, technical diplomas and civil service', descNepali: 'प्राविधिक डिप्लोमा, रोजगारी र लोकसेवा तयारी परामर्श' },
+    { label: 'Sports Tournaments (Football, Volleyball & Traditional Games)', category: 'education', nepali: 'खेलकुद प्रतियोगिता तथा युवा फिटनेस', desc: 'Inter-ward tournaments, athletics and traditional community games', descNepali: 'वडास्तरीय फुटबल, भलिबल र परम्परागत खेलकुद प्रतियोगिता' },
 
     // Health & Welfare
-    { label: 'Community Health Camps & Blood Donation Mobilization', category: 'welfare', nepali: 'स्वास्थ्य शिविर तथा रक्तदान कार्यक्रम', desc: 'Free medical camps, blood grouping and health awareness drives' },
-    { label: 'First Aid, Disaster Preparedness & Emergency Response', category: 'welfare', nepali: 'प्राथमिक उपचार तथा आपतकालीन व्यवस्थापन', desc: 'Community first aid training and natural disaster preparedness' },
-    { label: 'Elderly Care, Social Welfare & Single Mothers Support', category: 'welfare', nepali: 'ज्येष्ठ नागरिक तथा सामाजिक कल्याण सहयोग', desc: 'Assistance for senior community members and vulnerable families' },
-    { label: 'Women Handicrafts, Bamboo Weaving & Micro-Enterprise', category: 'welfare', nepali: 'महिला हस्तकला तथा बाँसका सामग्री', desc: 'Bamboo baskets, fish traps (Dhadhi) and cooperative sales' },
+    { label: 'Community Health Camps & Blood Donation Mobilization', category: 'welfare', nepali: 'स्वास्थ्य शिविर तथा रक्तदान कार्यक्रम', desc: 'Free medical camps, blood grouping and health awareness drives', descNepali: 'निःशुल्क स्वास्थ्य शिविर, रक्तदान र स्वास्थ्य सचेतना अभियान' },
+    { label: 'First Aid, Disaster Preparedness & Emergency Response', category: 'welfare', nepali: 'प्राथमिक उपचार तथा आपतकालीन व्यवस्थापन', desc: 'Community first aid training and natural disaster preparedness', descNepali: 'सामुदायिक प्राथमिक उपचार तालिम र प्राकृतिक विपद् पूर्वतयारी' },
+    { label: 'Elderly Care, Social Welfare & Single Mothers Support', category: 'welfare', nepali: 'ज्येष्ठ नागरिक तथा सामाजिक कल्याण सहयोग', desc: 'Assistance for senior community members and vulnerable families', descNepali: 'जेष्ठ नागरिक र असहाय परिवारहरूलाई सामाजिक सहयोग' },
+    { label: 'Women Handicrafts, Bamboo Weaving & Micro-Enterprise', category: 'welfare', nepali: 'महिला हस्तकला तथा बाँसका सामग्री', desc: 'Bamboo baskets, fish traps (Dhadhi) and cooperative sales', descNepali: 'बाँसका ढकिया, ढाडी, चकटी बुनाई र महिला स्वरोजगार' },
 
     // Digital & Media
-    { label: 'Digital Literacy, Computer Skills & Smartphone Training', category: 'digital', nepali: 'डिजिटल साक्षरता तथा कम्प्युटर सीप', desc: 'Basic computing, email, mobile internet and online public services' },
-    { label: 'Photography, Videography & Documentary Filmmaking', category: 'digital', nepali: 'फोटोग्राफी तथा भिडियो डकुमेन्ट्री', desc: 'Documenting community life, events and video storytelling' },
-    { label: 'Social Media, Website & Community Journalism', category: 'digital', nepali: 'सामाजिक सञ्जाल तथा सामुदायिक पत्रकारिता', desc: 'Website management, Facebook outreach and community newsletters' },
+    { label: 'Digital Literacy, Computer Skills & Smartphone Training', category: 'digital', nepali: 'डिजिटल साक्षरता तथा कम्प्युटर सीप', desc: 'Basic computing, email, mobile internet and online public services', descNepali: 'कम्प्युटर, इमेल, अनलाइन सरकारी सेवा र मोबाइल साक्षरता' },
+    { label: 'Photography, Videography & Documentary Filmmaking', category: 'digital', nepali: 'फोटोग्राफी तथा भिडियो डकुमेन्ट्री', desc: 'Documenting community life, events and video storytelling', descNepali: 'सामुदायिक जीवन, चाडपर्व र भिडियो वृत्तचित्र निर्माण' },
+    { label: 'Social Media, Website & Community Journalism', category: 'digital', nepali: 'सामाजिक सञ्जाल तथा सामुदायिक पत्रकारिता', desc: 'Website management, Facebook outreach and community newsletters', descNepali: 'वेबसाइट, फेसबुक, समाचार र सामुदायिक सूचना प्रचार' },
 
     // Leadership & Rights
-    { label: 'Indigenous Rights, Legal Awareness & Civic Education', category: 'advocacy', nepali: 'आदिवासी अधिकार तथा कानुनी सचेतना', desc: 'Indigenous nationality rights, ILO Convention 169 & legal literacy' },
-    { label: 'Public Speaking, Youth Debate & Leadership Seminars', category: 'advocacy', nepali: 'नेतृत्व विकास तथा वक्तृत्वकला तालिम', desc: 'Training youth spokespersons, public speaking and civic leadership' }
+    { label: 'Indigenous Rights, Legal Awareness & Civic Education', category: 'advocacy', nepali: 'आदिवासी अधिकार तथा कानुनी सचेतना', desc: 'Indigenous nationality rights, ILO Convention 169 & legal literacy', descNepali: 'आदिवासी जनजाति अधिकार, कानुन र नागरिक सचेतना' },
+    { label: 'Public Speaking, Youth Debate & Leadership Seminars', category: 'advocacy', nepali: 'नेतृत्व विकास तथा वक्तृत्वकला तालिम', desc: 'Training youth spokespersons, public speaking and civic leadership', descNepali: 'युवा नेतृत्व, वक्तृत्वकला र क्षमता विकास तालिम' }
   ];
 
   const handleInterestToggle = (item: string) => {
@@ -496,8 +496,8 @@ export default function JoiningForm() {
                   onChange={(e) => setGender(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 bg-slate-50 focus:outline-none"
                 >
-                  <option value="Male">{isNepali ? 'पुरुष (Male)' : 'Male (पुरुष)'}</option>
-                  <option value="Female">{isNepali ? 'महिला (Female)' : 'Female (महिला)'}</option>
+                  <option value="Male">{isNepali ? 'पुरुष' : 'Male'}</option>
+                  <option value="Female">{isNepali ? 'महिला' : 'Female'}</option>
                   <option value="Other">{isNepali ? 'अन्य / खुलाउन नचाहेको' : 'Other / Prefer not to say'}</option>
                 </select>
               </div>
@@ -537,12 +537,12 @@ export default function JoiningForm() {
                   onChange={(e) => setDistrict(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-slate-300 bg-slate-50 focus:outline-none"
                 >
-                  <option value="Sarlahi">{isNepali ? 'सर्लाही (Sarlahi)' : 'Sarlahi (सर्लाही)'}</option>
-                  <option value="Chitwan">{isNepali ? 'चितवन (Chitwan)' : 'Chitwan (चितवन)'}</option>
+                  <option value="Sarlahi">{isNepali ? 'सर्लाही' : 'Sarlahi'}</option>
+                  <option value="Chitwan">{isNepali ? 'चितवन' : 'Chitwan'}</option>
                   <option value="Nawalpur">{isNepali ? 'नवलपुर / नवलपरासी' : 'Nawalpur / Nawalparasi'}</option>
-                  <option value="Tanahun">{isNepali ? 'तनहुँ (Tanahun)' : 'Tanahun (तनहुँ)'}</option>
-                  <option value="Makwanpur">{isNepali ? 'मकवानपुर (Makwanpur)' : 'Makwanpur (मकवानपुर)'}</option>
-                  <option value="Kathmandu">{isNepali ? 'काठमाडौँ (Kathmandu)' : 'Kathmandu (काठमाडौँ)'}</option>
+                  <option value="Tanahun">{isNepali ? 'तनहुँ' : 'Tanahun'}</option>
+                  <option value="Makwanpur">{isNepali ? 'मकवानपुर' : 'Makwanpur'}</option>
+                  <option value="Kathmandu">{isNepali ? 'काठमाडौँ' : 'Kathmandu'}</option>
                   <option value="Other">{isNepali ? 'अन्य जिल्ला' : 'Other District'}</option>
                 </select>
               </div>
@@ -643,7 +643,7 @@ export default function JoiningForm() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2">
               <h3 className="text-sm font-black uppercase text-slate-800 tracking-wider flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-xs">4</span>
-                <span>{isNepali ? 'स्वयंसेवा तथा रुचि क्षेत्र' : 'Volunteer & Community Interests (स्वयंसेवा तथा रुचि क्षेत्र)'}</span>
+                <span>{isNepali ? 'स्वयंसेवा तथा रुचि क्षेत्र' : 'Volunteer & Community Interests'}</span>
               </h3>
 
               <div className="flex items-center gap-2">
@@ -763,13 +763,8 @@ export default function JoiningForm() {
                         <span className={`text-xs block leading-snug font-bold ${checked ? 'text-[#003893]' : 'text-slate-800'}`}>
                           {isNepali && item.nepali ? item.nepali : item.label}
                         </span>
-                        {item.nepali && !isNepali && (
-                          <span className="text-[11px] text-[#DC143C] font-medium block">
-                            {item.nepali}
-                          </span>
-                        )}
                         <p className="text-[11px] text-slate-500 leading-tight">
-                          {isNepali ? (item.nepali || item.desc) : item.desc}
+                          {isNepali ? (item.descNepali || item.nepali || item.desc) : item.desc}
                         </p>
                       </div>
                     </button>

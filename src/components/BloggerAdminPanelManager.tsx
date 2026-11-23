@@ -404,7 +404,7 @@ ${leaders
     <div class="byc-leader-role">● ${l.role}</div>
     <p class="byc-leader-bio">${l.bio}</p>
     <div class="byc-leader-term">${l.term}</div>
-    <a class="byc-leader-btn" href="#">Full Dossier &rarr;</a>
+    <a class="byc-leader-btn" href="#">Full Details &rarr;</a>
   </div>`
   )
   .join('\n')}

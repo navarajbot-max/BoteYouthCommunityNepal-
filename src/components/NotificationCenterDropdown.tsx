@@ -5,6 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { useLanguage } from '../context/LanguageContext';
 import { TabType, CommunityNotification, NotificationType } from '../types';
 import {
   Bell,
@@ -45,6 +46,7 @@ export default function NotificationCenterDropdown({
   onClose,
   onNavigateTab
 }: NotificationCenterDropdownProps) {
+  const { isNepali } = useLanguage();
   const {
     notifications,
     unreadNotificationsCount,
@@ -118,22 +120,22 @@ export default function NotificationCenterDropdown({
       const now = Date.now();
       const past = new Date(timestamp).getTime();
       const diffSec = Math.floor((now - past) / 1000);
-      if (diffSec < 60) return 'Just now';
+      if (diffSec < 60) return isNepali ? 'भर्खरै' : 'Just now';
       const diffMin = Math.floor(diffSec / 60);
-      if (diffMin < 60) return `${diffMin}m ago`;
+      if (diffMin < 60) return isNepali ? `${diffMin} मिनेट अघि` : `${diffMin}m ago`;
       const diffHours = Math.floor(diffMin / 60);
-      if (diffHours < 24) return `${diffHours}h ago`;
+      if (diffHours < 24) return isNepali ? `${diffHours} घण्टा अघि` : `${diffHours}h ago`;
       const diffDays = Math.floor(diffHours / 24);
-      return `${diffDays}d ago`;
+      return isNepali ? `${diffDays} दिन अघि` : `${diffDays}d ago`;
     } catch {
-      return 'Recently';
+      return isNepali ? 'हालै' : 'Recently';
     }
   };
 
   const formatFullTimestamp = (iso: string) => {
     try {
       const d = new Date(iso);
-      return d.toLocaleString('ne-NP', {
+      return d.toLocaleString(isNepali ? 'ne-NP' : 'en-US', {
         weekday: 'short',
         year: 'numeric',
         month: 'short',
@@ -164,22 +166,22 @@ export default function NotificationCenterDropdown({
       case 'join':
         return {
           bg: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-          label: 'New सदस्य (Join)'
+          label: isNepali ? 'नयाँ सदस्य' : 'New Member'
         };
       case 'follow':
         return {
           bg: 'bg-rose-50 text-rose-800 border-rose-200',
-          label: 'Follower (अनुयायी)'
+          label: isNepali ? 'अनुयायी' : 'Follower'
         };
       case 'notice':
         return {
           bg: 'bg-amber-50 text-amber-800 border-amber-200',
-          label: 'सूचना (Notice)'
+          label: isNepali ? 'सूचना' : 'Notice'
         };
       default:
         return {
           bg: 'bg-blue-50 text-blue-800 border-blue-200',
-          label: 'Update'
+          label: isNepali ? 'अद्यावधिक' : 'Update'
         };
     }
   };
@@ -245,7 +247,7 @@ export default function NotificationCenterDropdown({
         id="notification-center-dropdown"
         className="absolute right-0 top-full mt-2 w-[360px] sm:w-[460px] max-w-[95vw] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50 text-slate-900 animate-in fade-in slide-in-from-top-2 duration-150"
       >
-        {/* Header bar matching exact user title: समुदाय Updates / सदस्य दर्ता तथा अनुयायी सूचनाहरू */}
+        {/* Header bar */}
         <div className="bg-slate-900 text-white p-3.5 sm:p-4 flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-2.5">
             <div className="w-8 h-8 rounded-full bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center shrink-0">
@@ -253,15 +255,18 @@ export default function NotificationCenterDropdown({
             </div>
             <div>
               <div className="flex items-center space-x-2 flex-wrap">
-                <h3 className="text-sm font-bold tracking-tight">समुदाय Updates</h3>
-                <span className="text-[10px] text-slate-400 font-medium">(Community Updates)</span>
+                <h3 className="text-sm font-bold tracking-tight">
+                  {isNepali ? 'सामुदायिक अद्यावधिकहरू' : 'Community Updates'}
+                </h3>
                 {unreadNotificationsCount > 0 && (
                   <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-xs">
-                    {unreadNotificationsCount} new
+                    {unreadNotificationsCount} {isNepali ? 'नयाँ' : 'new'}
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-slate-400">सदस्य दर्ता तथा अनुयायी सूचनाहरू</p>
+              <p className="text-[11px] text-slate-400">
+                {isNepali ? 'सदस्य दर्ता तथा अनुयायी सूचनाहरू' : 'Member Registrations & Follower Alerts'}
+              </p>
             </div>
           </div>
 
@@ -269,7 +274,7 @@ export default function NotificationCenterDropdown({
             type="button"
             onClick={onClose}
             className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
-            title="Close notification dropdown"
+            title={isNepali ? 'बन्द गर्नुहोस्' : 'Close notification dropdown'}
           >
             <X className="w-4 h-4" />
           </button>
@@ -288,7 +293,7 @@ export default function NotificationCenterDropdown({
                   : 'text-slate-600 hover:bg-slate-200'
               }`}
             >
-              All ({notifications.length})
+              {isNepali ? 'सबै' : 'All'} ({notifications.length})
             </button>
             <button
               type="button"
@@ -300,7 +305,7 @@ export default function NotificationCenterDropdown({
               }`}
             >
               <UserCheck className="w-3 h-3" />
-              <span>Joins ({joinsCount})</span>
+              <span>{isNepali ? 'सदस्यता' : 'Joins'} ({joinsCount})</span>
             </button>
             <button
               type="button"
@@ -312,7 +317,7 @@ export default function NotificationCenterDropdown({
               }`}
             >
               <Heart className="w-3 h-3" />
-              <span>अनुयायीहरू ({followsCount})</span>
+              <span>{isNepali ? 'अनुयायीहरू' : 'Followers'} ({followsCount})</span>
             </button>
             <button
               type="button"
@@ -323,7 +328,7 @@ export default function NotificationCenterDropdown({
                   : 'text-slate-600 hover:bg-slate-200'
               }`}
             >
-              सूचनाहरू ({noticesCount})
+              {isNepali ? 'सूचनाहरू' : 'Notices'} ({noticesCount})
             </button>
           </div>
 
@@ -333,17 +338,21 @@ export default function NotificationCenterDropdown({
               type="button"
               onClick={toggleExpandAll}
               className="text-blue-700 hover:text-blue-900 font-bold flex items-center gap-1 py-0.5 px-1.5 rounded hover:bg-blue-50 transition cursor-pointer"
-              title={areAllFilteredExpanded ? 'सबै संकुचन गर्नुहोस् (Collapse all details)' : 'सबै पूरा विवरण हेर्नुहोस् (Expand all full details)'}
+              title={
+                areAllFilteredExpanded
+                  ? (isNepali ? 'सबै संकुचन गर्नुहोस्' : 'Collapse all details')
+                  : (isNepali ? 'सबै पूरा विवरण हेर्नुहोस्' : 'Expand all details')
+              }
             >
               {areAllFilteredExpanded ? (
                 <>
                   <EyeOff className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Collapse all details (सबै संकुचन)</span>
+                  <span>{isNepali ? 'सबै संकुचन गर्नुहोस्' : 'Collapse all details'}</span>
                 </>
               ) : (
                 <>
                   <Eye className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Expand all details (सबै पूरा विवरण)</span>
+                  <span>{isNepali ? 'सबै पूरा विवरण हेर्नुहोस्' : 'Expand all details'}</span>
                 </>
               )}
             </button>
@@ -353,10 +362,10 @@ export default function NotificationCenterDropdown({
                 type="button"
                 onClick={() => markAllNotificationsAsRead()}
                 className="text-emerald-700 hover:text-emerald-900 font-bold flex items-center gap-1 py-0.5 px-1.5 rounded hover:bg-emerald-50 transition cursor-pointer"
-                title="सबैलाई पढिएको चिन्ह लगाउनुहोस् (Mark all as read)"
+                title={isNepali ? 'सबैलाई पढिएको चिन्ह लगाउनुहोस्' : 'Mark all as read'}
               >
                 <CheckCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Read all (सबै पढियो)</span>
+                <span>{isNepali ? 'सबै पढियो' : 'Read all'}</span>
               </button>
             )}
           </div>
@@ -369,9 +378,13 @@ export default function NotificationCenterDropdown({
               <div className="w-12 h-12 rounded-full bg-slate-100 mx-auto flex items-center justify-center text-slate-400 mb-2">
                 <Bell className="w-6 h-6" />
               </div>
-              <p className="text-xs font-semibold text-slate-700">No updates in this filter</p>
+              <p className="text-xs font-semibold text-slate-700">
+                {isNepali ? 'यस विधामा कुनै नयाँ सूचना छैन' : 'No updates in this filter'}
+              </p>
               <p className="text-[11px] text-slate-400 mt-0.5">
-                नयाँ सदस्यता दर्ता तथा अनुयायी सूचनाहरू यहाँ प्रत्यक्ष देखिनेछन्।
+                {isNepali
+                  ? 'नयाँ सदस्यता दर्ता तथा अनुयायी सूचनाहरू यहाँ प्रत्यक्ष देखिनेछन्।'
+                  : 'New member registrations and follower alerts will appear here in real time.'}
               </p>
             </div>
           ) : (

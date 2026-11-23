@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Heart,
   CheckCircle,
@@ -38,6 +39,7 @@ export default function InteractiveFollowModal({
     followerEmail,
     followCommunity
   } = useCommunityData();
+  const { isNepali } = useLanguage();
 
   const [email, setEmail] = useState(initialEmail || followerEmail || '');
   const [name, setName] = useState(initialName || '');
@@ -53,12 +55,12 @@ export default function InteractiveFollowModal({
 
     const cleanEmail = email.trim().toLowerCase();
     if (!cleanEmail) {
-      setErrorMessage('Please enter your Gmail or Email address.');
+      setErrorMessage(isNepali ? 'कृपया आफ्नो जिमेल वा इमेल ठेगाना प्रविष्ट गर्नुहोस्।' : 'Please enter your Gmail or Email address.');
       return;
     }
 
     if (!cleanEmail.includes('@') || !cleanEmail.includes('.')) {
-      setErrorMessage('Please enter a valid Gmail address (e.g. name@gmail.com).');
+      setErrorMessage(isNepali ? 'कृपया मान्य जिमेल ठेगाना प्रविष्ट गर्नुहोस् (उदा. name@gmail.com)।' : 'Please enter a valid Gmail address (e.g. name@gmail.com).');
       return;
     }
 
@@ -79,10 +81,10 @@ export default function InteractiveFollowModal({
           onClose();
         }, 2200);
       } else {
-        setErrorMessage(res.message || 'Could not record follow. Please check your connection.');
+        setErrorMessage(res.message || (isNepali ? 'फलो दर्ता गर्न सकिएन। कृपया इन्टरनेट जाँच गर्नुहोस्।' : 'Could not record follow. Please check your connection.'));
       }
     } catch (err: any) {
-      setErrorMessage('An error occurred while synchronizing. Please try again.');
+      setErrorMessage(isNepali ? 'त्रुटि देखा पर्यो। कृपया पुन: प्रयास गर्नुहोस्।' : 'An error occurred while synchronizing. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -113,14 +115,14 @@ export default function InteractiveFollowModal({
           <div>
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-black uppercase tracking-wider text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
-                🇳🇵 One-Time Follow
+                🇳🇵 {isNepali ? 'एक-पटक फलो' : 'One-Time Follow'}
               </span>
               <span className="text-[10px] font-bold text-slate-500 font-mono">
-                {followerCount.toLocaleString()} Followers
+                {followerCount.toLocaleString()} {isNepali ? 'अनुयायीहरू' : 'Followers'}
               </span>
             </div>
             <h3 className="text-lg font-black text-slate-900 font-poppins mt-0.5">
-              Follow Bote Youth Community
+              {isNepali ? 'नेपाल बोटे युवा समुदाय फलो गर्नुहोस्' : 'Follow Bote Youth Community'}
             </h3>
           </div>
         </div>
@@ -130,19 +132,21 @@ export default function InteractiveFollowModal({
           <div className="bg-emerald-50 border-2 border-emerald-300 text-emerald-900 p-5 rounded-2xl space-y-3">
             <div className="flex items-center gap-2 text-emerald-700 font-black text-sm">
               <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
-              <span>Verified Community Follower Active!</span>
+              <span>{isNepali ? 'प्रमाणित सामुदायिक अनुयायी सक्रिय!' : 'Verified Community Follower Active!'}</span>
             </div>
             <p className="text-xs text-emerald-800 leading-relaxed">
               {successResult?.message ||
-                `You are officially following with ${followerEmail || 'your verified Gmail'}. Follower state is persisted locally and synchronized.`}
+                (isNepali
+                  ? `तपाईं ${followerEmail || 'आफ्नो प्रमाणित जिमेल'} मार्फत आधिकारिक रूपमा जोडिनुभएको छ।`
+                  : `You are officially following with ${followerEmail || 'your verified Gmail'}. Follower state is persisted locally and synchronized.`)}
             </p>
             <div className="pt-2 border-t border-emerald-200 flex items-center justify-between text-[11px] font-bold text-emerald-800">
               <span className="flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>One-Time Duplicate Prevention Active</span>
+                <span>{isNepali ? 'दोहोरो दर्ता नियन्त्रण सक्रिय' : 'One-Time Duplicate Prevention Active'}</span>
               </span>
               <span className="bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">
-                ✓ Following
+                ✓ {isNepali ? 'फलो गरिएको' : 'Following'}
               </span>
             </div>
           </div>
@@ -150,7 +154,9 @@ export default function InteractiveFollowModal({
           /* Form for following */
           <form onSubmit={handleSubmitFollow} className="space-y-4">
             <p className="text-xs text-slate-600 leading-relaxed">
-              Follow Bote Youth Community Nepal to receive immediate alerts for river conservation patrols, Tarahi language dictionaries, cultural festivals, and youth scholarships.
+              {isNepali
+                ? 'नदी पर्यावरण संरक्षण, तराही भाषा शब्दकोश, सांस्कृतिक चाडपर्व र युवा छात्रवृत्तिका सूचनाहरू तत्काल प्राप्त गर्न नेपाल बोटे युवा समुदायलाई फलो गर्नुहोस्।'
+                : 'Follow Bote Youth Community Nepal to receive immediate alerts for river conservation patrols, Tarahi language dictionaries, cultural festivals, and youth scholarships.'}
             </p>
 
             {/* Error Message */}
@@ -163,8 +169,8 @@ export default function InteractiveFollowModal({
             {/* Gmail / Email Input */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-700 uppercase flex items-center justify-between">
-                <span>Gmail / Email Address *</span>
-                <span className="text-[10px] text-slate-400 font-normal">One-time follow</span>
+                <span>{isNepali ? 'जिमेल / इमेल ठेगाना *' : 'Gmail / Email Address *'}</span>
+                <span className="text-[10px] text-slate-400 font-normal">{isNepali ? 'एक-पटक' : 'One-time follow'}</span>
               </label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -182,8 +188,8 @@ export default function InteractiveFollowModal({
             {/* Supporter Name */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-700 uppercase flex items-center justify-between">
-                <span>Your Name (Optional)</span>
-                <span className="text-[10px] text-slate-400 font-normal">Community supporter</span>
+                <span>{isNepali ? 'तपाईंको नाम (ऐच्छिक)' : 'Your Name (Optional)'}</span>
+                <span className="text-[10px] text-slate-400 font-normal">{isNepali ? 'समर्थक' : 'Community supporter'}</span>
               </label>
               <div className="relative">
                 <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -191,7 +197,7 @@ export default function InteractiveFollowModal({
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Maya Bote or Solidarity Supporter"
+                  placeholder={isNepali ? 'उदा. माया बोटे वा समर्थक' : 'e.g. Maya Bote or Solidarity Supporter'}
                   className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#DC143C] focus:bg-white"
                 />
               </div>
@@ -201,10 +207,12 @@ export default function InteractiveFollowModal({
             <div className="bg-slate-50 rounded-2xl p-3 border border-slate-200 text-[11px] text-slate-600 space-y-1.5">
               <div className="flex items-center gap-1.5 text-slate-700 font-bold">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>One-Time Follow &amp; Join Synchronization</span>
+                <span>{isNepali ? 'एक-पटक फलो र सदस्यता सिङ्क' : 'One-Time Follow & Join Synchronization'}</span>
               </div>
               <p className="text-[10.5px] text-slate-500 leading-snug">
-                State is saved locally (<code className="font-mono text-[10px] bg-slate-200 px-1 py-0.5 rounded">bycn_is_following</code>) and server-synced. Once followed, join prompts are automatically handled.
+                {isNepali
+                  ? 'तपाईंको फलो अवस्था स्थानीय रूपमा सुरक्षित हुन्छ। एक पटक फलो गरेपछि पुनः दर्ता गर्नुपर्दैन।'
+                  : 'State is saved locally and server-synced. Once followed, join prompts are automatically handled.'}
               </p>
             </div>
 
@@ -215,7 +223,7 @@ export default function InteractiveFollowModal({
                 onClick={onClose}
                 className="w-1/3 py-3 px-3 rounded-xl border border-slate-300 text-slate-700 text-xs font-bold hover:bg-slate-50 transition cursor-pointer"
               >
-                Cancel
+                {isNepali ? 'रद्द गर्नुहोस्' : 'Cancel'}
               </button>
               <button
                 type="submit"
@@ -225,12 +233,12 @@ export default function InteractiveFollowModal({
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-amber-300" />
-                    <span>Synchronizing...</span>
+                    <span>{isNepali ? 'सुरक्षित हुँदैछ...' : 'Synchronizing...'}</span>
                   </>
                 ) : (
                   <>
                     <Heart className="w-4 h-4 text-white fill-white" />
-                    <span>Follow with Gmail</span>
+                    <span>{isNepali ? 'जिमेलबाट फलो गर्नुहोस्' : 'Follow with Gmail'}</span>
                   </>
                 )}
               </button>

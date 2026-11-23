@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { TabType, TraditionalDressItem, CostumeItem } from '../types';
 import { useCommunityData } from '../context/CommunityDataContext';
+import { useLanguage } from '../context/LanguageContext';
 import { Award, ArrowRight, CheckCircle, Sparkles, Shirt, Gem, Tag } from 'lucide-react';
 import { resolveAssetUrl } from '../services/storagePersistence';
 
@@ -15,6 +16,7 @@ interface CultureDressViewProps {
 
 export default function CultureDressView({ setCurrentTab }: CultureDressViewProps) {
   const { dressItems, costumes } = useCommunityData();
+  const { isNepali } = useLanguage();
   const [activeSection, setActiveSection] = useState<'costumes' | 'ornaments'>('costumes');
   const [selectedWearer, setSelectedWearer] = useState<'all' | 'women' | 'men'>('all');
 
@@ -34,38 +36,40 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
       <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm space-y-4">
         <div className="inline-flex items-center space-x-2 text-xs font-black uppercase tracking-wider text-[#DC143C]">
           <Award className="w-4 h-4 text-amber-500" />
-          <span>Textile, Costume &amp; Ornament Heritage</span>
+          <span>{isNepali ? 'वस्त्र, भेषभूषा तथा परम्परागत गरगहना' : 'Textile, Costume & Ornament Heritage'}</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black font-poppins text-slate-900 leading-tight">
-          Bote Traditional Costumes &amp; Cultural Dress
+          {isNepali ? 'बोटे समुदायको परम्परागत पोशाक तथा गरगहना' : 'Bote Traditional Costumes & Cultural Dress'}
         </h1>
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-          The traditional attire, ceremonial costumes, and silver ornamentation of the Bote indigenous community reflect centuries of living alongside rivers. Woven from durable hand-spun cotton and dyed with indigenous earthen tones, every garment embodies craftsmanship, river navigation resilience, and cultural pride.
+          {isNepali
+            ? 'बोटे आदिवासी समुदायको परम्परागत पहिरन, चाडपर्वका भेषभूषा र चाँदीका गहनाहरूले नदी किनारको शताब्दीयौँ लामो जीवनशैलीलाई प्रतिविम्बित गर्दछ। हातले बुनेका बलिया सुती कपडा र प्राकृतिक माटोका रङहरूबाट तयार पारिएका यी पोशाकहरूले शिल्पकला, जलयात्राको अनुकूलन र सांस्कृतिक पहिचान बोकेका छन्।'
+            : 'The traditional attire, ceremonial costumes, and silver ornamentation of the Bote indigenous community reflect centuries of living alongside rivers. Woven from durable hand-spun cotton and dyed with indigenous earthen tones, every garment embodies craftsmanship, river navigation resilience, and cultural pride.'}
         </p>
 
         {/* Section Selector: Costumes vs Ornaments */}
         <div className="pt-4 flex flex-wrap items-center gap-3">
           <button
             onClick={() => setActiveSection('costumes')}
-            className={`px-6 py-3 rounded-2xl font-black text-xs transition-all flex items-center gap-2 ${
+            className={`px-6 py-3 rounded-2xl font-black text-xs transition-all flex items-center gap-2 cursor-pointer ${
               activeSection === 'costumes'
                 ? 'bg-[#DC143C] text-white shadow-lg shadow-red-200'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
             <Shirt className="w-4 h-4" />
-            <span>Complete Costumes &amp; Attire ({costumes.length})</span>
+            <span>{isNepali ? `सम्पूर्ण परम्परागत पोशाक (${costumes.length})` : `Complete Costumes & Attire (${costumes.length})`}</span>
           </button>
           <button
             onClick={() => setActiveSection('ornaments')}
-            className={`px-6 py-3 rounded-2xl font-black text-xs transition-all flex items-center gap-2 ${
+            className={`px-6 py-3 rounded-2xl font-black text-xs transition-all flex items-center gap-2 cursor-pointer ${
               activeSection === 'ornaments'
                 ? 'bg-[#003893] text-white shadow-lg shadow-blue-200'
                 : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
             }`}
           >
             <Gem className="w-4 h-4" />
-            <span>Traditional Dress &amp; Silver Jewelry ({dressItems.length})</span>
+            <span>{isNepali ? `चाँदीका गहना तथा पहिरन (${dressItems.length})` : `Traditional Dress & Silver Jewelry (${dressItems.length})`}</span>
           </button>
         </div>
       </div>
@@ -74,33 +78,33 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
       <div className="flex items-center justify-center gap-3 flex-wrap">
         <button
           onClick={() => setSelectedWearer('all')}
-          className={`text-xs px-5 py-2 rounded-full font-bold transition-all ${
+          className={`text-xs px-5 py-2 rounded-full font-bold transition-all cursor-pointer ${
             selectedWearer === 'all'
               ? 'bg-slate-900 text-white shadow-md'
               : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
           }`}
         >
-          All (महिला र पुरुष सबै)
+          {isNepali ? 'सबै (महिला तथा पुरुष)' : 'All (Women & Men)'}
         </button>
         <button
           onClick={() => setSelectedWearer('women')}
-          className={`text-xs px-5 py-2 rounded-full font-bold transition-all ${
+          className={`text-xs px-5 py-2 rounded-full font-bold transition-all cursor-pointer ${
             selectedWearer === 'women'
               ? 'bg-[#DC143C] text-white shadow-md'
               : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
           }`}
         >
-          Women's Costumes &amp; Ornaments (महिला)
+          {isNepali ? 'महिलाको पोशाक तथा गहना' : "Women's Costumes & Ornaments"}
         </button>
         <button
           onClick={() => setSelectedWearer('men')}
-          className={`text-xs px-5 py-2 rounded-full font-bold transition-all ${
+          className={`text-xs px-5 py-2 rounded-full font-bold transition-all cursor-pointer ${
             selectedWearer === 'men'
               ? 'bg-[#003893] text-white shadow-md'
               : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
           }`}
         >
-          Men's River Dress &amp; Uniforms (पुरुष)
+          {isNepali ? 'पुरुषको पोशाक तथा जलयात्रा पोशाक' : "Men's River Dress & Attire"}
         </button>
       </div>
 
@@ -127,31 +131,35 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-[10px] font-black uppercase text-[#003893] bg-blue-50 px-2.5 py-0.5 rounded-full">
-                      Wearer: {costume.wearer === 'women' ? 'Women' : costume.wearer === 'men' ? 'Men' : 'Universal'}
+                      {isNepali
+                        ? `प्रयोगकर्ता: ${costume.wearer === 'women' ? 'महिला' : costume.wearer === 'men' ? 'पुरुष' : 'सबै'}`
+                        : `Wearer: ${costume.wearer === 'women' ? 'Women' : costume.wearer === 'men' ? 'Men' : 'Universal'}`}
                     </span>
                     <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">
-                      Fabric: {costume.fabric}
+                      {isNepali ? `कपडा: ${costume.fabric}` : `Fabric: ${costume.fabric}`}
                     </span>
                   </div>
                   <h3 className="font-poppins font-black text-2xl sm:text-3xl text-slate-900 mt-2 leading-tight">
-                    {costume.name}
+                    {isNepali ? (costume.nameNepali || costume.name) : costume.name}
                   </h3>
-                  <p className="text-xs font-bold text-[#DC143C] mt-0.5">
-                    {costume.nameNepali}
-                  </p>
+                  {costume.nameNepali && !isNepali && (
+                    <p className="text-xs font-bold text-[#DC143C] mt-0.5">
+                      {costume.nameNepali}
+                    </p>
+                  )}
                 </div>
 
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  {costume.description}
+                  {isNepali ? (costume.descriptionNepali || costume.description) : costume.description}
                 </p>
 
                 <div className="bg-amber-50/70 p-4 rounded-2xl border border-amber-200/60 text-xs text-amber-950 space-y-1">
                   <div className="font-bold flex items-center gap-1.5 text-amber-900">
                     <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Cultural Significance &amp; River Rites:</span>
+                    <span>{isNepali ? 'सांस्कृतिक महत्व तथा परम्परा:' : 'Cultural Significance & River Rites:'}</span>
                   </div>
                   <p className="text-amber-900/90 leading-relaxed">
-                    {costume.culturalSignificance}
+                    {isNepali ? (costume.culturalSignificanceNepali || costume.culturalSignificance) : costume.culturalSignificance}
                   </p>
                 </div>
 
@@ -159,7 +167,7 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
                   <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
                     <span className="text-[11px] font-black uppercase text-slate-400 mr-1 flex items-center gap-1">
                       <Tag className="w-3 h-3" />
-                      <span>Paired Accessories:</span>
+                      <span>{isNepali ? 'साथमा लगाइने गहना र सामग्री:' : 'Paired Accessories:'}</span>
                     </span>
                     {costume.accessories.map((acc, idx) => (
                       <span
@@ -196,28 +204,32 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
               <div className="space-y-4 flex-1">
                 <div>
                   <span className="text-[10px] font-black uppercase text-[#003893] bg-blue-50 px-2.5 py-0.5 rounded-full">
-                    Category: {item.gender === 'women' ? 'Women\'s Dress' : item.gender === 'men' ? 'Men\'s Dress' : 'Universal Adornment'}
+                    {isNepali
+                      ? `विधा: ${item.gender === 'women' ? 'महिला पोशाक तथा गहना' : item.gender === 'men' ? 'पुरुष पोशाक' : 'सबैका लागि'}`
+                      : `Category: ${item.gender === 'women' ? "Women's Dress" : item.gender === 'men' ? "Men's Dress" : 'Universal Adornment'}`}
                   </span>
                   <h3 className="font-poppins font-black text-2xl text-slate-900 mt-2 leading-tight">
-                    {item.name}
+                    {isNepali ? (item.nameNepali || item.name) : item.name}
                   </h3>
-                  <p className="text-xs font-bold text-[#DC143C] mt-0.5">
-                    {item.nameNepali}
-                  </p>
+                  {item.nameNepali && !isNepali && (
+                    <p className="text-xs font-bold text-[#DC143C] mt-0.5">
+                      {item.nameNepali}
+                    </p>
+                  )}
                 </div>
 
                 <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-150 text-xs text-slate-700">
-                  <strong>Crafting Materials:</strong> {item.materials}
+                  <strong>{isNepali ? 'निर्माण सामग्री:' : 'Crafting Materials:'}</strong> {item.materials}
                 </div>
 
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  {item.description}
+                  {isNepali ? (item.descriptionNepali || item.description) : item.description}
                 </p>
 
                 {/* Functional features */}
                 <div className="space-y-2 pt-2 border-t border-slate-100">
                   <span className="text-[10px] font-black uppercase text-slate-500 tracking-wider">
-                    Distinctive Characteristics:
+                    {isNepali ? 'विशेष विशेषताहरू:' : 'Distinctive Characteristics:'}
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {item.features.map((feat, idx) => (
@@ -238,15 +250,15 @@ export default function CultureDressView({ setCurrentTab }: CultureDressViewProp
       <div className="flex justify-between items-center pt-2">
         <button
           onClick={() => setCurrentTab('language')}
-          className="text-xs text-slate-600 hover:text-slate-900 font-bold"
+          className="text-xs text-slate-600 hover:text-slate-900 font-bold cursor-pointer"
         >
-          &larr; Back to Language
+          {isNepali ? '← तराही बोटे भाषामा फर्कनुहोस्' : '← Back to Language'}
         </button>
         <button
           onClick={() => setCurrentTab('leaders')}
           className="bg-[#003893] hover:bg-[#002766] text-white text-xs font-bold px-6 py-3 rounded-full transition-all shadow flex items-center space-x-2 cursor-pointer"
         >
-          <span>Meet the Youth &amp; Community Leaders</span>
+          <span>{isNepali ? 'युवा तथा समुदाय नेतृत्वलाई भेट्नुहोस्' : 'Meet the Youth & Community Leaders'}</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

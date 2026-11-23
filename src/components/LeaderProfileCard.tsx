@@ -270,7 +270,7 @@ export default function LeaderProfileCard({
             isYouth ? 'text-red-600' : 'text-blue-900'
           }`}
         >
-          <span>Full Dossier</span>
+          <span>{isNepali ? 'पूर्ण विवरण' : 'Full Details'}</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </span>
       </div>

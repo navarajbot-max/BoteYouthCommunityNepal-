@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { TabType, ScholarshipProgram } from '../types';
 import { SCHOLARSHIPS_DATA } from '../data/communityData';
+import { useLanguage } from '../context/LanguageContext';
 import {
   Award,
   Calendar,
@@ -23,6 +24,7 @@ interface ScholarshipsViewProps {
 }
 
 export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProps) {
+  const { isNepali } = useLanguage();
   const [applyingProgram, setApplyingProgram] = useState<ScholarshipProgram | null>(null);
   const [applicantName, setApplicantName] = useState('');
   const [applicantPhone, setApplicantPhone] = useState('+977-98');
@@ -48,13 +50,15 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
       <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm space-y-4">
         <div className="inline-flex items-center space-x-2 text-xs font-black uppercase tracking-wider text-[#DC143C]">
           <GraduationCap className="w-4 h-4 text-[#003893]" />
-          <span>Educational Mobility &amp; Equity</span>
+          <span>{isNepali ? 'शैक्षिक सशक्तीकरण तथा समान अवसर' : 'Educational Mobility & Equity'}</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black font-poppins text-slate-900 leading-tight">
-          Bote Youth Scholarships Center 2026
+          {isNepali ? 'बोटे युवा छात्रवृत्ति केन्द्र २०२६' : 'Bote Youth Scholarships Center 2026'}
         </h1>
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl">
-          We believe that higher education is the most potent catalyst to uplift the Bote indigenous community. Our annual scholarship pools are funded through cooperative matching contributions and international solidarity grants to ensure financial hardship never interrupts a Bote student’s degree.
+          {isNepali
+            ? 'हाम्रो दृढ विश्वास छ कि उच्च शिक्षा नै बोटे आदिवासी समुदायको उत्थानको सबैभन्दा प्रभावकारी आधार हो। आर्थिक अभावका कारण कुनै पनि जेहेन्दार बोटे विद्यार्थीको अध्ययन नरोकियोस् भन्नाका खातिर सामुदायिक कोष तथा सहकार्यमार्फत वार्षिक छात्रवृत्ति प्रदान गरिन्छ।'
+            : 'We believe that higher education is the most potent catalyst to uplift the Bote indigenous community. Our annual scholarship pools are funded through cooperative matching contributions and international solidarity grants to ensure financial hardship never interrupts a Bote student’s degree.'}
         </p>
       </div>
 
@@ -68,32 +72,36 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
             <div className="space-y-4 flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[10px] font-black uppercase text-[#DC143C] bg-red-50 border border-red-200 px-3 py-1 rounded-full">
-                  Grant: {prog.awardAmount}
+                  {isNepali ? `अनुदान: ${prog.awardAmount}` : `Grant: ${prog.awardAmount}`}
                 </span>
                 <span className="text-xs text-slate-500 font-bold">
-                  {prog.targetLevel}
+                  {isNepali
+                    ? (prog.targetLevel === 'Bachelor & Masters Degree' ? 'स्नातक तथा स्नातकोत्तर तह' : prog.targetLevel === 'CTEVT 3-Year Diploma' ? 'सीटीईभीटी ३ वर्षे डिप्लोमा' : 'कक्षा १ - १० जेहेन्दार विद्यार्थी')
+                    : prog.targetLevel}
                 </span>
               </div>
 
               <div>
                 <h3 className="font-poppins font-black text-xl sm:text-2xl text-slate-900 leading-tight">
-                  {prog.title}
+                  {isNepali ? (prog.titleNepali || prog.title) : prog.title}
                 </h3>
-                <p className="text-xs font-bold text-[#003893] mt-0.5">
-                  {prog.titleNepali}
-                </p>
+                {prog.titleNepali && !isNepali && (
+                  <p className="text-xs font-bold text-[#003893] mt-0.5">
+                    {prog.titleNepali}
+                  </p>
+                )}
               </div>
 
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                {prog.description}
+                {isNepali ? (prog.descriptionNepali || prog.description) : prog.description}
               </p>
 
               {/* Criteria */}
               <div className="space-y-1.5 pt-2 border-t border-slate-100">
                 <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
-                  Mandatory Selection Criteria:
+                  {isNepali ? 'अनिवार्य छनोट मापदण्ड:' : 'Mandatory Selection Criteria:'}
                 </span>
-                {prog.criteria.map((crt, i) => (
+                {(isNepali && prog.criteriaNepali ? prog.criteriaNepali : prog.criteria).map((crt, i) => (
                   <div key={i} className="flex items-start space-x-2 text-xs text-slate-700">
                     <CheckCircle className="w-3.5 h-3.5 text-green-600 shrink-0 mt-0.5" />
                     <span>{crt}</span>
@@ -101,20 +109,20 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
                 ))}
               </div>
 
-              <div className="flex items-center gap-4 text-xs text-slate-500 font-semibold pt-1">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 font-semibold pt-1">
                 <span className="flex items-center text-red-600">
                   <Clock className="w-4 h-4 mr-1.5" />
-                  Deadline: <strong>{prog.deadline}</strong>
+                  {isNepali ? 'अन्तिम मिति:' : 'Deadline:'} <strong>{prog.deadline}</strong>
                 </span>
-                <span>Eligibility: {prog.eligibility}</span>
+                <span>{isNepali ? 'योग्यता:' : 'Eligibility:'} {isNepali ? (prog.eligibilityNepali || prog.eligibility) : prog.eligibility}</span>
               </div>
             </div>
 
             <button
               onClick={() => setApplyingProgram(prog)}
-              className="w-full md:w-auto bg-[#DC143C] hover:bg-[#b51031] text-white text-xs font-black uppercase tracking-wider px-8 py-4 rounded-2xl shadow-md transition-all shrink-0"
+              className="w-full md:w-auto bg-[#DC143C] hover:bg-[#b51031] text-white text-xs font-black uppercase tracking-wider px-8 py-4 rounded-2xl shadow-md transition-all shrink-0 cursor-pointer"
             >
-              Apply for Scholarship &rarr;
+              {isNepali ? 'छात्रवृत्तिका लागि आवेदन दिनुहोस् →' : 'Apply for Scholarship →'}
             </button>
           </div>
         ))}
@@ -127,18 +135,18 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
             <div className="bg-gradient-to-r from-[#003893] via-[#8B0000] to-[#DC143C] text-white p-6 relative">
               <button
                 onClick={() => setApplyingProgram(null)}
-                className="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full transition-colors"
+                className="absolute top-4 right-4 bg-black/20 hover:bg-black/40 text-white p-2 rounded-full transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
               <span className="text-[10px] bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase">
-                Official Grant Application
+                {isNepali ? 'आधिकारिक छात्रवृत्ति आवेदन' : 'Official Grant Application'}
               </span>
               <h3 className="text-xl font-black font-poppins mt-2 text-white">
-                {applyingProgram.title}
+                {isNepali ? (applyingProgram.titleNepali || applyingProgram.title) : applyingProgram.title}
               </h3>
               <p className="text-xs text-amber-200 font-bold mt-0.5">
-                Stipend Amount: {applyingProgram.awardAmount}
+                {isNepali ? `छात्रवृत्ति रकम: ${applyingProgram.awardAmount}` : `Stipend Amount: ${applyingProgram.awardAmount}`}
               </p>
             </div>
 
@@ -146,19 +154,23 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
               {appliedSuccess ? (
                 <div className="bg-green-50 border border-green-200 text-green-700 text-xs p-6 rounded-2xl text-center space-y-2 font-bold">
                   <CheckCircle className="w-10 h-10 text-green-600 mx-auto" />
-                  <p className="text-base">Scholarship Filing Dispatched!</p>
+                  <p className="text-base">{isNepali ? 'छात्रवृत्ति आवेदन सफलतापूर्वक दर्ता भयो!' : 'Scholarship Filing Dispatched!'}</p>
                   <p className="text-slate-600 font-normal">
-                    The Education Committee will verify your ward records and contact you on <strong>{applicantPhone}</strong>.
+                    {isNepali
+                      ? <>शिक्षा समितिले तपाईंको वडा विवरण प्रमाणीकरण गरी <strong>{applicantPhone}</strong> मा सम्पर्क गर्नेछ।</>
+                      : <>The Education Committee will verify your ward records and contact you on <strong>{applicantPhone}</strong>.</>}
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleApplySubmit} className="space-y-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700 uppercase">Student Full Name *</label>
+                    <label className="text-xs font-bold text-slate-700 uppercase">
+                      {isNepali ? 'विद्यार्थीको पूरा नाम *' : 'Student Full Name *'}
+                    </label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Ram Prasad Bote"
+                      placeholder={isNepali ? 'उदा. राम प्रसाद बोटे' : 'e.g. Ram Prasad Bote'}
                       value={applicantName}
                       onChange={(e) => setApplicantName(e.target.value)}
                       className="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#DC143C]"
@@ -167,7 +179,9 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-700 uppercase">Mobile Phone *</label>
+                      <label className="text-xs font-bold text-slate-700 uppercase">
+                        {isNepali ? 'मोबाइल नम्बर *' : 'Mobile Phone *'}
+                      </label>
                       <input
                         type="tel"
                         required
@@ -177,7 +191,9 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-700 uppercase">Latest SEE / College GPA *</label>
+                      <label className="text-xs font-bold text-slate-700 uppercase">
+                        {isNepali ? 'पछिल्लो SEE / कलेज जिपिए (GPA) *' : 'Latest SEE / College GPA *'}
+                      </label>
                       <input
                         type="text"
                         required
@@ -190,7 +206,9 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700 uppercase">Email Address *</label>
+                    <label className="text-xs font-bold text-slate-700 uppercase">
+                      {isNepali ? 'इमेल ठेगाना *' : 'Email Address *'}
+                    </label>
                     <input
                       type="email"
                       required
@@ -202,11 +220,17 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700 uppercase">Motivation Statement (100 - 300 words) *</label>
+                    <label className="text-xs font-bold text-slate-700 uppercase">
+                      {isNepali ? 'आवेदनको उद्देश्य तथा अभिप्रेरणा (१०० - ३०० शब्द) *' : 'Motivation Statement (100 - 300 words) *'}
+                    </label>
                     <textarea
                       rows={3}
                       required
-                      placeholder="Briefly state how you will use this education to empower the Bote community in Sarlahi..."
+                      placeholder={
+                        isNepali
+                          ? 'यो छात्रवृत्ति पाएर तपाईं कसरी अध्ययन सम्पन्न गर्नुहुनेछ र सर्लाहीका बोटे समुदायको सशक्तीकरणमा योगदान गर्नुहुनेछ छोटकरीमा लेख्नुहोस्...'
+                          : 'Briefly state how you will use this education to empower the Bote community in Sarlahi...'
+                      }
                       value={applicantEssay}
                       onChange={(e) => setApplicantEssay(e.target.value)}
                       className="w-full text-xs p-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#DC143C]"
@@ -216,9 +240,9 @@ export default function ScholarshipsView({ setCurrentTab }: ScholarshipsViewProp
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full bg-[#DC143C] hover:bg-[#b51031] text-white text-xs font-black uppercase tracking-wider py-3.5 rounded-xl shadow transition-all"
+                      className="w-full bg-[#DC143C] hover:bg-[#b51031] text-white text-xs font-black uppercase tracking-wider py-3.5 rounded-xl shadow transition-all cursor-pointer"
                     >
-                      Submit Scholarship Filing
+                      {isNepali ? 'छात्रवृत्ति आवेदन पेश गर्नुहोस्' : 'Submit Scholarship Filing'}
                     </button>
                   </div>
                 </form>

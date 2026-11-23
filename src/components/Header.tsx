@@ -54,7 +54,11 @@ export default function Header({ currentTab, setCurrentTab, openCustomizer, onSe
 
   const handleFollowClick = () => {
     if (isFollowingCommunity) {
-      setFollowAlert(`You are already officially following Bote Youth Community Nepal${followerEmail ? ` (${followerEmail})` : ''}. Duplicate follows are prevented.`);
+      setFollowAlert(
+        isNepali
+          ? `तपाईं पहिले नै आधिकारिक रूपमा नेपाल बोटे युवा समुदायलाई फलो गरिरहनुभएको छ${followerEmail ? ` (${followerEmail})` : ''}।`
+          : `You are already officially following Bote Youth Community Nepal${followerEmail ? ` (${followerEmail})` : ''}. Duplicate follows are prevented.`
+      );
       setTimeout(() => setFollowAlert(null), 3500);
       return;
     }
@@ -565,7 +569,9 @@ export default function Header({ currentTab, setCurrentTab, openCustomizer, onSe
             className="w-full text-left px-4 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-100 flex items-center justify-between"
           >
             <span>{t('nav.notices')}</span>
-            <span className="bg-amber-100 text-amber-900 text-[10px] px-2 py-0.5 rounded-full font-black">Updates</span>
+            <span className="bg-amber-100 text-amber-900 text-[10px] px-2 py-0.5 rounded-full font-black">
+              {isNepali ? 'अद्यावधिक' : 'Updates'}
+            </span>
           </button>
           <button
             onClick={() => handleTabClick('follow')}
@@ -586,7 +592,7 @@ export default function Header({ currentTab, setCurrentTab, openCustomizer, onSe
             </div>
             {unreadNotificationsCount > 0 ? (
               <span className="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full animate-pulse">
-                {unreadNotificationsCount} new
+                {unreadNotificationsCount} {isNepali ? 'नयाँ' : 'new'}
               </span>
             ) : (
               <span className="text-[10px] text-slate-400 font-semibold">{notifications.length}</span>
